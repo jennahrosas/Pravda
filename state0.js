@@ -4,6 +4,9 @@ var centerY=640/2
 var detective;
 var speed = 200;
 var text;
+var notes;
+var citymap;
+var backpack;
 var walk;
 var npc;
 var map;
@@ -17,7 +20,11 @@ demo.state0.prototype = {
         game.load.image('detective','assets/sprites/Pravda.png',64,64);
         game.load.spritesheet('diego','assets/spritesheets/PravdaWalk.png',32,64);
         game.load.spritesheet('npc','assets/spritesheets/GordonIdle.png',32,64);
+        game.load.image('backpack', 'assets/sprites/Backpack.png', 64, 64)
+        game.load.image('notes', 'assets/sprites/Notepad.png', 64, 64)
+        game.load.image('citymap', 'assets/sprites/Map.png', 64, 64)
         game.load.audio('theme','assets/audio/theme.mp3');
+        game.load.audio('plink','assets/audio/plink.mp3');
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
         game.load.image('Roads','assets/tilemaps/road.png');
@@ -53,10 +60,10 @@ demo.state0.prototype = {
         
         //camera follow
         game.camera.follow(detective);
-        game.camera.deadzone = new Phaser.Rectangle(centerX-200,centerY-200, centerX+200, centerY+200);
+        game.camera.deadzone = new Phaser.Rectangle(100,100,200,200);
         
         //adding in npcs
-        npc=game.add.sprite(50,70,'npc');
+        npc=game.add.sprite(60,70,'npc');
         game.physics.enable(npc);
         npc.enableBody = true;
         npc.physicsBodyType=Phaser.Physics.ARCADE;
@@ -68,24 +75,36 @@ demo.state0.prototype = {
         npc.animations.add('blink',[0,1,2]);
         npc.animations.play('blink',3,true);
         
-        
+        //add icons in corner
+        citymap = game.add.sprite(805, 30,'citymap');
+        citymap.scale.setTo(.3,.3);
+        citymap.fixedToCamera = true;
+        backpack = game.add.sprite(720, 30, 'backpack');
+        backpack.scale.setTo(.35,.35);
+        backpack.fixedToCamera = true;
+        notes = game.add.sprite(650, 30, 'notes');
+        notes.scale.setTo(.3,.3);
+        notes.fixedToCamera = true;
         
         //add music
-        music = game.add.audio('theme');
+        var music = game.add.audio('theme');
         music.play();
         music.volume=.3;
         console.log(music.volume);
         
+        
         //var text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         //this.spellOutText(0,0,800,text,30,40,'#ffffff')
         
+        //add plink sound
+        plink=game.add.audio('plink');
         
     },
     update: function(){
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
         
         //calls npc interaction handler
-        game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc))
+        game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc,plink))
         if (!conversation)
             {
                 if(game.input.keyboard.isDown(Phaser.Keyboard.A)){
@@ -128,13 +147,12 @@ demo.state0.prototype = {
     
 };
 //function to spell out text across the screen
-var end = false;
-function spellOutText(width,text,fontSize,speed, fill, font, background){
-    console.log(game.camera.x,game.camera.y);
-    var sentence = game.add.text(game.camera.x,game.camera.y+600,'',{fontsize: fontSize+'px', fill:fill, font:font});
-    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, fill:'#ffffff',backgroundColor: '#000000'});
+function spellOutText(width,text,fontSize,textspeed, fill, font, background){
+    //var end = false;
+    var sentence = game.add.text(0,200,'',{fontsize: fontSize+'px', fill:fill, font:font});
+    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, backgroundColor:'#000000'});
     currentLine.alpha =0;    
-    var loop = game.time.events.loop(speed*.05, addChar)
+    var loop = game.time.events.loop(speed*.1, addChar)
     var index=0;
     function addChar()
     {
@@ -143,19 +161,17 @@ function spellOutText(width,text,fontSize,speed, fill, font, background){
         if(currentLine.width>width && text[index]==' '){
             sentence.text+='\n';
             currentLine.text=' ';
-            currentLine.backgroundColor='#000000'
         }
           
         if(index>=text.length-1){
-            end = true
+            //end = true
             game.time.events.remove(loop);
             console.log('stop');
             conversation = false;
         }
         index++;
     }
-    //sentence.destroy();
-    console.log('sup',end);
+    console.log('sup');
     /*while (end){
         if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
             conversation = false;
@@ -167,48 +183,30 @@ function spellOutText(width,text,fontSize,speed, fill, font, background){
     }*/
         
 }
+
+
 //function to handle npc interactions
-function interactionHandler(detective,npc){
-    if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
-        /*chooseQuestion()
-        function chooseQuestion(){
-            conversation = true;
-            var e = true;
-            var cur = 0;
-            var instructions = game.add.text(0,800,'What do you want to ask?',{fontsize:'20px', fill: '#ffffff'});
-            options = [game.add.text(0,830,npc1Questions[0],{fontsize:'20px',fill:'#2a9df4'}), game.add.text(0,860,npc1Questions[1],{fontsize:'20px',fill:'#ffffff'}), game.add.text(0,890,npc1Questions[2],{fontsize:'20px',fill:'#ffffff'})]
-            instructions.backgroundColor = 'black'
-            while (e){
-                console.log('1')
-                temp = cur;
-                if (game.input.keyboard.isDown(Phaser.Keyboard.S)){
-                    cur = (cur-1)%3;
-                    console.log('down');
-                }
-                else if (game.input.keyboard.isDown(Phaser.Keyboard.W)){
-                    cur = (cur+1)%3;
-                    console.log('up');
-                }
-                else if (game.input.keyboard.isDown(Phaser.Keyboard.Q)){
-                    console.log('quit');
-                    e = false;
-                }
-                if (cur != temp){
-                    console.log('switch');
-                    //options[temp].fill = '#ffffff';
-                    //options[cur].fill = '#2a9df4';
-                }
-                //break;
+var counter=0;
+function interactionHandler(detective,npc,sound){
+    if(Math.abs(detective.x-npc.x)<80 && Math.abs(detective.y-npc.y)<80){
+            if(game.input.keyboard.isDown(Phaser.Keyboard.E) && counter<1){
+                counter++;
+                conversation=true;
+                //await sleep(3000);
+                console.log('checking');
+                var instructions = game.add.text(0,700,'What do you want to ask?',{fontsize:'20px', fill: '#ffffff'});
+                option1 = game.add.text(0,730,npc1Questions[0],{fontsize: '20px',fill: '#ffffff'})
+                option2 = game.add.text(0,760,npc1Questions[1],{fontsize: '20px',fill: '#ffffff'})
+                option3 = game.add.text(0, 790, npc1Questions[2], {fontsize: '20px',fill: '#ffffff'})
+                option1.inputEnabled=true;
+                option2.inputEnabled=true;
+                option3.inputEnabled=true;
+                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play();});
+                option2.events.onInputDown.add(function(){option2.addColor('#ff0000',0); sound.play();});
+                option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play();});
             }
-            Math.floor(Math.random() * 2)
-            
-          
-        }*/
-        
-        if(Math.abs(detective.x-npc.x)<100 && Math.abs(detective.y-npc.y)<100){
-            conversation=true;
-            spellOutText(800,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
-            console.log(npc.x,npc.y,detective.x,detective.y);
-        }
     }
+        
+    
+                
 }
