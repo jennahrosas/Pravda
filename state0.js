@@ -2,7 +2,7 @@ var demo = {};
 var centerX=640/2
 var centerY=640/2
 var detective;
-var speed = 300;
+var speed = 200;
 var text;
 var walk;
 var npc;
@@ -14,9 +14,8 @@ var npc1Answers = [['Just around the corner',"It's big and red you can't miss it
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
-        game.load.image('detective','assets/sprites/diego.png',32,48);
-        //game.load.spritesheet('diego','assets/spritesheets/running.png',32,48);
-        game.load.spritesheet('diego','assets/spritesheets/newdiego.png',32,48);
+        game.load.image('detective','assets/sprites/Pravda.png',64,64);
+        game.load.spritesheet('diego','assets/spritesheets/PravdaWalk.png',64,64);
         game.load.spritesheet('npc','assets/spritesheets/GordonSheet.png',64,64);
         game.load.audio('theme','assets/audio/theme.mp3');
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
