@@ -187,9 +187,11 @@ function spellOutText(width,text,fontSize,textspeed, fill, font, background){
 
 //function to handle npc interactions
 var counter=0;
+var choice = 0;
 function interactionHandler(detective,npc,sound){
     if(Math.abs(detective.x-npc.x)<80 && Math.abs(detective.y-npc.y)<80){
             if(game.input.keyboard.isDown(Phaser.Keyboard.E) && counter<1){
+                
                 counter++;
                 conversation=true;
                 //await sleep(3000);
@@ -201,9 +203,9 @@ function interactionHandler(detective,npc,sound){
                 option1.inputEnabled=true;
                 option2.inputEnabled=true;
                 option3.inputEnabled=true;
-                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play();});
-                option2.events.onInputDown.add(function(){option2.addColor('#ff0000',0); sound.play();});
-                option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play();});
+                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play(); option2.clearColors(); option3.clearColors();});
+                option2.events.onInputDown.add(function(){option2.addColor('#ff0000',0); sound.play(); option1.clearColors(); option3.clearColors();});
+                option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play(); option1.clearColors(); option2.clearColors();});
             }
     }
         
