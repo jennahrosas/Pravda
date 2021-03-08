@@ -17,7 +17,7 @@ demo.state0.prototype = {
         game.load.image('detective','assets/sprites/diego.png',32,48);
         //game.load.spritesheet('diego','assets/spritesheets/running.png',32,48);
         game.load.spritesheet('diego','assets/spritesheets/newdiego.png',32,48);
-        game.load.spritesheet('GordonMitchell','assets/spritesheets/npc_idle.png',48,48);
+        game.load.spritesheet('npc','assets/spritesheets/GordonMitchell.png',48,48);
         game.load.audio('theme','assets/audio/theme.mp3');
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
