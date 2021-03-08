@@ -76,13 +76,13 @@ demo.state0.prototype = {
         npc.animations.play('blink',3,true);
         
         //add icons in corner
-        citymap = game.add.sprite(805, 30,'citymap');
+        citymap = game.add.sprite(705, 30,'citymap');
         citymap.scale.setTo(.3,.3);
         citymap.fixedToCamera = true;
-        backpack = game.add.sprite(720, 30, 'backpack');
+        backpack = game.add.sprite(620, 30, 'backpack');
         backpack.scale.setTo(.35,.35);
         backpack.fixedToCamera = true;
-        notes = game.add.sprite(650, 30, 'notes');
+        notes = game.add.sprite(550, 30, 'notes');
         notes.scale.setTo(.3,.3);
         notes.fixedToCamera = true;
         
@@ -194,10 +194,10 @@ function interactionHandler(detective,npc,sound){
                 conversation=true;
                 //await sleep(3000);
                 console.log('checking');
-                var instructions = game.add.text(0,700,'What do you want to ask?',{fontsize:'20px', fill: '#ffffff'});
-                option1 = game.add.text(0,730,npc1Questions[0],{fontsize: '20px',fill: '#ffffff'})
-                option2 = game.add.text(0,760,npc1Questions[1],{fontsize: '20px',fill: '#ffffff'})
-                option3 = game.add.text(0, 790, npc1Questions[2], {fontsize: '20px',fill: '#ffffff'})
+                var instructions = game.add.text(0,600,'What do you want to ask?',{fontsize:'20px', fill: '#ffffff'});
+                option1 = game.add.text(0,630,npc1Questions[0],{fontsize: '20px',fill: '#ffffff'})
+                option2 = game.add.text(0,660,npc1Questions[1],{fontsize: '20px',fill: '#ffffff'})
+                option3 = game.add.text(0, 690, npc1Questions[2], {fontsize: '20px',fill: '#ffffff'})
                 option1.inputEnabled=true;
                 option2.inputEnabled=true;
                 option3.inputEnabled=true;
