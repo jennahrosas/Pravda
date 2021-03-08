@@ -17,7 +17,7 @@ demo.state0.prototype = {
         game.load.image('detective','assets/sprites/diego.png',32,48);
         //game.load.spritesheet('diego','assets/spritesheets/running.png',32,48);
         game.load.spritesheet('diego','assets/spritesheets/newdiego.png',32,48);
-        game.load.spritesheet('npc','assets/spritesheets/GordonMitchell.png',48,48);
+        game.load.spritesheet('npc','assets/spritesheets/GordonSheet.png',64,64);
         game.load.audio('theme','assets/audio/theme.mp3');
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
@@ -191,6 +191,4 @@ function interactionHandler(detective,npc){
             spellOutText(1100,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
             console.log(npc.x,npc.y,detective.x,detective.y);
     }
-}
-    
 }
