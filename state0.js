@@ -24,6 +24,7 @@ demo.state0.prototype = {
         game.load.image('notes', 'assets/sprites/Notepad.png', 64, 64)
         game.load.image('citymap', 'assets/sprites/Map.png', 64, 64)
         game.load.audio('theme','assets/audio/theme.mp3');
+        game.load.audio('collide','assets/audio/collide.mp3');
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
         game.load.image('Roads','assets/tilemaps/road.png');
@@ -59,7 +60,6 @@ demo.state0.prototype = {
         
         //camera follow
         game.camera.follow(detective);
-        
         game.camera.deadzone = new Phaser.Rectangle(100,100,200,200);
         
         //adding in npcs
@@ -78,19 +78,23 @@ demo.state0.prototype = {
         //add icons in corner
         citymap = game.add.sprite(805, 30,'citymap');
         citymap.scale.setTo(.3,.3);
-        citymap.fixToCamera;
+        citymap.fixedToCamera = true;
         backpack = game.add.sprite(720, 30, 'backpack');
         backpack.scale.setTo(.35,.35);
-        backpack.fixToCamera;
+        backpack.fixedToCamera = true;
         notes = game.add.sprite(650, 30, 'notes');
         notes.scale.setTo(.3,.3);
-        notes.fixToCamera;
+        notes.fixedToCamera = true;
         
         //add music
-        music = game.add.audio('theme');
+        var music = game.add.audio('theme');
         music.play();
         music.volume=.3;
         console.log(music.volume);
+        
+        //add collide
+        var collide = game.add.audio('collide');
+        this.physics.arcade.collide(detective, Buildings, collide.play(), null, this)
         
         //var text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         //this.spellOutText(0,0,800,text,30,40,'#ffffff')
@@ -144,9 +148,9 @@ demo.state0.prototype = {
     
 };
 //function to spell out text across the screen
-function spellOutText(width,text,fontSize,speed, fill, font, background){
+function spellOutText(width,text,fontSize,textspeed, fill, font, background){
     //var end = false;
-    var sentence = game.add.text(0,800,'',{fontsize: fontSize+'px', fill:fill, font:font});
+    var sentence = game.add.text(0,200,'',{fontsize: fontSize+'px', fill:fill, font:font});
     var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, backgroundColor:'#000000'});
     currentLine.alpha =0;    
     var loop = game.time.events.loop(speed*.1, addChar)
@@ -203,7 +207,7 @@ function interactionHandler(detective,npc){
         */
     if(Math.abs(detective.x-npc.x)<80 && Math.abs(detective.y-npc.y)<80){
             conversation=true;
-            spellOutText(1100,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
+            spellOutText(400,"Detective Pravda: Hello! My name is Detective Pravda with New York PD. Could I ask you a couple questions? Gordon: Anything to help.              Detective Pravda: What is your name? Gordon: My name is Gordon Mitchell. Detective Pravda: Do you know anything about the mob that runs its business on 125th? Gordon: I know a bit. What do you want to know?",30,200,'#ffffff');
             console.log(npc.x,npc.y,detective.x,detective.y);
     }
 }
