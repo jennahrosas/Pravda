@@ -150,7 +150,7 @@ demo.state0.prototype = {
 function spellOutText(width,text,fontSize,textspeed, fill, font, background){
     //var end = false;
     var sentence = game.add.text(0,200,'',{fontsize: fontSize+'px', fill:fill, font:font});
-    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, backgroundColor:'#000000'});
+    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font});
     currentLine.alpha =0;    
     var loop = game.time.events.loop(speed*.1, addChar)
     var index=0;
@@ -196,10 +196,47 @@ function interactionHandler(detective,npc,sound){
                 conversation=true;
                 //await sleep(3000);
                 console.log('checking');
-                var instructions = game.add.text(0,600,'What do you want to ask?',{fontsize:'20px', fill: '#ffffff'});
-                option1 = game.add.text(0,630,npc1Questions[0],{fontsize: '20px',fill: '#ffffff'})
-                option2 = game.add.text(0,660,npc1Questions[1],{fontsize: '20px',fill: '#ffffff'})
-                option3 = game.add.text(0, 690, npc1Questions[2], {fontsize: '20px',fill: '#ffffff'})
+                var instructions = game.add.text(0,600,'',{fontsize:'20px', fill: '#ffffff'});
+                option1 = game.add.text(0,630,'',{fontsize: '20px',fill: '#ffffff'})
+                option2 = game.add.text(0,660,'',{fontsize: '20px',fill: '#ffffff'})
+                option3 = game.add.text(0, 690, '', {fontsize: '20px',fill: '#ffffff'})
+                
+                //instructions.alpha =0;
+                //option1.alpha =0;
+                //option2.alpha =0;
+                //option3.alpha =0;
+                var loop = game.time.events.loop(speed*.1, addChar)
+                var index=0;
+                var text = ['What do you want to ask?','Where is the pizzeria?  ', 'What happened?          ', 'Who are you?            ']
+                function addChar()
+                {
+                    if (index <text[0].length){
+                        instructions.text+=text[0][index];
+                    }
+                    else if (index <text[0].length  + text[1].length){
+                        option1.text+=text[1][index - text[0].length];
+                    }
+                    else if (index < text[0].length  + text[1].length + text[2].length){
+                        option2.text+=text[2][index - text[1].length - text[0].length];
+                    }
+                    else{
+                        option3.text+=text[3][index - text[0].length - text[1].length - text[2].length];
+                    }
+                    //option1.text+=text[1][index];
+                    //option2.text+=text[2][index];
+                    //option3.text+=text[3][index];
+                    //if(instructions.width>600 && text[index]==' '){
+                    //    instructions.text+='\n';
+                    //    instructions.text=' ';
+                    //}
+                    if(index>=text[0].length + text[1].length + text[2].length + text[3].length- 4){
+                        //end = true
+                        game.time.events.remove(loop);
+                        console.log('stop');
+                        //conversation = false;
+                    }
+                    index++;
+                }
                 option1.inputEnabled=true;
                 option2.inputEnabled=true;
                 option3.inputEnabled=true;
