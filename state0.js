@@ -54,7 +54,7 @@ demo.state0.prototype = {
         
         //camera follow
         game.camera.follow(detective);
-        game.camera.deadzone = new Phaser.Rectangle(100,100,200,200);
+        game.camera.deadzone = new Phaser.Rectangle(centerX-200,centerY-200, centerX+200, centerY+200);
         
         //adding in npcs
         npc=game.add.sprite(50,70,'npc');
@@ -129,10 +129,11 @@ demo.state0.prototype = {
     
 };
 //function to spell out text across the screen
+var end = false;
 function spellOutText(width,text,fontSize,speed, fill, font, background){
-    //var end = false;
+
     var sentence = game.add.text(0,800,'',{fontsize: fontSize+'px', fill:fill, font:font});
-    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, backgroundColor:'#000000'});
+    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, fill:'#ffffff'});
     currentLine.alpha =0;    
     var loop = game.time.events.loop(speed*.05, addChar)
     var index=0;
@@ -143,17 +144,19 @@ function spellOutText(width,text,fontSize,speed, fill, font, background){
         if(currentLine.width>width && text[index]==' '){
             sentence.text+='\n';
             currentLine.text=' ';
+            currentLine.backgroundColor='#000000'
         }
           
         if(index>=text.length-1){
-            //end = true
+            end = true
             game.time.events.remove(loop);
             console.log('stop');
             conversation = false;
         }
         index++;
     }
-    console.log('sup');
+    //sentence.destroy();
+    console.log('sup',end);
     /*while (end){
         if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
             conversation = false;
@@ -170,23 +173,40 @@ function interactionHandler(detective,npc){
     if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
         /*chooseQuestion()
         function chooseQuestion(){
+            conversation = true;
             var e = true;
+            var cur = 0;
+            var instructions = game.add.text(0,800,'What do you want to ask?',{fontsize:'20px', fill: '#ffffff'});
+            options = [game.add.text(0,830,npc1Questions[0],{fontsize:'20px',fill:'#2a9df4'}), game.add.text(0,860,npc1Questions[1],{fontsize:'20px',fill:'#ffffff'}), game.add.text(0,890,npc1Questions[2],{fontsize:'20px',fill:'#ffffff'})]
+            instructions.backgroundColor = 'black'
             while (e){
-                var instructions = game.add.text(0,800,'What do you want to ask?',{fontsize:
-                                                    '20px', fill: '#ffffff'});
-                var option1 = game.add.text(0,830,npc1Questions[0],{fontsize: '20px',                                             fill: '#ffffff'})
-                var option2 = game.add.text(0,860,npc1Questions[1],{fontsize: '20px',fill: '#ffffff'})
-                var option3 = game.add.text(0, 890, npc1Questions[2], {fontsize: '20px',fill: '#ffffff'})
-                console.log('loop',option1.x,option2.x,option3.x)
-                instructions.backgroundColor = '#000000'
-                break
+                console.log('1')
+                temp = cur;
+                if (game.input.keyboard.isDown(Phaser.Keyboard.S)){
+                    cur = (cur-1)%3;
+                    console.log('down');
+                }
+                else if (game.input.keyboard.isDown(Phaser.Keyboard.W)){
+                    cur = (cur+1)%3;
+                    console.log('up');
+                }
+                else if (game.input.keyboard.isDown(Phaser.Keyboard.Q)){
+                    console.log('quit');
+                    e = false;
+                }
+                if (cur != temp){
+                    console.log('switch');
+                    //options[temp].fill = '#ffffff';
+                    //options[cur].fill = '#2a9df4';
+                }
+                //break;
             }
             Math.floor(Math.random() * 2)
             
-            
-        }
-        */
-            if(Math.abs(detective.x-npc.x)<100 && Math.abs(detective.y-npc.y)<100){
+          
+        }*/
+        
+        if(Math.abs(detective.x-npc.x)<100 && Math.abs(detective.y-npc.y)<100){
             conversation=true;
             spellOutText(1100,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
             console.log(npc.x,npc.y,detective.x,detective.y);
