@@ -24,7 +24,7 @@ demo.state0.prototype = {
         game.load.image('notes', 'assets/sprites/Notepad.png', 64, 64)
         game.load.image('citymap', 'assets/sprites/Map.png', 64, 64)
         game.load.audio('theme','assets/audio/theme.mp3');
-        game.load.audio('collide','assets/audio/collide.mp3');
+        game.load.audio('plink','assets/audio/plink.mp3');
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
         game.load.image('Roads','assets/tilemaps/road.png');
@@ -92,20 +92,19 @@ demo.state0.prototype = {
         music.volume=.3;
         console.log(music.volume);
         
-        //add collide
-        var collide = game.add.audio('collide');
-        this.physics.arcade.collide(detective, Buildings, collide.play(), null, this)
         
         //var text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         //this.spellOutText(0,0,800,text,30,40,'#ffffff')
         
+        //add plink sound
+        plink=game.add.audio('plink');
         
     },
     update: function(){
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
         
         //calls npc interaction handler
-        game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc))
+        game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc,plink))
         if (!conversation)
             {
                 if(game.input.keyboard.isDown(Phaser.Keyboard.A)){
@@ -184,30 +183,30 @@ function spellOutText(width,text,fontSize,textspeed, fill, font, background){
     }*/
         
 }
+
+
 //function to handle npc interactions
-function interactionHandler(detective,npc){
-    /*if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
-        chooseQuestion()
-        function chooseQuestion(){
-            var e = true;
-            while (e){
-                var instructions = game.add.text(0,800,'What do you want to ask?',{fontsize:
-                                                    '20px', fill: '#ffffff'});
-                var option1 = game.add.text(0,830,npc1Questions[0],{fontsize: '20px',                                             fill: '#ffffff'})
-                var option2 = game.add.text(0,860,npc1Questions[1],{fontsize: '20px',fill: '#ffffff'})
-                var option3 = game.add.text(0, 890, npc1Questions[2], {fontsize: '20px',fill: '#ffffff'})
-                console.log('loop',option1.x,option2.x,option3.x)
-                instructions.backgroundColor = '#000000'
-                break
-            }
-            Math.floor(Math.random() * 2)
-            
-            
-        }
-        */
+var counter=0;
+function interactionHandler(detective,npc,sound){
     if(Math.abs(detective.x-npc.x)<80 && Math.abs(detective.y-npc.y)<80){
-            conversation=true;
-            spellOutText(400,"Detective Pravda: Hello! My name is Detective Pravda with New York PD. Could I ask you a couple questions? Gordon: Anything to help.              Detective Pravda: What is your name? Gordon: My name is Gordon Mitchell. Detective Pravda: Do you know anything about the mob that runs its business on 125th? Gordon: I know a bit. What do you want to know?",30,200,'#ffffff');
-            console.log(npc.x,npc.y,detective.x,detective.y);
+            if(game.input.keyboard.isDown(Phaser.Keyboard.E) && counter<1){
+                counter++;
+                conversation=true;
+                //await sleep(3000);
+                console.log('checking');
+                var instructions = game.add.text(0,700,'What do you want to ask?',{fontsize:'20px', fill: '#ffffff'});
+                option1 = game.add.text(0,730,npc1Questions[0],{fontsize: '20px',fill: '#ffffff'})
+                option2 = game.add.text(0,760,npc1Questions[1],{fontsize: '20px',fill: '#ffffff'})
+                option3 = game.add.text(0, 790, npc1Questions[2], {fontsize: '20px',fill: '#ffffff'})
+                option1.inputEnabled=true;
+                option2.inputEnabled=true;
+                option3.inputEnabled=true;
+                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play();});
+                option2.events.onInputDown.add(function(){option2.addColor('#ff0000',0); sound.play();});
+                option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play();});
+            }
     }
+        
+    
+                
 }
