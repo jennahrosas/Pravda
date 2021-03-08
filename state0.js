@@ -130,9 +130,9 @@ demo.state0.prototype = {
 //function to spell out text across the screen
 var end = false;
 function spellOutText(width,text,fontSize,speed, fill, font, background){
-
-    var sentence = game.add.text(0,800,'',{fontsize: fontSize+'px', fill:fill, font:font});
-    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, fill:'#ffffff'});
+    console.log(game.camera.x,game.camera.y);
+    var sentence = game.add.text(game.camera.x,game.camera.y+600,'',{fontsize: fontSize+'px', fill:fill, font:font});
+    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, fill:'#ffffff',backgroundColor: '#000000'});
     currentLine.alpha =0;    
     var loop = game.time.events.loop(speed*.05, addChar)
     var index=0;
@@ -207,7 +207,7 @@ function interactionHandler(detective,npc){
         
         if(Math.abs(detective.x-npc.x)<100 && Math.abs(detective.y-npc.y)<100){
             conversation=true;
-            spellOutText(1100,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
+            spellOutText(800,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
             console.log(npc.x,npc.y,detective.x,detective.y);
         }
     }
