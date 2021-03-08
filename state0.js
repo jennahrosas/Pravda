@@ -167,8 +167,8 @@ function spellOutText(width,text,fontSize,speed, fill, font, background){
 }
 //function to handle npc interactions
 function interactionHandler(detective,npc){
-    /*if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
-        chooseQuestion()
+    if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
+        /*chooseQuestion()
         function chooseQuestion(){
             var e = true;
             while (e){
@@ -186,9 +186,10 @@ function interactionHandler(detective,npc){
             
         }
         */
-    if(Math.abs(detective.x-npc.x)<80 && Math.abs(detective.y-npc.y)<80){
+            if(Math.abs(detective.x-npc.x)<100 && Math.abs(detective.y-npc.y)<100){
             conversation=true;
             spellOutText(1100,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
             console.log(npc.x,npc.y,detective.x,detective.y);
+        }
     }
 }
