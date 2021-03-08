@@ -9,13 +9,15 @@ var npc;
 var map;
 var Buildings;
 var conversation=false;
+var npc1Questions = ['Where is the pizzeria?', 'What happened?', 'Who are you?'];
+var npc1Answers = [['Just around the corner',"It's big and red you can't miss it just to the southwest"],['A busser was killed',"I don't know"],['I was just walking by', "I'm nobody"]];
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
         game.load.image('detective','assets/sprites/diego.png',32,48);
         //game.load.spritesheet('diego','assets/spritesheets/running.png',32,48);
         game.load.spritesheet('diego','assets/spritesheets/newdiego.png',32,48);
-        game.load.spritesheet('npc','assets/spritesheets/npc_idle.png',48,48);
+        game.load.spritesheet('GordonMitchell','assets/spritesheets/npc_idle.png',48,48);
         game.load.audio('theme','assets/audio/theme.mp3');
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
@@ -26,7 +28,7 @@ demo.state0.prototype = {
     create: function(){
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.world.setBounds(0,0,640,640);
+        //ssgame.world.setBounds(0,0,640,640);
         game.stage.backgroundColor = '#eeeeee';
         console.log('state0');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -36,10 +38,12 @@ demo.state0.prototype = {
         map.addTilesetImage('Roads');
         var RoadsLayer = map.createLayer('RoadsLayer');
         Buildings = map.createLayer('Buildings'); 
+        RoadsLayer.resizeWorld();
+        Buildings.resizeWorld();
         map.setCollision(3,true,'Buildings');
         
         //adding in detective sprite
-        detective=game.add.sprite(centerX,centerY+80,'diego');
+        detective=game.add.sprite(centerX/2,centerY,'diego');
         detective.anchor.setTo(.5);
         detective.scale.setTo(1,1);
         game.physics.enable(detective);
@@ -58,6 +62,7 @@ demo.state0.prototype = {
         npc.enableBody = true;
         npc.physicsBodyType=Phaser.Physics.ARCADE;
         npc.body.collideWorldBounds=true;
+        
         npc.body.immovable=true;
         
         //npc blinking animation
@@ -124,11 +129,12 @@ demo.state0.prototype = {
     
 };
 //function to spell out text across the screen
-function spellOutText(x,y,width,text,fontSize,speed, fill, font){
-    var sentence = game.add.text(x,y,'',{fontsize: fontSize+'px', fill:fill, font:font});
-    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font});
-    currentLine.alpha =0;
-    var loop = game.time.events.loop(speed, addChar)
+function spellOutText(width,text,fontSize,speed, fill, font, background){
+    //var end = false;
+    var sentence = game.add.text(0,800,'',{fontsize: fontSize+'px', fill:fill, font:font});
+    var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font, backgroundColor:'#000000'});
+    currentLine.alpha =0;    
+    var loop = game.time.events.loop(speed*.05, addChar)
     var index=0;
     function addChar()
     {
@@ -140,25 +146,51 @@ function spellOutText(x,y,width,text,fontSize,speed, fill, font){
         }
           
         if(index>=text.length-1){
+            //end = true
             game.time.events.remove(loop);
-            conversation=false;
             console.log('stop');
+            conversation = false;
         }
         index++;
     }
+    console.log('sup');
+    /*while (end){
+        if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
+            conversation = false;
+            sentence.destroy();
+            end = false;
+            console.log('if');
+        }
+        console.log('loop');
+    }*/
         
 }
 //function to handle npc interactions
 function interactionHandler(detective,npc){
-    if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
-        if(Math.abs(detective.x-npc.x)<80 && Math.abs(detective.y-npc.y)<80){
-            conversation=true;
-            spellOutText(0,800,1100,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
-            console.log(npc.x,npc.y,detective.x,detective.y);
+    /*if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
+        chooseQuestion()
+        function chooseQuestion(){
+            var e = true;
+            while (e){
+                var instructions = game.add.text(0,800,'What do you want to ask?',{fontsize:
+                                                    '20px', fill: '#ffffff'});
+                var option1 = game.add.text(0,830,npc1Questions[0],{fontsize: '20px',                                             fill: '#ffffff'})
+                var option2 = game.add.text(0,860,npc1Questions[1],{fontsize: '20px',fill: '#ffffff'})
+                var option3 = game.add.text(0, 890, npc1Questions[2], {fontsize: '20px',fill: '#ffffff'})
+                console.log('loop',option1.x,option2.x,option3.x)
+                instructions.backgroundColor = '#000000'
+                break
+            }
+            Math.floor(Math.random() * 2)
+            
+            
         }
+        */
+    if(Math.abs(detective.x-npc.x)<80 && Math.abs(detective.y-npc.y)<80){
+            conversation=true;
+            spellOutText(1100,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",20,30,'#ffffff');
+            console.log(npc.x,npc.y,detective.x,detective.y);
     }
+}
     
 }
-
-
-
