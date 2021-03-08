@@ -15,8 +15,8 @@ demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
         game.load.image('detective','assets/sprites/Pravda.png',64,64);
-        game.load.spritesheet('diego','assets/spritesheets/PravdaWalk.png',64,64);
-        game.load.spritesheet('npc','assets/spritesheets/GordonSheet.png',64,64);
+        game.load.spritesheet('diego','assets/spritesheets/PravdaWalk.png',32,64);
+        game.load.spritesheet('npc','assets/spritesheets/GordonIdle.png',32,64);
         game.load.audio('theme','assets/audio/theme.mp3');
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
