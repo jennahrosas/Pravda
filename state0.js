@@ -26,6 +26,7 @@ demo.state0.prototype = {
         game.load.image('citymap', 'assets/sprites/Map.png', 64, 64)
         game.load.audio('theme','assets/audio/theme.mp3');
         game.load.audio('plink','assets/audio/plink.mp3');
+        game.load.image('citypng','assets/tilemaps/pravdaMapS1.png',50,50 )
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
         game.load.image('Roads','assets/tilemaps/road.png');
@@ -80,12 +81,18 @@ demo.state0.prototype = {
         citymap = game.add.sprite(705, 30,'citymap');
         citymap.scale.setTo(.3,.3);
         citymap.fixedToCamera = true;
+        citymap.inputEnabled = true;
+        citymap.events.onInputDown.add(citymapClick, this);
         backpack = game.add.sprite(620, 30, 'backpack');
         backpack.scale.setTo(.35,.35);
         backpack.fixedToCamera = true;
+        backpack.inputEnabled = true;
+        backpack.events.onInputDown.add(backpackClick, this);
         notes = game.add.sprite(550, 30, 'notes');
         notes.scale.setTo(.3,.3);
         notes.fixedToCamera = true;
+        notes.inputEnabled = true;
+        notes.events.onInputDown.add(notesClick, this);
         
         //add music
         var music = game.add.audio('theme');
@@ -187,6 +194,14 @@ function spellOutText(x,y,width,text,fontSize,speed, fill, font){
         }
         index++;
     }
+    if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>50){
+        if(currentLine && sentence){
+            sentence.alpha=0;
+            currentLine.alpha=0;
+            //counter=0;
+           }
+    }
+    
 }
 
 
@@ -251,7 +266,7 @@ function interactionHandler(detective,npc,sound){
                 option1.inputEnabled=true;
                 option2.inputEnabled=true;
                 option3.inputEnabled=true;
-                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play(); option2.clearColors(); option3.clearColors(); displayResponse(npc,1)});
+                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play(); });
                 option2.events.onInputDown.add(function(){option2.addColor('#ff0000',0); sound.play(); option1.clearColors(); option3.clearColors(); displayResponse(npc,2)});
                 option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play(); option1.clearColors(); option2.clearColors(); displayResponse(npc,3)});
             }
@@ -263,5 +278,19 @@ function displayResponse(npc,option){
     console.log('ran');
 
     spellOutText(0,400,700,npc1Answers[option-1][Math.floor(Math.random() * 2)],30,20,'#ffffff');
-    
+}
+function citymapClick(){
+    var minimap = game.add.image(centerX,centerY,'citypng')
+    minimap.scale.setTo(0.5,0.5)
+    minimap.anchor.setTo(.5);
+}
+function backpackClick(){
+    var backpackList = game.add.image(centerX,centerY,'bagList')
+    backpackList.scale.setTo(0.5,0.5)
+    backpackList.anchor.setTo(.5);
+}
+function notesClick(){
+    var notePad = game.add.image(centerX,centerY,'notebook')
+    notePad.scale.setTo(0.5,0.5)
+    notePad.anchor.setTo(.5);
 }
