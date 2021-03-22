@@ -15,7 +15,7 @@ var conversation=false;
 var npc1Questions = ['Where is the pizzeria?', 'What happened?', 'Who are you?'];
 var npc1Answers = [['Just around the corner',"It's big and red you can't miss it just to the southwest"],['A busser was killed',"I don't know"],['I was just walking by', "I'm nobody"]];
 var sentence, currentLine, instructions, option1, option2, option3;
-var clueText1, clueText2, foundClueOne;
+var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -187,6 +187,14 @@ demo.state0.prototype = {
             clueText1.alpha=0;
             clueText2.alpha=0;
             foundClueOne.destroy();
+            minimap.destroy();
+            notePad.destroy();
+            backpackList.destroy();
+        } 
+        if(game.input.keyboard.isDown(Phaser.Keyboard.TWO)){
+            minimap.destroy();
+            notePad.destroy();
+            backpackList.destroy();
         } 
 
         //console.log(detective.x,detective.y);
@@ -306,17 +314,17 @@ function displayResponse(npc,option){
     spellOutText(0,400,700,npc1Answers[option-1][Math.floor(Math.random() * 2)],30,20,'#ffffff');
 }
 function citymapClick(){
-    var minimap = game.add.image(centerX,centerY,'citypng')
+    minimap = game.add.image(centerX,centerY,'citypng')
     minimap.scale.setTo(0.5,0.5)
     minimap.anchor.setTo(.5);
 }
 function backpackClick(){
-    var backpackList = game.add.image(centerX,centerY,'bagList')
+    backpackList = game.add.image(centerX,centerY,'bagList')
     backpackList.scale.setTo(0.5,0.5)
     backpackList.anchor.setTo(.5);
 }
 function notesClick(){
-    var notePad = game.add.image(centerX,centerY,'notes')
+    notePad = game.add.image(centerX,centerY,'notes')
     notePad.scale.setTo(2,2)
     notePad.anchor.setTo(.5);
 }
