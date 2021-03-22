@@ -32,7 +32,6 @@ demo.state0.prototype = {
         game.load.image('Roads','assets/tilemaps/road.png');
         game.load.spritesheet('cluetwo','assets/spritesheets/ClueTwo.png',128,128);
         
-        
     },
     create: function(){
 
@@ -67,8 +66,8 @@ demo.state0.prototype = {
         cluetwo.enableBody = true;
         cluetwo.physicsBodyType=Phaser.Physics.ARCADE;
         cluetwo.body.collideWorldBounds=true;
-        cluetwo.animations.add('clue2',[0,1,2,3,4]);
-        cluetwo.animations.play('clue2',2,true);
+        //cluetwo.animations.add('clue2',[0,1,2,3,4]);
+        //cluetwo.animations.play('clue2',2,true);
         cluetwo.scale.setTo(.5);
         
         
