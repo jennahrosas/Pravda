@@ -30,12 +30,12 @@ demo.state0.prototype = {
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
         game.load.image('Roads','assets/tilemaps/road.png');
-        game.load.spritesheet('cluetwo','assets/spritesheets/ClueTwo.png',128,128);
+        game.load.image('clueone','assets/sprites/ClueOneStill.png',99,112);
+        game.load.spritesheet('clueoneplay', 'assets/spritesheets/ClueOne.png', 640,128)
         
         
     },
     create: function(){
-
         game.physics.startSystem(Phaser.Physics.ARCADE);
         //ssgame.world.setBounds(0,0,640,640);
         game.stage.backgroundColor = '#eeeeee';
@@ -62,14 +62,17 @@ demo.state0.prototype = {
         detective.animations.add('walk',[0,1,2,3,4,5,6])
         
         //adding in clue two
-        cluetwo=game.add.sprite(90,200,'cluetwo');
-        game.physics.enable(cluetwo);
-        cluetwo.enableBody = true;
-        cluetwo.physicsBodyType=Phaser.Physics.ARCADE;
-        cluetwo.body.collideWorldBounds=true;
-        cluetwo.animations.add('clue2',[0,1,2,3,4]);
-        cluetwo.animations.play('clue2',2,true);
-        cluetwo.scale.setTo(.5);
+        clueone = game.add.sprite(1020,200,'clueone');
+        game.physics.enable(clueone);
+        clueone.enableBody = true;
+        clueone.physicsBodyType=Phaser.Physics.ARCADE;
+        clueone.body.collideWorldBounds=true;
+        //clueone.animations.add('clueone',[0,1,2,3,4]);
+        //clueone.animations.play('clueone',2,true);
+        //clueone.frame=0; 
+        clueone.scale.setTo(.15);
+        clueone.inputEnabled = true;
+        clueone.events.onInputDown.add(clueClick, this);
         
         
         //camera follow
@@ -165,6 +168,16 @@ demo.state0.prototype = {
             detective.body.velocity.x=0
         }
         
+        if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>50){
+            if(sentence && option1 && option2 && option3 && instructions){
+                sentence.alpha=0;
+                option1.alpha=0;
+                option2.alpha=0;
+                option3.alpha=0;
+                instructions.alpha=0;
+                counter=0;
+               }
+        }
         if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>50){
             if(sentence && option1 && option2 && option3 && instructions){
                 sentence.alpha=0;
@@ -278,7 +291,7 @@ function interactionHandler(detective,npc,sound){
                 option1.inputEnabled=true;
                 option2.inputEnabled=true;
                 option3.inputEnabled=true;
-                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play(); });
+                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play(); option2.clearColors(); option3.clearColors(); displayResponse(npc,1)});
                 option2.events.onInputDown.add(function(){option2.addColor('#ff0000',0); sound.play(); option1.clearColors(); option3.clearColors(); displayResponse(npc,2)});
                 option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play(); option1.clearColors(); option2.clearColors(); displayResponse(npc,3)});
             }
@@ -302,7 +315,13 @@ function backpackClick(){
     backpackList.anchor.setTo(.5);
 }
 function notesClick(){
-    var notePad = game.add.image(centerX,centerY,'notebook')
-    notePad.scale.setTo(0.5,0.5)
+    var notePad = game.add.image(centerX,centerY,'notes')
+    notePad.scale.setTo(2,2)
     notePad.anchor.setTo(.5);
+}
+function clueClick(){
+    var foundClueOne = game.add.sprite(1020,300,'clueone');
+    foundClueOne.scale.setTo(2,2);
+    var clueText1 = game.add.text(1020,250,'You found a clue! It is a match box',{fontsize: '20px',fill: '#ffffff'});
+    var clueText2 = game.add.text(1020,270,'from a restaurant nearby.',{fontsize: '20px',fill: '#ffffff'});  
 }
