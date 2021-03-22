@@ -15,6 +15,7 @@ var conversation=false;
 var npc1Questions = ['Where is the pizzeria?', 'What happened?', 'Who are you?'];
 var npc1Answers = [['Just around the corner',"It's big and red you can't miss it just to the southwest"],['A busser was killed',"I don't know"],['I was just walking by', "I'm nobody"]];
 var sentence, currentLine, instructions, option1, option2, option3;
+var clueText1, clueText2, foundClueOne;
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -181,16 +182,13 @@ demo.state0.prototype = {
                 counter=0;
                }
         }
-        if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>50){
-            if(sentence && option1 && option2 && option3 && instructions){
-                sentence.alpha=0;
-                option1.alpha=0;
-                option2.alpha=0;
-                option3.alpha=0;
-                instructions.alpha=0;
-                counter=0;
-               }
-        }
+        
+        if(game.input.keyboard.isDown(Phaser.Keyboard.ONE)){
+            clueText1.alpha=0;
+            clueText2.alpha=0;
+            foundClueOne.destroy();
+        } 
+
         //console.log(detective.x,detective.y);
 
     },
@@ -323,8 +321,8 @@ function notesClick(){
     notePad.anchor.setTo(.5);
 }
 function clueClick(){
-    var foundClueOne = game.add.sprite(1020,300,'clueone');
+    foundClueOne = game.add.sprite(1020,300,'clueone');
     foundClueOne.scale.setTo(2,2);
-    var clueText1 = game.add.text(1020,250,'You found a clue! It is a match box',{fontsize: '20px',fill: '#ffffff'});
-    var clueText2 = game.add.text(1020,270,'from a restaurant nearby.',{fontsize: '20px',fill: '#ffffff'});  
+    clueText1 = game.add.text(1020,250,'You found a clue! It is a match box',{fontsize: '20px',fill: '#ffffff'});
+    clueText2 = game.add.text(1020,270,'from a restaurant nearby.',{fontsize: '20px',fill: '#ffffff'});  
 }
