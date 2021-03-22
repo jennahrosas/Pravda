@@ -61,7 +61,7 @@ demo.state0.prototype = {
         detective.animations.add('walk',[0,1,2,3,4,5,6])
         
         //adding in clue two
-<<<<<<< HEAD
+
         clueone = game.add.sprite(1020,200,'clueone');
         game.physics.enable(clueone);
         clueone.enableBody = true;
@@ -73,16 +73,9 @@ demo.state0.prototype = {
         clueone.scale.setTo(.15);
         clueone.inputEnabled = true;
         clueone.events.onInputDown.add(clueClick, this);
-=======
-        cluetwo=game.add.sprite(90,200,'cluetwo');
-        game.physics.enable(cluetwo);
-        cluetwo.enableBody = true;
-        cluetwo.physicsBodyType=Phaser.Physics.ARCADE;
-        cluetwo.body.collideWorldBounds=true;
-        //cluetwo.animations.add('clue2',[0,1,2,3,4]);
-        //cluetwo.animations.play('clue2',2,true);
-        cluetwo.scale.setTo(.5);
->>>>>>> cceffc71a3ab47ca0a5bd793e179afcfaf4d17ca
+
+
+
         
         
         //camera follow
