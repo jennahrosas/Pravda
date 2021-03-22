@@ -30,6 +30,7 @@ demo.state0.prototype = {
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
         game.load.image('Roads','assets/tilemaps/road.png');
+        game.load.spritesheet('cluetwo','assets/spritesheets/ClueTwo.png',128,128);
         
         
     },
@@ -59,6 +60,17 @@ demo.state0.prototype = {
         detective.enableBody=true;
         //animation for detective
         detective.animations.add('walk',[0,1,2,3,4,5,6])
+        
+        //adding in clue two
+        cluetwo=game.add.sprite(90,200,'cluetwo');
+        game.physics.enable(cluetwo);
+        cluetwo.enableBody = true;
+        cluetwo.physicsBodyType=Phaser.Physics.ARCADE;
+        cluetwo.body.collideWorldBounds=true;
+        cluetwo.animations.add('clue2',[0,1,2,3,4]);
+        cluetwo.animations.play('clue2',2,true);
+        cluetwo.scale.setTo(.5);
+        
         
         //camera follow
         game.camera.follow(detective);
