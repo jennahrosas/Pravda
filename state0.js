@@ -107,11 +107,6 @@ demo.state0.prototype = {
         backpack.fixedToCamera = true;
         backpack.inputEnabled = true;
         backpack.events.onInputDown.add(backpackClick, this);
-        notes = game.add.sprite(550, 30, 'notes');
-        notes.scale.setTo(.3,.3);
-        notes.fixedToCamera = true;
-        notes.inputEnabled = true;
-        notes.events.onInputDown.add(notesClick, this);
         
         //add music
         var music = game.add.audio('theme');
@@ -319,14 +314,9 @@ function citymapClick(){
     minimap.anchor.setTo(.5);
 }
 function backpackClick(){
-    backpackList = game.add.image(centerX,centerY,'bagList')
-    backpackList.scale.setTo(0.5,0.5)
+    backpackList = game.add.image(centerX,centerY,'notes')
+    backpackList.scale.setTo(2,2)
     backpackList.anchor.setTo(.5);
-}
-function notesClick(){
-    notePad = game.add.image(centerX,centerY,'notes')
-    notePad.scale.setTo(2,2)
-    notePad.anchor.setTo(.5);
 }
 function clueClick(){
     foundClueOne = game.add.sprite(1020,300,'clueone');
