@@ -16,7 +16,10 @@ var npc1Questions = ['Where is the pizzeria?', 'What happened?', 'Who are you?']
 var npc1Answers = [['Just around the corner',"It's big and red you can't miss it just to the southwest"],['A busser was killed',"I don't know"],['I was just walking by', "I'm nobody"]];
 var sentence, currentLine, instructions, option1, option2, option3;
 var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
-var mapClicked=false,backpackClicked=false,clueClicked=false;
+var mapClicked=false,backpackClicked=false;
+var clueList=["A matchbox from a nearby pizzeria"];
+var clueClicked=[false];
+var clueText=[];
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -53,7 +56,7 @@ demo.state0.prototype = {
         map.setCollision(3,true,'Buildings');
         
         //adding in detective sprite
-        detective=game.add.sprite(centerX/2,centerY,'diego');
+        detective=game.add.sprite(1000,200,'diego');
         detective.anchor.setTo(.5);
         detective.scale.setTo(1,1);
         game.physics.enable(detective);
@@ -74,7 +77,7 @@ demo.state0.prototype = {
         //clueone.frame=0; 
         clueone.scale.setTo(.15);
         clueone.inputEnabled = true;
-        clueone.events.onInputDown.add(clueClick, this);
+        clueone.events.onInputDown.add(clueClick,{clueNum:0});
 
 
 
@@ -324,26 +327,39 @@ function backpackClick(){
         backpackList.scale.setTo(2,2)
         backpackList.anchor.setTo(.5);
         backpackClicked=true;
+        
+        for(i=0;i<clueClicked.length;i++){
+            if(clueClicked[i]){
+                clueList.push(game.add.text(game.camera.x+game.camera.width/2-160,game.camera.y+game.camera.height/2-150,clueList[i],{font:'15px Arial'}));
+            }
+        }
     }
     else{
         backpackList.destroy();
         backpackClicked=false;
+        for(i=0;i<clueList.length;i++){
+            clueList[i].alpha=0;
+        }
     }
     
 }
-function clueClick(){
-    if(!backpackClicked&&!mapClicked&&!clueClicked){
-        foundClueOne = game.add.sprite(1020,300,'clueone');
-        foundClueOne.scale.setTo(2,2);
-        clueText1 = game.add.text(1020,250,'You found a clue! It is a match box',{fontsize: '20px',fill: '#ffffff'});
-        clueText2 = game.add.text(1020,270,'from a restaurant nearby.',{fontsize: '20px',fill: '#ffffff'}); 
-        clueClicked=true;
+function clueClick(clueNum){
+    console.log(this.clueNum);
+    if(!backpackClicked&&!mapClicked&&!clueClicked[this.clueNum]){
+        foundClueOne = game.add.sprite(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2,'clueone');
+        //foundClueOne.scale.setTo(1,1);
+        clueText1 = game.add.text(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2+80,'You found a clue! It is a match box',{fontsize: '20px',fill: '#ffffff'});
+        clueText2 = game.add.text(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2+100,'from a restaurant nearby.',{fontsize: '20px',fill: '#ffffff'}); 
+        foundClueOne.anchor.setTo(.5,.5);
+        clueText1.anchor.setTo(.5,.5);
+        clueText2.anchor.setTo(.5,.5);
+        clueClicked[this.clueNum]=true;
+
     }
     else{
         clueText1.alpha=0;
         clueText2.alpha=0;
         foundClueOne.destroy();
-        clueClicked=false;
     }
      
 }
