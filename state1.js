@@ -1,34 +1,37 @@
-console.log('state1');
-var demo = {};
+
+var centerX=640/2
+var centerY=640/2
+var detective;
+var velocity = 4;
 demo.state1 = function(){};
 demo.state1.prototype = {
     preload: function(){
-        game.load.spritesheet('detective', 'assets/spritesheets/pravdawalk.png', 36, 64);
-        game.load.image('pizzeria', 'assets/sprites/pizzeria.png',768,128);
+        game.load.image('pizzeria','assets/sprites/pizzeria.png')
+        game.load.spritesheet('diego','assets/spritesheets/PravdaWalk.png',32,64);
     },
     create: function(){
-        
-        /*
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.stage.backgroundColor = '#ffffff';
-        addChangeStateEventListeners();
-        game.world.setBounds(0, 0, 768, 128);
+        game.world.setBounds(0,0,640,640);
+        game.stage.backgroundColor = '#eeeeee';
+        console.log('state1');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        var pizzeria = game.add.sprite(0, 0, 'pizzeria');
-        detective = game.add.sprite(20, 40, 'detective');
-        detective.anchor.setTo(0.5, 0.5);
-        detective.scale.setTo(0.5, 0.5);
+        
+        var pizzeria=game.add.sprite(0,0,'pizzeria');
+        detective=game.add.sprite(10,80,'diego');
+        detective.anchor.setTo(.5);
+        detective.scale.setTo(1,1);
         game.physics.enable(detective);
-        detective.body.collideWorldBounds = true;
-        detective.animations.add('walk', [0, 1, 2, 3, 4,5,6]);
+        detective.body.collideWorldBounds=true;
+        detective.enableBody=true;
+        //animation for detective
+        detective.animations.add('walk',[0,1,2,3,4,5,6])
+        
+        
 
-        game.camera.follow(detective);
-        game.camera.deadzone = new Phaser.Rectangle(centerX - 300, 0, 400, 300);
-        game.add.text(0,0, "score = " + count).addColor('#ffffff',0); */
+        
+        
     },
     update: function(){
-        /*
-        var m = 0;
         if(game.input.keyboard.isDown(Phaser.Keyboard.A)){
             detective.scale.setTo(-1,1);
             detective.body.velocity.x = -speed;
@@ -39,8 +42,7 @@ demo.state1.prototype = {
         else if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
             detective.scale.setTo(1,1);
             detective.body.velocity.x = speed;
-            detective.animations.play('walk',20,true);     
-                    
+            detective.animations.play('walk',20,true);            
         }
         else{
             detective.animations.stop('walk');
@@ -48,16 +50,17 @@ demo.state1.prototype = {
             detective.body.velocity.x=0
         }
         
-        if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
+        if(game.input.keyboard.isDown(Phaser.Keyboard.W)  && detective.y>70){
             detective.body.velocity.y = -speed;
         }
         
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.S) && detective.y<80){
             detective.body.velocity.y = speed;
         }
         else{
             detective.body.velocity.y=0
         }
-        */
-    }     
+        
+    }
 };
+
