@@ -29,6 +29,7 @@ demo.state2.prototype = {
         detective = game.add.sprite(100, 400, 'detective');
         detective.anchor.setTo(0.5);
         detective.scale.setTo(0.4);
+        game.physics.enable(detective);
 
         lives = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];
         
@@ -91,7 +92,7 @@ demo.state2.prototype = {
         }
 
         game.physics.arcade.overlap(badGuyGroup, bullets, this.hitGroup);
-        game.physics.arcade.overlap(detective, enemyBullets, this.hitDetective);
+        game.physics.arcade.overlap(bullets, detective, this.hitDetective);
     },
     fire: function(good) {
         if(good && game.time.now > fire) {
@@ -125,9 +126,9 @@ demo.state2.prototype = {
             alive[2] = false;
         }
     },
-    hitDetective: function(e) {
+    hitDetective: function() {
         bullet.kill();
-        e.kill();
+        detective.kill();
         console.log("hit");
     }
 };
