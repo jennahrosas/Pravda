@@ -25,7 +25,6 @@ demo.state2.prototype = {
     },
     create: function(){
         game.stage.backgroundColor = '#808080';
-        //addChangeStateEventListeners();
 
         detective = game.add.sprite(100, 400, 'detective');
         detective.anchor.setTo(0.5);
@@ -36,23 +35,18 @@ demo.state2.prototype = {
         bullets = game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        bullets.createMultiple(100, 'bullet');
+        bullets.createMultiple(25, 'bullet');
         bullets.setAll('checkWorldBounds', true);
         bullets.setAll('outOfBoundsKill', true);
         bullets.setAll('anchor.y', 0.5);
         bullets.setAll('scale.x', 0.25);
         bullets.setAll('scale.y', 0.25);
 
-        //badGuy = game.add.sprite(550, 200, 'badGuy');
-        //game.physics.enable(badGuy);
-        //badGuy.scale.setTo(0.4);
-        //badGuy.anchor.setTo(0.5);
-
         badGuyGroup = game.add.group();
         badGuyGroup.enableBody = true;
         badGuyGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 5; i++) {
             badGuyGroup.create(550 + 75 * i, 200 * i + 200, 'badGuy');
         }
 

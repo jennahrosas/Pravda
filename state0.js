@@ -35,6 +35,8 @@ demo.state0.prototype = {
         game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
         game.load.image('Roads','assets/tilemaps/road.png');
+        game.load.image('Pizza','assets/tilemaps/pizza.png');
+        game.load.image('streetSigns','assets/tilemaps/streetSignSpriteSheet.png');
         game.load.image('clueone','assets/sprites/ClueOneStill.png',99,112);
         game.load.spritesheet('clueoneplay', 'assets/spritesheets/ClueOne.png', 640,128)
         
@@ -49,8 +51,11 @@ demo.state0.prototype = {
         map=game.add.tilemap('city');
         map.addTilesetImage('Building');
         map.addTilesetImage('Roads');
+        map.addTilesetImage('streetSigns');
+        map.addTilesetImage('Pizza');
         var RoadsLayer = map.createLayer('RoadsLayer');
         Buildings = map.createLayer('Buildings'); 
+        PizzaLayer =map.createLayer('PizzaLayer');
         RoadsLayer.resizeWorld();
         Buildings.resizeWorld();
         map.setCollision(3,true,'Buildings');
