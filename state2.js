@@ -17,11 +17,11 @@ var lives = 3;
 demo.state2 = function(){};
 demo.state2.prototype = {
     preload: function(){
-        game.load.image('badGuy', 'assets/sprites/badGuyStill.png');
-        game.load.image('detective','assets/sprites/Pravda.png');
+        game.load.image('badGuy', 'assets/sprites/badguystill.png');
+        game.load.image('detective','assets/sprites/pravda.png');
         game.load.image('bullet', 'assets/sprites/bullet.png');
         game.load.image('life', 'assets/sprites/life.png');
-        game.load.image('lostLife', 'assets/sprites/lostLife.png');
+        game.load.image('lostLife', 'assets/sprites/lostlife.png');
     },
     create: function(){
         game.stage.backgroundColor = '#808080';

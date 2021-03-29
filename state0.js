@@ -23,22 +23,22 @@ var clueText=[];
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
-        game.load.image('detective','assets/sprites/Pravda.png',64,64);
-        game.load.spritesheet('diego','assets/spritesheets/PravdaWalk.png',32,64);
-        game.load.spritesheet('npc','assets/spritesheets/GordonIdle.png',32,64);
-        game.load.image('backpack', 'assets/sprites/Backpack.png', 64, 64)
-        game.load.image('notes', 'assets/sprites/Notepad.png', 64, 64)
-        game.load.image('citymap', 'assets/sprites/Map.png', 64, 64)
+        game.load.image('detective','assets/sprites/pravda.png',64,64);
+        game.load.spritesheet('diego','assets/spritesheets/pravdawalk.png',32,64);
+        game.load.spritesheet('npc','assets/spritesheets/gordonidle.png',32,64);
+        game.load.image('backpack', 'assets/sprites/backpack.png', 64, 64)
+        game.load.image('notes', 'assets/sprites/notepad.png', 64, 64)
+        game.load.image('citymap', 'assets/sprites/map.png', 64, 64)
         game.load.audio('theme','assets/audio/theme.mp3');
         game.load.audio('plink','assets/audio/plink.mp3');
-        game.load.image('citypng','assets/tilemaps/pravdaMapS1.png',50,50 )
-        game.load.tilemap('city','assets/tilemaps/pravdaMapS1.json',null,Phaser.Tilemap.TILED_JSON);
+        game.load.image('citypng','assets/tilemaps/pravdamaps1.png',50,50 )
+        game.load.tilemap('city','assets/tilemaps/pravdamaps1.json',null,Phaser.Tilemap.TILED_JSON);
         game.load.image('Building','assets/tilemaps/building.png');
         game.load.image('Roads','assets/tilemaps/road.png');
         game.load.image('Pizza','assets/tilemaps/pizza.png');
-        game.load.image('streetSigns','assets/tilemaps/streetSignSpriteSheet.png');
-        game.load.image('clueone','assets/sprites/ClueOneStill.png',99,112);
-        game.load.spritesheet('clueoneplay', 'assets/spritesheets/ClueOne.png', 640,128)
+        game.load.image('streetSigns','assets/tilemaps/streetsignspritesheet.png');
+        game.load.image('clueone','assets/sprites/clueonestill.png',99,112);
+        game.load.spritesheet('clueoneplay', 'assets/spritesheets/clueone.png', 640,128)
         
     },
     create: function(){

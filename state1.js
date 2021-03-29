@@ -7,8 +7,8 @@ demo.state1 = function(){};
 demo.state1.prototype = {
     preload: function(){
         game.load.image('pizzeria','assets/sprites/pizzeria.png')
-        game.load.spritesheet('diego','assets/spritesheets/PravdaWalk.png',32,64);
-        game.load.spritesheet('cluetwo', 'assets/spritesheets/ClueTwo.png', 640, 128)
+        game.load.spritesheet('diego','assets/spritesheets/pravdawalk.png',32,64);
+        game.load.spritesheet('cluetwo', 'assets/spritesheets/cluetwo.png', 640, 128)
     },
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
