@@ -7,8 +7,9 @@ demo.state1 = function(){};
 demo.state1.prototype = {
     preload: function(){
         game.load.image('pizzeria','assets/sprites/pizzeria.png')
-        game.load.spritesheet('diego','assets/spritesheets/pravdawalk.png',32,64);
-        game.load.spritesheet('cluetwo', 'assets/spritesheets/cluetwo.png', 640, 128)
+        game.load.spritesheet('pravda','assets/spritesheets/pravdawalk.png',32,64);
+        game.load.image('cluetwo', 'assets/spritesheets/cluetwo.png', 92, 32);
+        game.load.image('pazzoli man', 'assets/spritesheets/pazzoliman.png', 28, 61);
     },
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -18,7 +19,7 @@ demo.state1.prototype = {
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         
         var pizzeria=game.add.sprite(0,0,'pizzeria');
-        detective=game.add.sprite(10,80,'diego');
+        detective=game.add.sprite(10,80,'pravda');
         detective.anchor.setTo(.5);
         detective.scale.setTo(1,1);
         game.physics.enable(detective);
@@ -27,7 +28,19 @@ demo.state1.prototype = {
         //animation for detective
         detective.animations.add('walk',[0,1,2,3,4,5,6])
         
-        var cluetwo = game.add.sprite(100,80,'cluetwo');
+        var pazzoli=game.add.sprite(150,40,'pazzoli man');
+        game.physics.enable(pazzoli);
+        pazzoli.enableBody = true;
+        pazzoli.physicsBodyType=Phaser.Physics.ARCADE;
+        pazzoli.body.collideWorldBounds=true;
+        
+        pazzoli.body.immovable=true;
+        
+        //npc blinking animation
+        pazzoli.animations.add('blink',[0,1,2]);
+        pazzoli.animations.play('blink',3,true);
+        
+        var cluetwo = game.add.sprite(500,94,'cluetwo');
         game.physics.enable(cluetwo);
         cluetwo.enableBody = true;
         cluetwo.physicsBodyType=Phaser.Physics.ARCADE;
