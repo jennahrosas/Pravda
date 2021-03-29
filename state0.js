@@ -59,6 +59,7 @@ demo.state0.prototype = {
         RoadsLayer.resizeWorld();
         Buildings.resizeWorld();
         map.setCollision(3,true,'Buildings');
+        map.setCollision(7,true,'PizzaLayer');
         
         //adding in detective sprite
         detective=game.add.sprite(1000,200,'diego');
@@ -133,6 +134,8 @@ demo.state0.prototype = {
     },
     update: function(){
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
+        
+        game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
         
         //calls npc interaction handler
         game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc,plink))

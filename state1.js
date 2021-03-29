@@ -8,6 +8,7 @@ demo.state1.prototype = {
     preload: function(){
         game.load.image('pizzeria','assets/sprites/pizzeria.png')
         game.load.spritesheet('diego','assets/spritesheets/PravdaWalk.png',32,64);
+        game.load.spritesheet('cluetwo', 'assets/spritesheets/ClueTwo.png', 640, 128)
     },
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -26,7 +27,16 @@ demo.state1.prototype = {
         //animation for detective
         detective.animations.add('walk',[0,1,2,3,4,5,6])
         
-        
+        var cluetwo = game.add.sprite(100,80,'cluetwo');
+        game.physics.enable(cluetwo);
+        cluetwo.enableBody = true;
+        cluetwo.physicsBodyType=Phaser.Physics.ARCADE;
+        cluetwo.body.collideWorldBounds=true;
+        cluetwo.animations.add('clueone',[0,1,2,3,4]);
+        cluetwo.animations.play('clueone',2,true);
+        cluetwo.scale.setTo(.15);
+        cluetwo.inputEnabled = true;
+        cluetwo.events.onInputDown.add(clueClick,{clueNum:0});
 
         
         
