@@ -12,8 +12,8 @@ var npc;
 var map;
 var Buildings;
 var conversation=false;
-var npc1Questions = ['Where is the pizzeria?', 'What happened?', 'Who are you?'];
-var npc1Answers = [['Just around the corner',"It's big and red you can't miss it just to the southwest"],['A busser was killed',"I don't know"],['I was just walking by', "I'm nobody"]];
+var npc1Questions = ["Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Who are you, and why are were you talking to the cops earlier?'];
+var npc1Answers = [['Off 24th and Avenue O.',"Just to the northeast of the city. It's big and red, you can't miss it!"],['Some mob member was stabbed.',"I'm not sure. Ask the cops."],['I was just walking by. They wanted to know if I saw anything.', "I'm Gordon Mitchell, and the guy killed at the crime scene nearby was my cousin."]];
 var sentence, currentLine, instructions, option1, option2, option3;
 var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
 var mapClicked=false,backpackClicked=false;
@@ -62,7 +62,7 @@ demo.state0.prototype = {
         map.setCollision(7,true,'PizzaLayer');
         
         //adding in detective sprite
-        detective=game.add.sprite(1000,200,'diego');
+        detective=game.add.sprite(500,600,'diego');
         detective.anchor.setTo(.5);
         detective.scale.setTo(1,1);
         game.physics.enable(detective);
@@ -260,7 +260,7 @@ function interactionHandler(detective,npc,sound){
                 //option3.alpha =0;
                 var loop = game.time.events.loop(speed*.1, addChar2)
                 var index=0;
-                var text = ['What do you want to ask?','Where is the pizzeria?  ', 'What happened?          ', 'Who are you?            ']
+                var text = ['What do you want to ask?',"Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Why were you talking to the cops earlier?     ']
                 function addChar2()
                 {
                     if (index <text[0].length){
