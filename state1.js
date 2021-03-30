@@ -13,7 +13,7 @@ demo.state1.prototype = {
     },
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.world.setBounds(0,0,640,640);
+        game.world.setBounds(0,0,2000,640);
         game.stage.backgroundColor = '#eeeeee';
         console.log('state1');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -76,11 +76,11 @@ demo.state1.prototype = {
             detective.body.velocity.x=0
         }
         
-        if(game.input.keyboard.isDown(Phaser.Keyboard.W)  && detective.y>70){
+        if(game.input.keyboard.isDown(Phaser.Keyboard.W)  && detective.y>=270){
             detective.body.velocity.y = -speed;
         }
         
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.S) && detective.y<80){
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.S) && detective.y<=330){
             detective.body.velocity.y = speed;
         }
         else{
