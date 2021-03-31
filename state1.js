@@ -8,7 +8,7 @@ demo.state1.prototype = {
     preload: function(){
         game.load.image('pizzeria','assets/sprites/pizzeria2.png',3072,512)
         game.load.spritesheet('pravda','assets/spritesheets/pizzeriadetective1.png',256,256);
-        game.load.image('cluetwo', 'assets/spritesheets/cluetwo.png', 92, 32);
+        game.load.spritesheet('cluetwo', 'assets/spritesheets/cluetwo.png', 128, 128);
         game.load.spritesheet('pazzoli man', 'assets/spritesheets/pazzoliman3.png', 256, 256);
     },
     create: function(){
@@ -43,13 +43,13 @@ demo.state1.prototype = {
         pazzoli.animations.add('blink',[0,1,2,3,4]);
         pazzoli.animations.play('blink',3,true);
         
-        var cluetwo = game.add.sprite(500,390,'cluetwo');
+        var cluetwo = game.add.sprite(1500,310,'cluetwo');
         game.physics.enable(cluetwo);
         cluetwo.enableBody = true;
         cluetwo.physicsBodyType=Phaser.Physics.ARCADE;
         cluetwo.body.collideWorldBounds=true;
-        cluetwo.animations.add('clueone',[0,1,2,3,4]);
-        cluetwo.animations.play('clueone',2,true);
+        cluetwo.animations.add('cluetwo',[0,1,2,3,4]);
+        //cluetwo.animations.play('cluetwo',2,true);
         cluetwo.scale.setTo(1);
         cluetwo.inputEnabled = true;
         cluetwo.events.onInputDown.add(clueClick,{clueNum:0});
