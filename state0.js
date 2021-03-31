@@ -179,7 +179,7 @@ demo.state0.prototype = {
             detective.body.velocity.x=0
         }
         
-        if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>50){
+        if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>100){
             if(sentence && option1 && option2 && option3 && instructions){
                 sentence.alpha=0;
                 option1.alpha=0;
@@ -199,6 +199,9 @@ demo.state0.prototype = {
 };
 //function to spell out text across the screen
 function spellOutText(x,y,width,text,fontSize,speed, fill, font){
+    if (sentence != null) {
+        sentence.destroy();
+    }
     sentence = game.add.text(x,y,'',{fontsize: fontSize+'px', fill:fill, font:font});
     sentence.alpha=1;
     var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font});
@@ -221,7 +224,7 @@ function spellOutText(x,y,width,text,fontSize,speed, fill, font){
         }
         index++;
     }
-    if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>50){
+    if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>100){
         if(currentLine && sentence){
             sentence.alpha=0;
             currentLine.alpha=0;
@@ -237,7 +240,7 @@ var counter=0;
 var choice = 0;
 function interactionHandler(detective,npc,sound){
     
-    if(Math.abs(detective.x-npc.x)<50 && Math.abs(detective.y-npc.y)<50){
+    if(Math.abs(detective.x-npc.x)<50 && Math.abs(detective.y-npc.y)<100){
             if(game.input.keyboard.isDown(Phaser.Keyboard.E) && counter<1){
                 console.log('interaction handler running')   
                 
@@ -303,7 +306,6 @@ function interactionHandler(detective,npc,sound){
 
 function displayResponse(npc,option){
     console.log('ran');
-
     spellOutText(0,400,700,npc1Answers[option-1][Math.floor(Math.random() * 2)],30,20,'#ffffff');
 }
 function citymapClick(){
