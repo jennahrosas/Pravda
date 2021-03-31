@@ -57,6 +57,9 @@ demo.state2.prototype = {
         badGuyGroup.setAll('scale.y', 0.4);
     },
     update: function(){
+        if(badGuyGroup.countLiving()==0){
+            game.state.start('state1');
+        }
         badGuyGroup.y += badGuySpeed;
         this.fire(false)
         if (badGuyGroup.y <-150){
@@ -88,7 +91,7 @@ demo.state2.prototype = {
             bullet = bullets.getFirstDead();
             bullet.reset(detective.x+75 , detective.y);
             bullet.scale.setTo(.30,.30);
-            game.physics.arcade.moveToXY(bullet, 800, bullet.y, bulletSpeed);
+            game.physics.arcade.moveToXY(bullet, 900, bullet.y, bulletSpeed);
         }
         else if (!good && game.time.now > badFire){
             if (alive[a]) {
