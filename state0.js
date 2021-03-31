@@ -362,7 +362,7 @@ function clueClick(clueNum){
         clueText1.anchor.setTo(.5,.5);
         clueText2.anchor.setTo(.5,.5);
         clueClicked[this.clueNum]=true;
-
+        game.state.start('state2')
     }
     else{
         clueText1.alpha=0;

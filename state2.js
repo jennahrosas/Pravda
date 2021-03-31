@@ -117,7 +117,7 @@ demo.state2.prototype = {
         else if (e.x == 700) {
             alive[3] = false;
         }
-        else {
+        else{
             alive[4] = false;
         }
     },
@@ -127,6 +127,8 @@ demo.state2.prototype = {
         livesArray[lives] = game.add.sprite(10+75*lives, 0, 'lostLife');
         if (lives == 0){
             detective.kill();
+            game.state.start('state4');
+            lives = 3;
         }
         console.log("hit");
     }
