@@ -52,7 +52,7 @@ demo.state1.prototype = {
         //cluetwo.animations.play('cluetwo',2,true);
         cluetwo.scale.setTo(1);
         cluetwo.inputEnabled = true;
-        cluetwo.events.onInputDown.add(clueClick,{clueNum:0});
+        cluetwo.events.onInputDown.add(clueClick,{clueNum:1});
 
         
         
