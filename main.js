@@ -5,4 +5,4 @@ game.state.add('state2',demo.state2);
 game.state.add('state3',demo.state3);
 game.state.add('state4',demo.state4)
 game.state.add('state5',demo.state5);
-game.state.start('state3');
+game.state.start('state5');

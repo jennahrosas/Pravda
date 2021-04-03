@@ -1,23 +1,11 @@
-/*var bullet;
-var bullets;
-var detective;
-var bulletSpeed = 750;
-var fire = 0;
-var badFire = 0;
-var lives = 3;
-var fireRate = 800;
-var badFireRate = 600;
-var a = 0;
-var enemyBullets;
-var badGuyGroup;
-var badGuySpeed = 2;
-var alive = [true,true,true,true,true];
-var lives = 3;
-*/
+var currentTime;
+
 demo.state5 = function(){};
 demo.state5.prototype = {
     preload: function(){
-        game.load.image('badGuy', 'assets/sprites/npcshoot.png');
+        game.load.image('oilslick1', 'assets/sprites/oilslick1.png');
+        game.load.image('oilslick2', 'assets/sprites/oilslick2.png');
+        game.load.image('oilslick3', 'assets/sprites/oilslick3.png');
         game.load.image('detective','assets/sprites/pravdashoot.png');
         game.load.image('bullet', 'assets/sprites/bullet.png');
         game.load.image('life', 'assets/sprites/life.png');
@@ -25,70 +13,54 @@ demo.state5.prototype = {
         game.load.image('road','assets/sprites/road.png')
     },
     create: function(){
-        road=game.add.tileSprite(0,0,600,600,'road');
-        /*
+        console.log('state5');
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        
+        road=game.add.tileSprite(0,0,2450,1536,'road');
         game.stage.backgroundColor = '#808080';
-
-        detective = game.add.sprite(100, 400, 'detective');
+        road.scale.setTo(.33);
+        //add detective
+        detective = game.add.sprite(110, 400, 'detective');
         detective.anchor.setTo(0.5);
         detective.scale.setTo(0.4);
         game.physics.enable(detective);
-
-        livesArray = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];
         
-        bullets = game.add.group();
-        bullets.enableBody = true;
-        bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        bullets.createMultiple(25, 'bullet');
-        bullets.setAll('checkWorldBounds', true);
-        bullets.setAll('outOfBoundsKill', true);
-        bullets.setAll('anchor.y', 0.5);
-        bullets.setAll('scale.x', 0.3);
-        bullets.setAll('scale.y', 0.3);
+        //add timer
+        currentTime=game.time.now;
+        console.log(currentTime);
+        
+        //add oil
+        oilslick1=game.add.sprite(800,60,'oilslick1');
+        oilslick2=game.add.sprite(800,200,'oilslick2');
+        oilslick3=game.add.sprite(800,340,'oilslick3');
+        oilslick1.scale.setTo(.75);
+        oilslick2.scale.setTo(.75);
+        oilslick3.scale.setTo(.75);
+        game.physics.enable(oilslick1);
+        game.physics.enable(oilslick2);
+        game.physics.enable(oilslick3);
 
-        badGuyGroup = game.add.group();
-        badGuyGroup.enableBody = true;
-        badGuyGroup.physicsBodyType = Phaser.Physics.ARCADE;
-
-        for (var i = 0; i < alive.length; i++) {
-            badGuyGroup.create(475 + 75 * i, i * 400 / alive.length + 200, 'badGuy');
-        }
-
-        badGuyGroup.setAll('anchor.y', 0.5);
-        badGuyGroup.setAll('anchor.x', 0.5);
-        badGuyGroup.setAll('scale.x', 0.4);
-        badGuyGroup.setAll('scale.y', 0.4);
-        */
     },
     update: function(){
-        /*
-        if(badGuyGroup.countLiving()==0){
-            game.state.start('state1');
+        //road+ obstacle movement
+        road.tilePosition.x -= 10;
+        oilslick1.x -= 3.29;
+        oilslick2.x -= 3.29;
+        oilslick3.x -= 3.29;
+        
+        //detective movement
+        if(game.input.keyboard.isDown(Phaser.Keyboard.W) && detective.y>80 && game.time.now>currentTime+125){
+            detective.y-=160;
+            currentTime=game.time.now;
         }
-        badGuyGroup.y += badGuySpeed;
-        this.fire(false)
-        if (badGuyGroup.y <-150){
-            badGuySpeed = -badGuySpeed;
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.S) && detective.y<350 && game.time.now>currentTime+125){
+            detective.y+=160 ;
+            currentTime=game.time.now;
         }
-        else if (badGuyGroup.y >225){
-            badGuySpeed = -badGuySpeed;
-        }
-        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            this.fire(true);
-        }
-        if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
-            if (detective.y>50){
-                detective.y -= 10;
-            }
-        }
-
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
-            if (detective.y<750){
-                detective.y += 10;
-            }
-        }
-        game.physics.arcade.overlap(badGuyGroup, bullets, this.hitGroup);
-        game.physics.arcade.overlap(bullets, detective, this.hitDetective);
-        */
     },
 };
+
+function collisionHandler(){
+    
+}
+
