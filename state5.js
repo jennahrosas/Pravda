@@ -1,5 +1,7 @@
 var currentTime;
-
+var slickTimer;
+var oils;
+var i = 0;
 demo.state5 = function(){};
 demo.state5.prototype = {
     preload: function(){
@@ -27,27 +29,28 @@ demo.state5.prototype = {
         
         //add timer
         currentTime=game.time.now;
+        slickTimer=game.time.now;
         console.log(currentTime);
         
         //add oil
-        oilslick1=game.add.sprite(800,60,'oilslick1');
-        oilslick2=game.add.sprite(800,200,'oilslick2');
-        oilslick3=game.add.sprite(800,340,'oilslick3');
-        oilslick1.scale.setTo(.75);
-        oilslick2.scale.setTo(.75);
-        oilslick3.scale.setTo(.75);
-        game.physics.enable(oilslick1);
-        game.physics.enable(oilslick2);
-        game.physics.enable(oilslick3);
-
+        oils = [game.add.sprite(800,0,'oilslick2'), game.add.sprite(800,0,'oilslick1'), game.add.sprite(800,0,'oilslick3'), game.add.sprite(800,0,'oilslick2'), game.add.sprite(800,0,'oilslick3'), game.add.sprite(800,0,'oilslick1')];
+        var index;
+        for (index = 0; index < 6;index ++){
+            oils[index].scale.setTo(.75);
+            game.physics.enable(oils[index]);
+        }
+        
     },
     update: function(){
         //road+ obstacle movement
         road.tilePosition.x -= 10;
-        oilslick1.x -= 3.29;
-        oilslick2.x -= 3.29;
-        oilslick3.x -= 3.29;
-        
+        if(game.time.now>slickTimer+1000){
+            oils[i].y = 40 + 160 * Math.floor(Math.random()*3)
+            oils[i].x = 800
+            game.physics.arcade.moveToXY(oils[i], -200, oils[i].y, 200);
+            slickTimer = game.time.now;
+            i = (i+1)%6;
+        }
         //detective movement
         if(game.input.keyboard.isDown(Phaser.Keyboard.W) && detective.y>80 && game.time.now>currentTime+125){
             detective.y-=160;

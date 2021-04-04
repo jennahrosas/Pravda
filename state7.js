@@ -33,7 +33,7 @@ demo.state7.prototype = {
         spacebar.scale.setTo(0.7);
         var mgcontrols = game.add.sprite(200, 450, 'minigamecontrols');
         mgcontrols.scale.setTo(0.6);
-        if clueClick
+        //if clueClick
         var clue = game.add.sprite(340, 190, 'clueone');
         clue.scale.setTo(0.9);
         
