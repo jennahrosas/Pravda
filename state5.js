@@ -47,9 +47,13 @@ demo.state5.prototype = {
         timeToWin = 30000 + game.time.now;
         
         //lives array to show the image of lives
-        livesArray = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];        
+        livesArray = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];    
+        
+        
     },
     update: function(){
+
+        console.log('changed counter');
         //winning timer check
         if (game.time.now == timeToWin) {
             console.log ('you win');
@@ -59,7 +63,7 @@ demo.state5.prototype = {
         //oil on screen
         if(game.time.now>slickTimer+800){
             //adds more randomness so oilslick does not repeat
-            //used to inc difficulty 
+             //used to inc difficulty 
             lane = 250 + Math.floor(Math.random()*3) * 160
             if (oil.y == 250 && lane == 250){
                 lane = 250 + Math.ceil(Math.random()*2) * 160
@@ -86,17 +90,22 @@ demo.state5.prototype = {
             currentTime=game.time.now;
         }
         //collision detector currently bugged always calling for some reason
-        game.physics.arcade.overlap(detective, oils, this.collisionHandler());
+        //game.physics.arcade.overlap(detective, oils, this.collisionHandler());
+        //test collision
+        game.physics.arcade.overlap(detective, oils, collisionHandler,null,this);
     },
-    collisionHandler: function(){
-        lives -= 1;
-        //console.log('hi');
-        livesArray[lives] = game.add.sprite(10+75*lives, 0, 'lostLife');
-        if (lives == 0){
-            //detective.kill();
-            //game.state.start('state4');
-            lives = 3;
-        }
-    }
 
 };
+
+function collisionHandler(obj,oil){
+    oil.destroy();
+    lives -= 1;
+    console.log('hi');
+    livesArray[lives] = game.add.sprite(10+75*lives, 0, 'lostLife');
+    if (lives == 0){
+        detective.kill();
+        game.state.start('state4');
+        lives = 3;
+    }
+    
+}
