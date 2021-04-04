@@ -4,6 +4,7 @@ var oils;
 var i = 0;
 var lives = 3;
 var timeToWin;
+var timer, timerEvent, text;
 demo.state5 = function(){};
 demo.state5.prototype = {
     preload: function(){
@@ -50,6 +51,16 @@ demo.state5.prototype = {
         livesArray = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];    
         
         
+         // Create a custom timer
+        timer = game.time.create();
+        
+        // Create a delayed event 1m and 30s from now
+        timerEvent = timer.add(Phaser.Timer.SECOND * 30, this.endTimer, this);
+        
+        // Start the timer
+        timer.start();
+        
+        
     },
     update: function(){
 
@@ -94,6 +105,28 @@ demo.state5.prototype = {
         //test collision
         game.physics.arcade.overlap(detective, oils, collisionHandler,null,this);
     },
+    
+    render: function(){
+        if (timer.running) {
+            game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 400, 14, "#ff0");
+        }
+        else {
+            game.debug.text("Done!", 2, 14, "#0f0");
+        }
+    },
+    
+    endTimer: function() {
+        // Stop the timer when the delayed event triggers
+        timer.stop();
+        game.state.start('state0');
+    },
+    
+    formatTime: function(s) {
+        // Convert seconds (s) to a nicely formatted and padded time string
+        var minutes = "0" + Math.floor(s / 60);
+        var seconds = "0" + (s - minutes * 60);
+        return minutes.substr(-2) + ":" + seconds.substr(-2);   
+    }
 
 };
 
