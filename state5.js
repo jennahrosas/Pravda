@@ -145,7 +145,7 @@ function collisionHandler(obj,oil){
     livesArray[lives] = game.add.sprite(10+75*lives, 0, 'lostLife');
     if (lives == 0){
         detective.kill();
-        game.state.start('state4');
+        game.state.start('state8');
         lives = 3;
     }
     

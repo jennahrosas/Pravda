@@ -16,7 +16,7 @@ demo.state8.prototype = {
         results = game.add.sprite(460,320,'rip')
         ripdetective = game.add.sprite(290,400,'deaddetective');
         
-        var riptext = game.add.text(150, 230, 'YOU WERE CAUGHT BY THE BAD GUY!', {fill: 'red'});
+        var riptext = game.add.text(150, 230, 'YOU ARE COVERED IN TOO MUCH OIL!', {fill: 'red'});
         riptext.font = 'Monaco', 'Monospace';
         riptext = game.add.text(330, 270, 'TRY AGAIN!', {fill: 'red'});
         riptext.font = 'Monaco', 'Monospace';
