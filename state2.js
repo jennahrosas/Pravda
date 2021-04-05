@@ -124,8 +124,8 @@ demo.state2.prototype = {
             alive[4] = false;
         }
     },
-    hitDetective: function() {
-        bullet.kill();
+    hitDetective: function(obj1,round) {
+        round.destroy();
         lives -= 1;
         livesArray[lives] = game.add.sprite(10+75*lives, 0, 'lostLife');
         if (lives == 0){

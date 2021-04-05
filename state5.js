@@ -62,8 +62,6 @@ demo.state5.prototype = {
         
     },
     update: function(){
-
-        console.log('changed counter');
         //winning timer check
         if (game.time.now == timeToWin) {
             console.log ('you win');
