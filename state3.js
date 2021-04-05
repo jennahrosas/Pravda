@@ -10,8 +10,8 @@ demo.state3.prototype = {
         game.load.image('minigamecontrols','assets/sprites/minigamecontrols.png',256,256);
     },
     create: function(){
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.world.setBounds(0,0,640,640);
+        //game.physics.startSystem(Phaser.Physics.ARCADE);
+        //game.world.setBounds(0,0,640,640);
         game.stage.backgroundColor = '#000000';
         console.log('state3');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;

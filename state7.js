@@ -8,6 +8,7 @@ demo.state7.prototype = {
     create: function(){
         //game.physics.startSystem(Phaser.Physics.ARCADE);
         //game.world.setBounds(0,0,640,640);
+        music.pause();
         game.stage.backgroundColor = '#000000';
         console.log('state7');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;

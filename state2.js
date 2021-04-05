@@ -58,7 +58,7 @@ demo.state2.prototype = {
     },
     update: function(){
         if(badGuyGroup.countLiving()==0){
-            game.state.start('state1');
+            game.state.start('state0');
         }
         badGuyGroup.y += badGuySpeed;
         this.fire(false)

@@ -10,6 +10,7 @@ demo.state1.prototype = {
         game.load.spritesheet('pravda','assets/spritesheets/pizzeriadetective1.png',256,256);
         game.load.spritesheet('cluetwo', 'assets/spritesheets/cluetwo.png', 128, 128);
         game.load.spritesheet('pazzoli man', 'assets/spritesheets/pazzoliman3.png', 256, 256);
+        game.load.audio('pizzeria','assets/audio/pizzeria.mp3');
     },
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -53,6 +54,13 @@ demo.state1.prototype = {
         cluetwo.scale.setTo(1);
         cluetwo.inputEnabled = true;
         cluetwo.events.onInputDown.add(clueClick,{clueNum:1});
+        
+        //add music
+        music.pause();
+        parlorMusic = game.add.audio('pizzeria');
+        parlorMusic.play();
+        parlorMusic.volume=.3;
+        console.log(parlorMusic.volume);
 
         
         

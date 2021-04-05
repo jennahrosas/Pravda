@@ -17,9 +17,10 @@ var npc1Answers = [['Off 24th and Avenue O.',"Just to the northeast of the city.
 var sentence, currentLine, instructions, option1, option2, option3;
 var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
 var mapClicked=false,backpackClicked=false;
-var clueList=["A matchbox from a nearby pizzeria"];
+var clueList=["A matchbox from a nearby pizzeria","A handkerchief with the initials: D.F."];
 var clueClicked=[false];
 var clueText=[];
+var music;
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -119,7 +120,7 @@ demo.state0.prototype = {
         backpack.events.onInputDown.add(backpackClick, this);
         
         //add music
-        var music = game.add.audio('theme');
+        music = game.add.audio('theme');
         music.play();
         music.volume=.3;
         console.log(music.volume);
@@ -340,7 +341,7 @@ function backpackClick(){
         
         for(i=0;i<clueClicked.length;i++){
             if(clueClicked[i]){
-                clueList.push(game.add.text(game.camera.x+game.camera.width/2-160,game.camera.y+game.camera.height/2-150,clueList[i],{font:'15px Arial'}));
+                clueList.push(game.add.text(game.camera.x+game.camera.width/2-160,game.camera.y+game.camera.height/2-150+i*20,clueList[i],{font:'15px Arial'}));
             }
         }
     }
@@ -364,7 +365,13 @@ function clueClick(clueNum){
         clueText1.anchor.setTo(.5,.5);
         clueText2.anchor.setTo(.5,.5);
         clueClicked[this.clueNum]=true;
-        game.state.start('state6')
+        if (this.clueNum==0){
+            game.state.start('state6')
+        }
+        else if (this.clueNum==1){
+            game.state.start('state7')
+        }
+        
     }
     else{
         clueText1.alpha=0;
