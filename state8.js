@@ -5,8 +5,8 @@ demo.state8.prototype = {
         game.load.image('deaddetective', 'assets/sprites/deaddetective.png', 256,256);
     },
     create: function(){
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.world.setBounds(0,0,640,640);
+        //game.physics.startSystem(Phaser.Physics.ARCADE);
+        //game.world.setBounds(0,0,640,640);
         game.stage.backgroundColor = '#ffffff';
         console.log('state8');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
