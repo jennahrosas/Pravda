@@ -41,36 +41,23 @@ demo.state3.prototype = {
         introtext.font = 'Monaco', 'Monospace'
         introtext.fontSize = '22px'
         
-        var controls = game.add.sprite(165, 280, 'controls');
+        var controls = game.add.sprite(185, 280, 'controls');
         controls.scale.setTo(0.6);
-        var eInteract = game.add.sprite(165, 370, 'eInteract');
+        var eInteract = game.add.sprite(420, 260, 'eInteract');
         eInteract.scale.setTo(0.6);
-        var mouse = game.add.sprite(210, 510, 'mouse');
+        var mouse = game.add.sprite(350, 440, 'mouse');
         mouse.scale.setTo(0.3);
-        var spacebar = game.add.sprite(490, 450, 'spacebar');
-        spacebar.scale.setTo(0.7);
-        var mgcontrols = game.add.sprite(500, 340, 'minigamecontrols');
-        mgcontrols.scale.setTo(0.6);
         
-        introtext = game.add.text(220, 395, 'MOVE',{fill:'#adde8a'});
+        introtext = game.add.text(240, 395, 'MOVE',{fill:'#adde8a'});
         introtext.fontSize = '20px';
         introtext.font = 'Monaco', 'Monospace';
-        introtext = game.add.text(150, 490, 'INTERACT W/ NPCs',{fill:'#adde8a'});
+        introtext = game.add.text(410, 395, 'INTERACT W/ NPCs',{fill:'#adde8a'});
         introtext.fontSize = '20px';
         introtext.font = 'Monaco', 'Monospace';
-        introtext = game.add.text(130, 575, 'PICK UP CLUES + OPEN',{fill:'#adde8a'});
+        introtext = game.add.text(270, 525, 'PICK UP CLUES + OPEN',{fill:'#adde8a'});
         introtext.fontSize = '20px';
         introtext.font = 'Monaco', 'Monospace';
-        introtext = game.add.text(155, 600, 'BACKPACK AND MAP',{fill:'#adde8a'});
-        introtext.fontSize = '20px';
-        introtext.font = 'Monaco', 'Monospace';
-        introtext = game.add.text(500, 320, 'FOR MINI GAME:',{fill:'#ebac65'});
-        introtext.fontSize = '20px';
-        introtext.font = 'Monaco', 'Monospace';
-        introtext = game.add.text(555, 455, 'MOVE',{fill:'#ebac65'});
-        introtext.fontSize = '20px';
-        introtext.font = 'Monaco', 'Monospace';
-        introtext = game.add.text(550, 555, 'SHOOT',{fill:'#ebac65'});
+        introtext = game.add.text(295, 550, 'BACKPACK AND MAP',{fill:'#adde8a'});
         introtext.fontSize = '20px';
         introtext.font = 'Monaco', 'Monospace';
         introtext = game.add.text(440, 700, 'PRESS ENTER TO START!',{fill:'#ffffff'});
