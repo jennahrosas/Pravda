@@ -16,16 +16,16 @@ demo.state6.prototype = {
         var minigametext = game.add.text(230, 100, 'DETECTIVE PRAVDA!',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '30px'
-        minigametext = game.add.text(248, 150, 'YOU FOUND A NEW CLUE!',{fill:'#ffffff'});
+        minigametext = game.add.text(248, 160, 'YOU FOUND A NEW CLUE!',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '22px'
-        minigametext = game.add.text(75, 300, 'IN ORDER TO ADD THIS CLUE TO YOUR BACKPACK, YOU',{fill:'#ffffff'});
+        minigametext = game.add.text(75, 310, 'IN ORDER TO ADD THIS CLUE TO YOUR BACKPACK, YOU',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '22px'
-        minigametext = game.add.text(135, 330, 'NEED TO DEFEAT THE BAD GUYS INA GUN BATTLE.',{fill:'#ffffff'});
+        minigametext = game.add.text(135, 340, 'NEED TO DEFEAT THE BAD GUYS INA GUN BATTLE.',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '22px'
-        minigametext = game.add.text(320, 360, 'GOOD LUCK!',{fill:'#ffffff'});
+        minigametext = game.add.text(320, 370, 'GOOD LUCK!',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '22px'
         
@@ -33,14 +33,8 @@ demo.state6.prototype = {
         spacebar.scale.setTo(0.7);
         var mgcontrols = game.add.sprite(200, 450, 'minigamecontrols');
         mgcontrols.scale.setTo(0.6);
-        if (clueone.events.onInputDown.add(clueClick,{clueNum:0})){
-            var clue = game.add.sprite(340, 190, 'clueone');
-            clue.scale.setTo(0.9);
-        }
-        else if (clueone.events.onInputDown.add(clueClick,{clueNum:1})){
-            var clue = game.add.sprite(340, 190, 'cluetwo');
-            clue.scale.setTo(0.9);
-        }
+        var clue = game.add.sprite(340, 200, 'clueone');
+        clue.scale.setTo(0.9);
         
         minigametext = game.add.text(255, 580, 'MOVE',{fill:'#ffffff'});
         minigametext.fontSize = '20px';
