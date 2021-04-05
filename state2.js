@@ -105,8 +105,8 @@ demo.state2.prototype = {
         }
     },
     
-    hitGroup: function(e) {
-        bullet.kill();
+    hitGroup: function(e,round) {
+        round.kill();
         e.kill();
         if (e.x == 475) {
             alive[0] = false;
