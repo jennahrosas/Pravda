@@ -1,10 +1,9 @@
-var currentTime;
-var slickTimer;
+var movement = 1;
+var yPos;
 var oils;
 var i = 0;
 var lives = 3;
-var timeToWin;
-var timer, timerEvent, text;
+var timeToWin, timer, timerEvent, text, currentTime, slickTimer;
 demo.state5 = function(){};
 demo.state5.prototype = {
     preload: function(){
@@ -92,13 +91,24 @@ demo.state5.prototype = {
             slickTimer = game.time.now;
         }
         //detective movement
-        if(game.input.keyboard.isDown(Phaser.Keyboard.W) && detective.y>250 && game.time.now>currentTime+150){
-            detective.y-=160;
+        if(game.input.keyboard.isDown(Phaser.Keyboard.W) && detective.y>250 && game.time.now>currentTime+150 && movement == 1){
+            movement = 0;
+            yPos = detective.y - 160;
             currentTime=game.time.now;
         }
-        else if(game.input.keyboard.isDown(Phaser.Keyboard.S) && detective.y<550 && game.time.now>currentTime+150){
-            detective.y+=160 ;
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.S) && detective.y<550 && game.time.now>currentTime+150 && movement == 1){
+            yPos = detective.y + 160;
+            movement = 2;
             currentTime=game.time.now;
+        }
+        if (movement == 0 && detective.y > yPos) {
+            detective.y -= 10;
+        }
+        else if (movement == 2 && detective.y < yPos) {
+            detective.y += 10;
+        }
+        if (detective.y == yPos) {
+            movement = 1;
         }
         //collision detector currently bugged always calling for some reason
         //game.physics.arcade.overlap(detective, oils, this.collisionHandler());
