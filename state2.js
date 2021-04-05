@@ -25,7 +25,7 @@ demo.state2.prototype = {
     },
     create: function(){
         game.stage.backgroundColor = '#808080';
-
+        console.log('state2');
         detective = game.add.sprite(100, 400, 'detective');
         detective.anchor.setTo(0.5);
         detective.scale.setTo(0.4);
