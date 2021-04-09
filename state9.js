@@ -10,6 +10,8 @@ demo.state9.prototype = {
     create: function(){
         console.log('state9');;
         
+        //add background
+        game.add.sprite(0,0,"background");
         //add bullet count
         game.physics.startSystem(Phaser.Physics.ARCADE);
         bulletsLeft = [game.add.sprite(0,0,"bullet"), game.add.sprite(0,20,"bullet"), game.add.sprite(0,40,"bullet"), game.add.sprite(0,60,"bullet"), game.add.sprite(0,80,"bullet"), game.add.sprite(0,100,"bullet")];
@@ -18,6 +20,8 @@ demo.state9.prototype = {
         scope = game.add.sprite(game.world.centerX, game.world.centerY, 'scope');
         scope.anchor.setTo(.5,.5);
         scope.scale.setTo(.15,.15);
+        
+        
     },
     update: function(){
         
@@ -25,7 +29,7 @@ demo.state9.prototype = {
      move: function(pointer, x, y, click){
 
         //  sprite movement
-        if (game.input.mouse.locked && !click)
+        if (1)
         {
             scope.x += game.input.mouse.event.movementX;
             scope.y += game.input.mouse.event.movementY;
