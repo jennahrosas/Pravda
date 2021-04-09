@@ -6,6 +6,7 @@ demo.state9.prototype = {
         game.load.image('box', 'assets/sprites/box.png');
         game.load.image('scope','assets/sprites/scope.png');
         game.load.image('background', 'assets/sprites/stripclubexterior2.png');
+        game.load.image('enemy','assets/sprites/badguystill.png')
     },
     create: function(){
         console.log('state9');;
@@ -20,20 +21,27 @@ demo.state9.prototype = {
         scope = game.add.sprite(game.world.centerX, game.world.centerY, 'scope');
         scope.anchor.setTo(.5,.5);
         scope.scale.setTo(.15,.15);
+        game.physics.enable(scope,Phaser.Physics.ARCADE);
+        //add sprites
+        enemy=game.add.sprite(game.world.centerX, game.world.centerY,'enemy');
+        enemy.anchor.setTo(.5,.5);
+        enemy.scale.setTo(.5,.5);
+        enemy.inputEnabled=true;
+        enemy.events.onInputDown.add(hitEnemy,this);
         
+        box=game.add.sprite(game.world.centerX, game.world.centerY,'box');
+        box.anchor.setTo(.5,.5);
+        box.scale.setTo(.3,.3);
+        
+        //box.scale.setTo(.3,.3);
         
     },
     update: function(){
-        
+        scope.x=game.input.x;
+        scope.y=game.input.y;
     },
-     move: function(pointer, x, y, click){
+}
 
-        //  sprite movement
-        if (1)
-        {
-            scope.x += game.input.mouse.event.movementX;
-            scope.y += game.input.mouse.event.movementY;
-        }
-
-    }
+function hitEnemy(){
+    console.log('hit');
 }
