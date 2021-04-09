@@ -6,7 +6,10 @@ demo.state9.prototype = {
         game.load.image('box', 'assets/sprites/box.png');
         game.load.image('scope','assets/sprites/scope.png');
         game.load.image('background', 'assets/sprites/stripclubexterior2.png');
-        game.load.image('enemy','assets/sprites/badguystill.png')
+        game.load.image('enemy','assets/sprites/badguystill.png');
+        game.load.image('taxi','assets/sprites/car2.png');
+        game.load.image('CAR','assets/sprites/car4.png');
+
     },
     create: function(){
         console.log('state9');;
