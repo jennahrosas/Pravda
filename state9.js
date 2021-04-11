@@ -11,6 +11,7 @@ demo.state9.prototype = {
         game.load.image('taxi','assets/sprites/car2.png');
         game.load.image('car','assets/sprites/car4.png');
         game.load.image('booth','assets/sprites/phonebooth.png');
+        game.load.audio('gunshot','assets/audio/sniper.mp3')
 
     },
     create: function(){
@@ -23,11 +24,7 @@ demo.state9.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         bulletsLeft = [game.add.sprite(0,0,"bullet"), game.add.sprite(0,20,"bullet"), game.add.sprite(0,40,"bullet"), game.add.sprite(0,60,"bullet"), game.add.sprite(0,80,"bullet"), game.add.sprite(0,100,"bullet")];
         
-        //adding scope
-        scope = game.add.sprite(game.world.centerX, game.world.centerY, 'scope');
-        scope.anchor.setTo(.5,.5);
-        scope.scale.setTo(.15,.15);
-        game.physics.enable(scope,Phaser.Physics.ARCADE);
+        
         //add sprites
         
         badGuyGroup = game.add.group();
@@ -60,13 +57,27 @@ demo.state9.prototype = {
         car=game.add.sprite(250, 500,'car');
         car.anchor.setTo(.5,.5);
         
+        //adding scope
+        scope = game.add.sprite(game.world.centerX, game.world.centerY, 'scope');
+        scope.anchor.setTo(.5,.5);
+        scope.scale.setTo(.15,.15);
+        game.physics.enable(scope,Phaser.Physics.ARCADE);
+        //add gunshot audio
+        gunshot=game.add.audio('gunshot');
     },
     update: function(){
         scope.x=game.input.x;
         scope.y=game.input.y;
+        game.input.onDown.addOnce(fired, this);
     },
 }
 
 function hitEnemy(){
     console.log('hit');
+    
+}
+
+function fired(){
+    gunshot.play();
+    //remove a bullet
 }
