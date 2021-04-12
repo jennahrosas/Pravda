@@ -1,4 +1,4 @@
-var scope, enemy, box, background,timer1=50,timer2=50,timer3=50,timer4=50;
+var scope, enemy, box, background, timers=[5000+Math.random()*5000, 5000+Math.random()*5000, 5000+Math.random()*5000, 5000+Math.random()*5000], direction = [-1,-1,-1,-1];
 demo.state9 = function(){};
 demo.state9.prototype = {
     preload: function(){
@@ -24,24 +24,37 @@ demo.state9.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         bulletsLeft = [game.add.sprite(0,0,"bullet"), game.add.sprite(0,20,"bullet"), game.add.sprite(0,40,"bullet"), game.add.sprite(0,60,"bullet"), game.add.sprite(0,80,"bullet"), game.add.sprite(0,100,"bullet")];
         
-        
         //add sprites
+        //adding scope
+        scope = game.add.sprite(game.world.centerX, game.world.centerY, 'scope');
+        scope.anchor.setTo(.5,.5);
+        scope.scale.setTo(.15,.15);
+        game.physics.enable(scope,Phaser.Physics.ARCADE);
+        //add sprites      
         
-        badGuyGroup = game.add.group();
-        badGuyGroup.enableBody = true;
-        badGuyGroup.physicsBodyType = Phaser.Physics.ARCADE;
-        badGuyGroup.create(760, 582, 'badguyhalf');
-        badGuyGroup.create(320, 582, 'badguyhalf');
-        badGuyGroup.create(875, 452, 'badguyhalf');
-        badGuyGroup.scale.setTo(.75,.75);
-        //badGuyGroup.anchor.setTo(.5,.5);
-
+        enemy1=game.add.sprite(120, 375,'enemy');
+        enemy1.anchor.setTo(.5,.5);
+        enemy1.scale.setTo(.75,.75);
+        enemy1.inputEnabled=true;
+        enemy1.events.onInputDown.add(hitEnemy,this);
         
-        enemy=game.add.sprite(120, 375,'enemy');
-        enemy.anchor.setTo(.5,.5);
-        enemy.scale.setTo(.75,.75);
-        enemy.inputEnabled=true;
-        enemy.events.onInputDown.add(hitEnemy,this);
+        enemy2=game.add.sprite(250, 490, 'badguyhalf');
+        enemy2.anchor.setTo(.5,.5);
+        enemy2.scale.setTo(.75,.75);
+        enemy2.inputEnabled=true;
+        enemy2.events.onInputDown.add(hitEnemy,this);
+        
+        enemy3=game.add.sprite(590, 490, 'badguyhalf');
+        enemy3.anchor.setTo(.5,.5);
+        enemy3.scale.setTo(.75,.75);
+        enemy3.inputEnabled=true;
+        enemy3.events.onInputDown.add(hitEnemy,this);
+        
+        enemy4=game.add.sprite(700, 395, 'badguyhalf');
+        enemy4.anchor.setTo(.5,.5);
+        enemy4.scale.setTo(.75,.75);
+        enemy4.inputEnabled=true;
+        enemy4.events.onInputDown.add(hitEnemy,this);
         
         box=game.add.sprite(700, 400,'box');
         box.anchor.setTo(.5,.5);
@@ -56,6 +69,7 @@ demo.state9.prototype = {
         
         car=game.add.sprite(250, 500,'car');
         car.anchor.setTo(.5,.5);
+        console.log(game.time.now);
         
         //adding scope
         scope = game.add.sprite(game.world.centerX, game.world.centerY, 'scope');
@@ -69,6 +83,98 @@ demo.state9.prototype = {
         scope.x=game.input.x;
         scope.y=game.input.y;
         game.input.onDown.addOnce(fired, this);
+        if (timers[0] < game.time.now){
+            if (enemy1.x > 50 && enemy1.x < 120){
+                    enemy1.x += direction[0];
+            }
+            else if (enemy1.x == 50){
+                if (direction[0] == 1){
+                    enemy1.x += direction[0];
+                }
+                else{
+                    direction[0] = 1;
+                    timers[0] = game.time.now + 2000 + 2000 * Math.random();
+                }
+            }
+            else{
+                if (direction[0] == -1){
+                    enemy1.x += direction[0];
+                }
+                else{
+                    direction[0] = -1;
+                    timers[0] = game.time.now + 3000 + 3000 * Math.random();
+                }
+            }
+        }
+        if (timers[1] < game.time.now){
+            if (enemy2.y > 400 && enemy2.y < 490){
+                    enemy2.y += direction[1];
+            }
+            else if (enemy2.y == 400){
+                if (direction[1] == 1){
+                    enemy2.y += direction[1];
+                }
+                else{
+                    direction[1] = 1;
+                    timers[1] = game.time.now + 2000 + 2000 * Math.random();
+                }
+            }
+            else{
+                if (direction[1] == -1){
+                    enemy2.y += direction[1];
+                }
+                else{
+                    direction[1] = -1;
+                    timers[1] = game.time.now + 3000 + 3000 * Math.random();
+                }
+            }
+        }
+        if (timers[2] < game.time.now){
+            if (enemy3.y > 400 && enemy3.y < 490){
+                    enemy3.y += direction[2]
+            }
+            else if (enemy3.y == 400){
+                if (direction[2] == 1){
+                    enemy3.y += direction[2];
+                }
+                else{
+                    direction[2] = 1;
+                    timers[2] = game.time.now + 2000 + 2000 * Math.random();
+                }
+            }
+            else{
+                if (direction[2] == -1){
+                    enemy3.y += direction[2];
+                }
+                else{
+                    direction[2] = -1;
+                    timers[2] = game.time.now + 3000 + 3000 * Math.random();
+                }
+            }
+        }
+        if (timers[3] < game.time.now){
+            if (enemy4.y > 305 && enemy4.y < 395){
+                    enemy4.y += direction[3]
+            }
+            else if (enemy4.y == 305){
+                if (direction[3] == 1){
+                    enemy4.y += direction[3];
+                }
+                else{
+                    direction[3] = 1;
+                    timers[3] = game.time.now + 2000 + 2000 * Math.random();
+                }
+            }
+            else{
+                if (direction[3] == -1){
+                    enemy4.y += direction[3];
+                }
+                else{
+                    direction[3] = -1;
+                    timers[3] = game.time.now + 3000 + 3000 * Math.random();
+                }
+            }
+        }
     },
 }
 
