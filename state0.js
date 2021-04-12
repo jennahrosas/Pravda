@@ -51,6 +51,7 @@ demo.state0.prototype = {
         game.load.image('car2','assets/sprites/car2.png');
         game.load.image('car3','assets/sprites/car3.png');
         game.load.image('car4','assets/sprites/car4.png');
+        game.load.spritesheet('badguy','assets/spritesheets/badguysheet.png',64,64)
         
     },
     create: function(){
@@ -179,6 +180,21 @@ demo.state0.prototype = {
         car4.body.checkCollision.up=false;
         car4.body.checkCollision.down=false;
         
+        
+        //add strip club bad guys
+        badguy=game.add.sprite(1700,1692,'badguy');
+        badguy.anchor.setTo(.5);
+        game.physics.enable(badguy);
+        badguy.enableBody = true;
+        badguy.physicsBodyType=Phaser.Physics.ARCADE;
+        badguy.body.collideWorldBounds=true;
+        
+        badguy.body.immovable=true;
+        
+        //npc blinking animation
+        badguy.animations.add('blink',[0,1,2]);
+        badguy.animations.play('blink',3,true);
+        
     },
     update: function(){
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
@@ -194,6 +210,9 @@ demo.state0.prototype = {
         
         //calls npc interaction handler
         game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc,plink))
+        
+        //calls npc interaction handler
+        game.physics.arcade.collide(detective,badguy,function(){if(clueClicked.length==2){game.state.start('state9')}})
         if (!conversation)
             {
                 if(game.input.keyboard.isDown(Phaser.Keyboard.A)){
@@ -338,6 +357,10 @@ function interactionHandler(detective,npc,sound){
                 option1.alpha=1;
                 option2.alpha=1;
                 option3.alpha=1;
+                instructions.fixedToCamera=true;
+                option1.fixedToCamera=true;
+                option2.fixedToCamera=true;
+                option3.fixedToCamera=true;
                 
                 //instructions.alpha =0;
                 //option1.alpha =0;

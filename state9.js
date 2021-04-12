@@ -204,7 +204,7 @@ function hitEnemy(obj){
         dead+=1
     }
     if(dead==4){
-        game.state.start('state0');
+        game.state.start('state12');
     }
 }
 function shot(){
