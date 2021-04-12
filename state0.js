@@ -21,6 +21,10 @@ var clueList=["A matchbox from a nearby pizzeria","A handkerchief with the initi
 var clueClicked=[false];
 var clueText=[];
 var music;
+var car1D=1;
+var car2D=-1;
+var car3D=1;
+var car4D=-1;
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -40,6 +44,10 @@ demo.state0.prototype = {
         game.load.image('streetSigns','assets/tilemaps/streetsignspritesheet.png');
         game.load.image('clueone','assets/sprites/clueonestill.png',99,112);
         game.load.spritesheet('clueoneplay', 'assets/spritesheets/clueone.png', 640,128)
+        game.load.image('car1','assets/sprites/car1.png');
+        game.load.image('car2','assets/sprites/car2.png');
+        game.load.image('car3','assets/sprites/car3.png');
+        game.load.image('car4','assets/sprites/car4.png');
         
     },
     create: function(){
@@ -69,6 +77,7 @@ demo.state0.prototype = {
         game.physics.enable(detective);
         detective.body.collideWorldBounds=true;
         detective.enableBody=true;
+        
         //animation for detective
         detective.animations.add('walk',[0,1,2,3,4,5,6])
         
@@ -132,11 +141,52 @@ demo.state0.prototype = {
         //add plink sound
         plink=game.add.audio('plink');
         
+        
+        //add cars
+        car1=game.add.sprite(60,600,'car1');
+        car1.anchor.setTo(.5);
+        car1.scale.setTo(.5,.5);
+        game.physics.enable(car1, Phaser.Physics.ARCADE);
+        car1.body.collideWorldBounds=true;
+        car1.body.checkCollision.up=false;
+        car1.body.checkCollision.down=false;
+        
+        car2=game.add.sprite(1000,450,'car2');
+        car2.anchor.setTo(.5);
+        car2.scale.setTo(.5*car2D,.5);
+        game.physics.enable(car2, Phaser.Physics.ARCADE);
+        car2.body.collideWorldBounds=true;
+        car2.body.checkCollision.up=false;
+        car2.body.checkCollision.down=false;
+        
+        car3=game.add.sprite(1000,1580,'car3');
+        car3.anchor.setTo(.5);
+        car3.scale.setTo(.5,.5);
+        game.physics.enable(car3, Phaser.Physics.ARCADE);
+        car3.body.collideWorldBounds=true;
+        car3.body.checkCollision.up=false;
+        car3.body.checkCollision.down=false;
+        
+        car4=game.add.sprite(1000,1150,'car4');
+        car4.anchor.setTo(.5);
+        car4.scale.setTo(.5,.5);
+        game.physics.enable(car4, Phaser.Physics.ARCADE);
+        car4.body.collideWorldBounds=true;
+        car4.body.checkCollision.up=false;
+        car4.body.checkCollision.down=false;
+        
     },
     update: function(){
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
+        
+        game.physics.arcade.collide(detective,car1,function(){console.log('working')})
+        game.physics.arcade.collide(detective,car2,function(){console.log('working')})
+        game.physics.arcade.collide(detective,car3,function(){console.log('working')})
+        game.physics.arcade.collide(detective,car4,function(){console.log('working')})
+        
+        
         
         //calls npc interaction handler
         game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc,plink))
@@ -191,8 +241,25 @@ demo.state0.prototype = {
                }
         }
 
-        //console.log(detective.x,detective.y);
-
+        //car1 movement
+        car1.body.velocity.x=car1D*300;
+        car1.body.onWorldBounds=new Phaser.Signal();
+        car1.body.onWorldBounds.add(function(){car1D=car1D*-1;car1.scale.setTo(car1D*.5,.5)})
+        
+        //car2 movement
+        car2.body.velocity.x=car2D*400;
+        car2.body.onWorldBounds=new Phaser.Signal();
+        car2.body.onWorldBounds.add(function(){car2D=car2D*-1;car2.scale.setTo(car2D*.5,.5)})
+        
+        //car3 movement
+        car3.body.velocity.x=car3D*350;
+        car3.body.onWorldBounds=new Phaser.Signal();
+        car3.body.onWorldBounds.add(function(){car3D=car3D*-1;car3.scale.setTo(car3D*.5,.5)})
+        
+        //car4 movement
+        car4.body.velocity.x=car4D*325;
+        car4.body.onWorldBounds=new Phaser.Signal();
+        car4.body.onWorldBounds.add(function(){car4D=car4D*-1;car4.scale.setTo(car4D*.5,.5)})
     },
     
 
@@ -310,6 +377,7 @@ function displayResponse(npc,option){
     spellOutText(0,400,700,npc1Answers[option-1][Math.floor(Math.random() * 2)],30,20,'#ffffff');
 }
 function citymapClick(){
+    console.log(detective.x,detective.y);
     var ratioX = detective.x/2550;
     var ratioY = detective.y/2550;
     console.log(game.camera.width,game.camera.height);
@@ -337,7 +405,7 @@ function backpackClick(){
         backpackList = game.add.image(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2,'notes')
         backpackList.scale.setTo(2,2)
         backpackList.anchor.setTo(.5);
-        backpackClicked=true;
+        backpackClicked=true;a
         
         for(i=0;i<clueClicked.length;i++){
             if(clueClicked[i]){
@@ -379,4 +447,8 @@ function clueClick(clueNum){
         foundClueOne.destroy();
     }
      
+}
+
+function addRandomCar(){
+    
 }
