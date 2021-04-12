@@ -2,6 +2,8 @@
 var centerX=640/2
 var centerY=640/2
 var detective;
+var x;
+var y;
 var velocity = 4;
 demo.state1 = function(){};
 demo.state1.prototype = {
@@ -70,7 +72,12 @@ demo.state1.prototype = {
             detective.scale.setTo(-1,1);
             detective.body.velocity.x = -speed;
             detective.animations.play('walk',20,true);
-            
+            if (detective.x < 130){
+                game.state.start('state0');
+                parlorMusic.pause();
+            }
+        x = detective.x;
+        y = detective.y;
         }
         
         else if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
