@@ -42,6 +42,7 @@ demo.state0.prototype = {
         game.load.image('Roads','assets/tilemaps/road.png');
         game.load.image('Pizza','assets/tilemaps/pizza.png');
         game.load.image('streetSigns','assets/tilemaps/streetsignspritesheet.png');
+        game.load.image('club','assets/tilemaps/club.png');
         game.load.image('clueone','assets/sprites/clueonestill.png',99,112);
         game.load.spritesheet('clueoneplay', 'assets/spritesheets/clueone.png', 640,128)
         game.load.image('car1','assets/sprites/car1.png');
@@ -62,6 +63,7 @@ demo.state0.prototype = {
         map.addTilesetImage('Roads');
         map.addTilesetImage('streetSigns');
         map.addTilesetImage('Pizza');
+        map.addTilesetImage('club');
         var RoadsLayer = map.createLayer('RoadsLayer');
         Buildings = map.createLayer('Buildings'); 
         PizzaLayer =map.createLayer('PizzaLayer');
@@ -69,6 +71,7 @@ demo.state0.prototype = {
         Buildings.resizeWorld();
         map.setCollision(3,true,'Buildings');
         map.setCollision(7,true,'PizzaLayer');
+        map.setCollision(32,true,'PizzaLayer');
         
         //adding in detective sprite
         detective=game.add.sprite(500,600,'diego');
