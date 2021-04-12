@@ -19,17 +19,17 @@ demo.state7.prototype = {
         minigametext = game.add.text(248, 160, 'YOU FOUND A NEW CLUE!',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '22px'
-        minigametext = game.add.text(75, 310, 'IN ORDER TO ADD THIS CLUE TO YOUR BACKPACK, YOU NEED',{fill:'#ffffff'});
+        minigametext = game.add.text(65, 310, 'IN ORDER TO ADD THIS CLUE TO YOUR BACKPACK, YOU NEED',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '22px'
-        minigametext = game.add.text(75, 340, 'TO AVOID THE OIL SPILLS IN THE STREETS OF NEW YORK CITY',{fill:'#ffffff'});
+        minigametext = game.add.text(45, 340, 'TO AVOID THE OIL SPILLS IN THE STREETS OF NEW YORK CITY',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '22px'
         minigametext = game.add.text(170, 370, 'FOR 30 SECONDS TO WIN! GOOD LUCK!',{fill:'#ffffff'});
         minigametext.font = 'Monaco', 'Monospace'
         minigametext.fontSize = '22px'
         
-        var mgcontrols = game.add.sprite(310, 450, 'minigamecontrols');
+        var mgcontrols = game.add.sprite(315, 450, 'minigamecontrols');
         mgcontrols.scale.setTo(0.6);
         //if clueClick
         var clue = game.add.sprite(340, 200, 'cluetwo');
@@ -38,7 +38,7 @@ demo.state7.prototype = {
         clue.frame = 4
         clue.scale.setTo(0.7);
         
-        minigametext = game.add.text(365, 580, 'MOVE',{fill:'#ffffff'});
+        minigametext = game.add.text(370, 580, 'MOVE',{fill:'#ffffff'});
         minigametext.fontSize = '20px';
         minigametext.font = 'Monaco', 'Monospace';
         minigametext = game.add.text(440, 700, 'PRESS ENTER TO START!',{fill:'#ffffff'});
