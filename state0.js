@@ -274,8 +274,6 @@ demo.state0.prototype = {
             detectiveMap.x=200+ratioX*400;
             detectiveMap.y=200+ratioY*400;
             detectiveMap.fixedToCamera=true;
-            console.log(detectiveMap.x,detectiveMap.y);
-            
         }
 
     }
