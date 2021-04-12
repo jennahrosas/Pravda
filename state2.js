@@ -14,6 +14,7 @@ var badGuySpeed = 2;
 var alive = [true,true,true,true,true];
 var lives = 3;
 
+
 demo.state2 = function(){};
 demo.state2.prototype = {
     preload: function(){
@@ -22,6 +23,7 @@ demo.state2.prototype = {
         game.load.image('bullet', 'assets/sprites/bullet.png');
         game.load.image('life', 'assets/sprites/life.png');
         game.load.image('lostLife', 'assets/sprites/lostlife.png');
+        
     },
     create: function(){
         game.stage.backgroundColor = '#808080';
@@ -55,6 +57,9 @@ demo.state2.prototype = {
         badGuyGroup.setAll('anchor.x', 0.5);
         badGuyGroup.setAll('scale.x', 0.4);
         badGuyGroup.setAll('scale.y', 0.4);
+        //add minigame music
+        miniMusic.play();
+        miniMusic.volume=.3;
     },
     update: function(){
         if(badGuyGroup.countLiving()==0){
