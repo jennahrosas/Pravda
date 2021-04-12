@@ -25,6 +25,8 @@ var car1D=1;
 var car2D=-1;
 var car3D=1;
 var car4D=-1;
+var detectiveMap;
+var beginRender=false;
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -98,8 +100,6 @@ demo.state0.prototype = {
         clueone.inputEnabled = true;
         clueone.events.onInputDown.add(clueClick,{clueNum:0});
 
-
-
         
         
         //camera follow
@@ -125,6 +125,7 @@ demo.state0.prototype = {
         citymap.fixedToCamera = true;
         citymap.inputEnabled = true;
         citymap.events.onInputDown.add(citymapClick, this);
+
         backpack = game.add.sprite(620, 30, 'backpack');
         backpack.scale.setTo(.35,.35);
         backpack.fixedToCamera = true;
@@ -264,8 +265,20 @@ demo.state0.prototype = {
         car4.body.onWorldBounds=new Phaser.Signal();
         car4.body.onWorldBounds.add(function(){car4D=car4D*-1;car4.scale.setTo(car4D*.5,.5)})
     },
-    
+    render: function(){
+        var ratioX = detective.x/2550;
+        var ratioY = detective.y/2550;
+        //console.log(ratioX,ratioY);
+        if(beginRender){
+            //detectiveMap=game.add.sprite(400-200+ratioX*400,400-200+ratioY*400,'detective');
+            detectiveMap.x=200+ratioX*400;
+            detectiveMap.y=200+ratioY*400;
+            detectiveMap.fixedToCamera=true;
+            console.log(detectiveMap.x,detectiveMap.y);
+            
+        }
 
+    }
     
 };
 //function to spell out text across the screen
@@ -380,22 +393,27 @@ function displayResponse(npc,option){
     spellOutText(0,400,700,npc1Answers[option-1][Math.floor(Math.random() * 2)],30,20,'#ffffff');
 }
 function citymapClick(){
+    
     console.log(detective.x,detective.y);
     var ratioX = detective.x/2550;
     var ratioY = detective.y/2550;
-    console.log(game.camera.width,game.camera.height);
+    console.log('citymapclick');
     
     var zone=game
     if(!mapClicked && !backpackClicked){
-        minimap = game.add.image(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2,'citypng')
+        beginRender=true;
+        minimap=game.add.image(400,400,'citypng');
         minimap.scale.setTo(0.5,0.5)
         minimap.anchor.setTo(.5);
         mapClicked=true;
-        detectiveMap=game.add.sprite(game.camera.x+game.camera.width/2-200+ratioX*400,game.camera.y+game.camera.height/2-200+ratioY*400,'detective');
+        detectiveMap=game.add.sprite(400-200+ratioX*400,400-200+ratioY*400,'detective');
         detectiveMap.scale.setTo(.07);
         detectiveMap.anchor.setTo(.5);
+        minimap.fixedToCamera=true;
+        detectiveMap.fixedToCamera=true;
     }
     else{
+        beginRender=false;
         minimap.destroy();
         detectiveMap.destroy();
         mapClicked=false;
@@ -405,22 +423,24 @@ function citymapClick(){
 }
 function backpackClick(){
     if(!backpackClicked && !mapClicked){
-        backpackList = game.add.image(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2,'notes')
+        //backpackList = game.add.image(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2,'notes')
+        backpackList = game.add.image(400,400,'notes')
         backpackList.scale.setTo(2,2)
         backpackList.anchor.setTo(.5);
-        backpackClicked=true;a
-        
+        backpackClicked=true;
+        backpackList.fixedToCamera=true;
         for(i=0;i<clueClicked.length;i++){
             if(clueClicked[i]){
-                clueList.push(game.add.text(game.camera.x+game.camera.width/2-160,game.camera.y+game.camera.height/2-150+i*20,clueList[i],{font:'15px Arial'}));
+                clueText.push(game.add.text(400-160,400-150+i*20,clueList[i],{font:'15px Arial'}));
+                clueText[clueText.length-1].fixedToCamera=true;
             }
         }
     }
     else{
         backpackList.destroy();
         backpackClicked=false;
-        for(i=0;i<clueList.length;i++){
-            clueList[i].alpha=0;
+        for(i=0;i<clueText.length;i++){
+            clueText[i].alpha=0;
         }
     }
     
@@ -452,6 +472,6 @@ function clueClick(clueNum){
      
 }
 
-function addRandomCar(){
-    
+function temp(){
+    mapClicked=-1*mapClicked;
 }
