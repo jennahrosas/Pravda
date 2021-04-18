@@ -266,9 +266,10 @@ demo.state0.prototype = {
         }
         
         //removes dialouge text when away from npc
+        //need to fix
         if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>100){
             if(sentence && option1 && option2 && option3 && instructions){
-                //sentence.alpha=0;
+                sentence.alpha=0;
                 option1.alpha=0;
                 option2.alpha=0;
                 option3.alpha=0;
@@ -373,7 +374,7 @@ function interactionHandler(detective,npc,sound){
 
                     var loop = game.time.events.loop(speed*.1, addChar2)
                     var index=0;
-                    //var text = ['What do you want to ask?',"Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Why were you talking to the cops earlier?     ']
+
                     console.log(num);
                     var text=npcQuestions[num];
                     console.log(npcQuestions)
