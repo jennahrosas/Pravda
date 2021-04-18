@@ -60,6 +60,9 @@ demo.state5.prototype = {
         timer.start();
         
         parlorMusic.pause();
+        miniMusic = game.add.audio('miniMusic');
+        miniMusic.play();
+        miniMusic.volume=.3;
         
         
     },
@@ -128,7 +131,7 @@ demo.state5.prototype = {
     endTimer: function() {
         // Stop the timer when the delayed event triggers
         timer.stop();
-        game.state.start('state0');
+        game.state.start('state1');
     },
     
     formatTime: function(s) {

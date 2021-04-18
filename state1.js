@@ -5,6 +5,7 @@ var detective;
 var x;
 var y;
 var velocity = 4;
+var parlorMusic;
 demo.state1 = function(){};
 demo.state1.prototype = {
     preload: function(){

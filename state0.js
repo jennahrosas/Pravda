@@ -12,8 +12,8 @@ var npc;
 var map;
 var Buildings;
 var conversation=false;
-var npc1Questions = ["Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Who are you, and why are were you talking to the cops earlier?'];
-var npc1Answers = [['Off 24th and Avenue O.',"Just to the northeast of the city. It's big and red, you can't miss it!"],['Some mob member was stabbed.',"I'm not sure. Ask the cops."],['I was just walking by. They wanted to know if I saw anything.', "I'm Gordon Mitchell, and the guy killed at the crime scene nearby was my cousin."]];
+var npcQuestions = [["What do you want to ask?","Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Who are you, and why are were you talking to the cops earlier?']];
+var npcAnswers = [[['Off 24th and Avenue O.',"Just to the northeast of the city. It's big and red, you can't miss it!"],['Some mob member was stabbed.',"I'm not sure. Ask the cops."],['I was just walking by. They wanted to know if I saw anything.', "I'm Gordon Mitchell, and the guy killed at the crime scene nearby was my cousin."]],[['Get lost.','Clubs closed']]];
 var sentence, currentLine, instructions, option1, option2, option3;
 var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
 var mapClicked=false,backpackClicked=false;
@@ -201,6 +201,8 @@ demo.state0.prototype = {
         
     },
     update: function(){
+        game.physics.arcade.collide(detective,npc)
+        game.physics.arcade.collide(detective,badguy)
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
@@ -213,8 +215,14 @@ demo.state0.prototype = {
         
         
         //calls npc interaction handler
-        game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc,plink))
-        
+        //game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc,plink))
+        if (Math.abs(detective.x-npc.x)<50 && Math.abs(detective.y-npc.y)<50){
+            interactionHandler(detective,npc,plink);
+        }
+        //response for strip club guy
+        if (Math.abs(detective.x-badguy.x)<50 && Math.abs(detective.y-badguy.y)<50){
+            interactionHandler(detective,badguy,plink);
+        }
         //calls npc interaction handler
         game.physics.arcade.collide(detective,badguy,function(){if(clueClicked.length==2){game.state.start('state9')}})
         if (!conversation)
@@ -257,9 +265,10 @@ demo.state0.prototype = {
             detective.body.velocity.x=0
         }
         
+        //removes dialouge text when away from npc
         if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>100){
             if(sentence && option1 && option2 && option3 && instructions){
-                sentence.alpha=0;
+                //sentence.alpha=0;
                 option1.alpha=0;
                 option2.alpha=0;
                 option3.alpha=0;
@@ -303,12 +312,14 @@ demo.state0.prototype = {
     
 };
 //function to spell out text across the screen
+
 function spellOutText(x,y,width,text,fontSize,speed, fill, font){
     if (sentence != null) {
         sentence.destroy();
     }
     sentence = game.add.text(x,y,'',{fontsize: fontSize+'px', fill:fill, font:font});
     sentence.alpha=1;
+    sentence.fixedToCamera=true;
     var currentLine = game.add.text(10,10,'',{fontsize: fontSize+'px', font:font});
     currentLine.alpha =0;
     var loop = game.time.events.loop(speed, addChar)
@@ -329,13 +340,7 @@ function spellOutText(x,y,width,text,fontSize,speed, fill, font){
         }
         index++;
     }
-    if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>100){
-        if(currentLine && sentence){
-            sentence.alpha=0;
-            currentLine.alpha=0;
-            //counter=0;
-           }
-    }
+    return sentence;
     
 }
 
@@ -344,79 +349,80 @@ function spellOutText(x,y,width,text,fontSize,speed, fill, font){
 var counter=0;
 var choice = 0;
 function interactionHandler(detective,npc,sound){
-    
-    if(Math.abs(detective.x-npc.x)<50 && Math.abs(detective.y-npc.y)<100){
-            if(game.input.keyboard.isDown(Phaser.Keyboard.E) && counter<1){
+    if(game.input.keyboard.isDown(Phaser.Keyboard.E) && counter<1){
                 console.log('interaction handler running')   
-                
                 counter++;
                 conversation=true;
-                //await sleep(3000);
                 console.log('checking');
-                instructions = game.add.text(0,600,'',{fontsize:'20px', fill: '#ffffff'});
-                instructions.alpha=1;
-                option1 = game.add.text(0,630,'',{fontsize: '20px',fill: '#ffffff'})
-                option2 = game.add.text(0,660,'',{fontsize: '20px',fill: '#ffffff'})
-                option3 = game.add.text(0, 690, '', {fontsize: '20px',fill: '#ffffff'})
-                option1.alpha=1;
-                option2.alpha=1;
-                option3.alpha=1;
-                instructions.fixedToCamera=true;
-                option1.fixedToCamera=true;
-                option2.fixedToCamera=true;
-                option3.fixedToCamera=true;
-                
-                //instructions.alpha =0;
-                //option1.alpha =0;
-                //option2.alpha =0;
-                //option3.alpha =0;
-                var loop = game.time.events.loop(speed*.1, addChar2)
-                var index=0;
-                var text = ['What do you want to ask?',"Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Why were you talking to the cops earlier?     ']
-                function addChar2()
-                {
-                    if (index <text[0].length){
-                        instructions.text+=text[0][index];
+                var num = whichNPC(npc);
+                console.log(num);
+                //if character is meant to ask questions
+                if(num==0){
+                    instructions = game.add.text(0,600,'',{fontsize:'20px', fill: '#ffffff'});
+                    instructions.alpha=1;
+                    instructions.fixedToCamera=true;
+                    option1 = game.add.text(0,630,'',{fontsize: '20px',fill: '#ffffff'})
+                    option2 = game.add.text(0,660,'',{fontsize: '20px',fill: '#ffffff'})
+                    option3 = game.add.text(0, 690, '', {fontsize: '20px',fill: '#ffffff'})
+                    option1.fixedToCamera=true;
+                    option2.fixedToCamera=true;
+                    option3.fixedToCamera=true;
+                    option1.alpha=1;
+                    option2.alpha=1;
+                    option3.alpha=1;
+
+                    var loop = game.time.events.loop(speed*.1, addChar2)
+                    var index=0;
+                    //var text = ['What do you want to ask?',"Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Why were you talking to the cops earlier?     ']
+                    console.log(num);
+                    var text=npcQuestions[num];
+                    console.log(npcQuestions)
+                    console.log(text);
+                    function addChar2()
+                    {
+                        if (index <text[0].length){
+                            instructions.text+=text[0][index];
+                        }
+                        else if (index <text[0].length  + text[1].length){
+                            option1.text+=text[1][index - text[0].length];
+                        }
+                        else if (index < text[0].length  + text[1].length + text[2].length){
+                            option2.text+=text[2][index - text[1].length - text[0].length];
+                        }
+                        else{
+                            option3.text+=text[3][index - text[0].length - text[1].length - text[2].length];
+                        }
+                        //option1.text+=text[1][index];
+                        //option2.text+=text[2][index];
+                        //option3.text+=text[3][index];
+                        //if(instructions.width>600 && text[index]==' '){
+                        //    instructions.text+='\n';
+                        //    instructions.text=' ';
+                        //}
+                        if(index>=text[0].length + text[1].length + text[2].length + text[3].length- 4){
+                            //end = true
+                            game.time.events.remove(loop);
+                            console.log('stop');
+                            //conversation = false;
+                        }
+                        index++;
                     }
-                    else if (index <text[0].length  + text[1].length){
-                        option1.text+=text[1][index - text[0].length];
-                    }
-                    else if (index < text[0].length  + text[1].length + text[2].length){
-                        option2.text+=text[2][index - text[1].length - text[0].length];
-                    }
-                    else{
-                        option3.text+=text[3][index - text[0].length - text[1].length - text[2].length];
-                    }
-                    //option1.text+=text[1][index];
-                    //option2.text+=text[2][index];
-                    //option3.text+=text[3][index];
-                    //if(instructions.width>600 && text[index]==' '){
-                    //    instructions.text+='\n';
-                    //    instructions.text=' ';
-                    //}
-                    if(index>=text[0].length + text[1].length + text[2].length + text[3].length- 4){
-                        //end = true
-                        game.time.events.remove(loop);
-                        console.log('stop');
-                        //conversation = false;
-                    }
-                    index++;
+                    
+                    option1.inputEnabled=true;
+                    option2.inputEnabled=true;
+                    option3.inputEnabled=true;
+                    option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play(); option2.clearColors(); option3.clearColors(); spellOutText(0,400,700,npcAnswers[num][0][Math.floor(Math.random() * 2)],30,20,'#ffffff');});
+                    option2.events.onInputDown.add(function(){option2.addColor('#ff0000',0); sound.play(); option1.clearColors(); option3.clearColors(); spellOutText(0,400,700,npcAnswers[num][1][Math.floor(Math.random() * 2)],30,20,'#ffffff');});
+                    option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play(); option1.clearColors(); option2.clearColors(); spellOutText(0,400,700,npcAnswers[num][2][Math.floor(Math.random() * 2)],30,20,'#ffffff');});
                 }
-                option1.inputEnabled=true;
-                option2.inputEnabled=true;
-                option3.inputEnabled=true;
-                option1.events.onInputDown.add(function(){option1.addColor('#ff0000',0); sound.play(); option2.clearColors(); option3.clearColors(); displayResponse(npc,1)});
-                option2.events.onInputDown.add(function(){option2.addColor('#ff0000',0); sound.play(); option1.clearColors(); option3.clearColors(); displayResponse(npc,2)});
-                option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play(); option1.clearColors(); option2.clearColors(); displayResponse(npc,3)});
+            else{
+                spellOutText(0,400,700,npcAnswers[num][0][Math.floor(Math.random() * 2)],30,20,'#ffffff');
             }
-    }  
+                
+        }
     
 }
 
-function displayResponse(npc,option){
-    console.log('ran');
-    spellOutText(0,400,700,npc1Answers[option-1][Math.floor(Math.random() * 2)],30,20,'#ffffff');
-}
 function citymapClick(){
     
     console.log(detective.x,detective.y);
@@ -496,7 +502,11 @@ function clueClick(clueNum){
     }
      
 }
-
-function temp(){
-    mapClicked=-1*mapClicked;
+function whichNPC(character){
+    if (character.x==60  && character.y==70){
+        return 0;
+    }
+    else if (character.x==1700 && character.y==1692){
+        return 1;
+    }
 }
