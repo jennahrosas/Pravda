@@ -96,6 +96,7 @@ demo.state9.prototype = {
         game.physics.enable(scope,Phaser.Physics.ARCADE);
         //add gunshot audio
         gunshot=game.add.audio('gunshot');
+        gunshot.volume=.5;
     },
     update: function(){
         scope.x=game.input.x;
@@ -208,6 +209,7 @@ function hitEnemy(obj){
     }
 }
 function shot(){
+    gunshot.play();
     bulletsLeft[shots].destroy();
     shots-=1
     if(shots==0){
