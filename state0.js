@@ -28,6 +28,7 @@ var car4D=-1;
 var detectiveMap;
 var beginRender=false;
 var miniMusic;
+var badguy;
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -192,8 +193,31 @@ demo.state0.prototype = {
         badguy.enableBody = true;
         badguy.physicsBodyType=Phaser.Physics.ARCADE;
         badguy.body.collideWorldBounds=true;
-        
         badguy.body.immovable=true;
+        
+        badguy2=game.add.sprite(1820,1692,'badguy');
+        badguy2.anchor.setTo(.5);
+        game.physics.enable(badguy2);
+        badguy2.enableBody = true;
+        badguy2.physicsBodyType=Phaser.Physics.ARCADE;
+        badguy2.body.collideWorldBounds=true;
+        badguy2.body.immovable=true;
+        
+        badguy3=game.add.sprite(1700,2033,'badguy');
+        badguy3.anchor.setTo(.5);
+        game.physics.enable(badguy3);
+        badguy3.enableBody = true;
+        badguy3.physicsBodyType=Phaser.Physics.ARCADE;
+        badguy3.body.collideWorldBounds=true;  
+        badguy3.body.immovable=true;
+        
+        badguy4=game.add.sprite(1820,2033,'badguy');
+        badguy4.anchor.setTo(.5);
+        game.physics.enable(badguy4);
+        badguy4.enableBody = true;
+        badguy4.physicsBodyType=Phaser.Physics.ARCADE;
+        badguy4.body.collideWorldBounds=true;  
+        badguy4.body.immovable=true;
         
         //npc blinking animation
         badguy.animations.add('blink',[0,1,2]);
@@ -203,6 +227,9 @@ demo.state0.prototype = {
     update: function(){
         game.physics.arcade.collide(detective,npc)
         game.physics.arcade.collide(detective,badguy)
+        game.physics.arcade.collide(detective,badguy2)
+        game.physics.arcade.collide(detective,badguy3)
+        game.physics.arcade.collide(detective,badguy4)
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
@@ -221,6 +248,18 @@ demo.state0.prototype = {
         }
         //response for strip club guy
         if (Math.abs(detective.x-badguy.x)<50 && Math.abs(detective.y-badguy.y)<50){
+            interactionHandler(detective,badguy,plink);
+        }
+        
+        if (Math.abs(detective.x-badguy2.x)<50 && Math.abs(detective.y-badguy2.y)<50){
+            interactionHandler(detective,badguy,plink);
+        }
+        
+        if (Math.abs(detective.x-badguy3.x)<50 && Math.abs(detective.y-badguy3.y)<50){
+            interactionHandler(detective,badguy,plink);
+        }
+        
+        if (Math.abs(detective.x-badguy4.x)<50 && Math.abs(detective.y-badguy4.y)<50){
             interactionHandler(detective,badguy,plink);
         }
         //calls npc interaction handler
@@ -301,6 +340,8 @@ demo.state0.prototype = {
     render: function(){
         var ratioX = detective.x/2550;
         var ratioY = detective.y/2550;
+        
+        
         //console.log(ratioX,ratioY);
         if(beginRender){
             //detectiveMap=game.add.sprite(400-200+ratioX*400,400-200+ratioY*400,'detective');
@@ -441,13 +482,38 @@ function citymapClick(){
         detectiveMap=game.add.sprite(400-200+ratioX*400,400-200+ratioY*400,'detective');
         detectiveMap.scale.setTo(.07);
         detectiveMap.anchor.setTo(.5);
+        npcMap=game.add.sprite(200+npc.x*400/2550,200+npc.y*400/2550,'npc');
+        npcMap.scale.setTo(.3);
+        npcMap.anchor.setTo(.5);
+        npcMap2=game.add.sprite(200+badguy.x*400/2550,200+badguy.y*400/2550,'badguy');
+        npcMap2.scale.setTo(.3);
+        npcMap2.anchor.setTo(.5);
+        npcMap3=game.add.sprite(200+badguy2.x*400/2550,200+badguy2.y*400/2550,'badguy');
+        npcMap3.scale.setTo(.3);
+        npcMap3.anchor.setTo(.5);
+        npcMap4=game.add.sprite(200+badguy3.x*400/2550,200+badguy3.y*400/2550,'badguy');
+        npcMap4.scale.setTo(.3);
+        npcMap4.anchor.setTo(.5);
+        npcMap5=game.add.sprite(200+badguy4.x*400/2550,200+badguy4.y*400/2550,'badguy');
+        npcMap5.scale.setTo(.3);
+        npcMap5.anchor.setTo(.5);
         minimap.fixedToCamera=true;
         detectiveMap.fixedToCamera=true;
+        npcMap.fixedToCamera=true;
+        npcMap2.fixedToCamera=true;
+        npcMap3.fixedToCamera=true;
+        npcMap4.fixedToCamera=true;
+        npcMap5.fixedToCamera=true;
     }
     else{
         beginRender=false;
         minimap.destroy();
         detectiveMap.destroy();
+        npcMap.destroy();
+        npcMap2.destroy();
+        npcMap3.destroy();
+        npcMap4.destroy();
+        npcMap5.destroy();
         mapClicked=false;
         
     }
@@ -507,7 +573,7 @@ function whichNPC(character){
     if (character.x==60  && character.y==70){
         return 0;
     }
-    else if (character.x==1700 && character.y==1692){
+    else if (character.x==1700 || character.x==1820){
         return 1;
     }
 }
