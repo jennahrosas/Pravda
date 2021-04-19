@@ -60,7 +60,6 @@ demo.state5.prototype = {
         timer.start();
         
         parlorMusic.pause();
-        miniMusic = game.add.audio('miniMusic');
         miniMusic.play();
         miniMusic.volume=.3;
         

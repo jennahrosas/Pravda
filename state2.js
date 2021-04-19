@@ -60,6 +60,8 @@ demo.state2.prototype = {
         //add minigame music
         miniMusic.play();
         miniMusic.volume=.3;
+        
+        lastState=1;
     },
     update: function(){
         if(badGuyGroup.countLiving()==0){

@@ -24,6 +24,8 @@ demo.state8.prototype = {
         riptext = game.add.text(500, 700, 'PRESS ENTER TO TRY AGAIN!', {fill: 'red'});
         riptext.font = 'Monaco', 'Monospace';
         riptext.fontSize = '18px'
+        
+        miniMusic.pause();
     },
     update: function(){
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){

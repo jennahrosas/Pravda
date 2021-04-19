@@ -65,7 +65,7 @@ demo.state1.prototype = {
         parlorMusic.volume=.3;
         console.log(parlorMusic.volume);
 
-        
+        lastState=2;
         
     },
     update: function(){
