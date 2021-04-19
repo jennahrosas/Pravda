@@ -23,14 +23,6 @@ demo.state1.prototype = {
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         
         var pizzeria=game.add.sprite(0,0,'pizzeria');
-        detective=game.add.sprite(10,270,'pravda');
-        detective.anchor.setTo(.5);
-        //detective.scale.setTo(1,1);
-        game.physics.enable(detective);
-        detective.body.collideWorldBounds=true;
-        detective.enableBody=true;
-        //animation for detective
-        detective.animations.add('walk',[0,1,2,3,4])
         
         game.camera.follow(detective);
         game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
@@ -42,6 +34,15 @@ demo.state1.prototype = {
         pazzoli.body.collideWorldBounds=true;
         
         pazzoli.body.immovable=true;
+        
+        detective=game.add.sprite(10,270,'pravda');
+        detective.anchor.setTo(.5);
+        //detective.scale.setTo(1,1);
+        game.physics.enable(detective);
+        detective.body.collideWorldBounds=true;
+        detective.enableBody=true;
+        //animation for detective
+        detective.animations.add('walk',[0,1,2,3,4])
         
         //npc blinking animation
         pazzoli.animations.add('blink',[0,1,2,3,4]);

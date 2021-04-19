@@ -12,20 +12,12 @@ demo.state12.prototype = {
     
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.world.setBounds(0,0,2000,640);
-        game.stage.backgroundColor = '#eeeeee';
+        game.world.setBounds(0,0,2304,512);
+        game.stage.backgroundColor = '#000000';
         console.log('state12');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         
         var bellarosa=game.add.sprite(0,0,'bellarosa');
-        detective=game.add.sprite(200,270,'pravda');
-        detective.anchor.setTo(.5);
-        //detective.scale.setTo(.8,.8);
-        game.physics.enable(detective);
-        detective.body.collideWorldBounds=true;
-        detective.enableBody=true;
-        //animation for detective
-        detective.animations.add('walk',[0,1,2,3,4])
         
         game.camera.follow(detective);
         game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
@@ -38,8 +30,20 @@ demo.state12.prototype = {
         mateo.enableBody = true;
         mateo.physicsBodyType=Phaser.Physics.ARCADE;
         mateo.body.collideWorldBounds=true;
-        
+        mateo.body.setSize(10,30,70);
         mateo.body.immovable=true;
+        
+        detective=game.add.sprite(400,270,'pravda');
+        detective.anchor.setTo(.5);
+        //detective.scale.setTo(.8,.8);
+        game.physics.enable(detective);
+        detective.body.collideWorldBounds=true;
+        detective.enableBody=true;
+        //animation for detective
+        detective.animations.add('walk',[0,1,2,3,4])
+        
+        game.camera.follow(detective);
+        game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
         
         //npc blinking animation
         mateo.animations.add('blink',[0,1,2,3,4]);
@@ -54,7 +58,7 @@ demo.state12.prototype = {
         }
         if (detective.x<150){
             game.state.start('state0');
-            progress=3;
+            //progress=3;
             lastState=3;
         }
         if (!conversation)
@@ -92,7 +96,7 @@ demo.state12.prototype = {
                     detective.body.velocity.y = -speed;
                 }
         
-                else if(game.input.keyboard.isDown(Phaser.Keyboard.S) && detective.y<400){
+                else if(game.input.keyboard.isDown(Phaser.Keyboard.S) && detective.y<390){
                     detective.body.velocity.y = speed;
                 }
                 else{
