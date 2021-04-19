@@ -522,6 +522,7 @@ function interactionHandler(detective,npc,sound){
                     option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play(); option1.clearColors(); option2.clearColors(); spellOutText(0,400,700,npcAnswers[num][2][Math.floor(Math.random() * 2)],30,20,'#ffffff');});
                 }
             else{
+                conversation=true;
                 if (num==1){
                     if(progress<3){
                         spellOutText(0,400,700,npcAnswers[num][0][Math.floor(Math.random() * 2)],30,20,'#ffffff');

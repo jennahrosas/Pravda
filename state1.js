@@ -63,6 +63,7 @@ demo.state1.prototype = {
         parlorMusic = game.add.audio('pizzeria');
         parlorMusic.play();
         parlorMusic.volume=.3;
+        miniMusic.pause();
         console.log(parlorMusic.volume);
 
         lastState=2;
