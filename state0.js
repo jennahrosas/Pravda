@@ -14,14 +14,18 @@ var npcQuestions = [["What do you want to ask?","Where is Pazzoli's Pizzeria?", 
                     
                     [],
                     
-                    ['What do you want to ask?','Where do the “suits” that come here to eat usually go after?','Have you seen who all walked into Pazzoli’s today?','Did you hear where the men in suits were going earlier?']];
+                    ['What do you want to ask?','Where do the “suits” that come here to eat usually go after?','Have you seen who all walked into Pazzoli’s today?','Did you hear where the men in suits were going earlier?'],
+                   
+                    ['What do you want to ask?','Do you have security footage of the parking lot outside?','Have you seen this man? shows picture of mob boss','']];
 
 
 var npcAnswers = [[['Off 24th and Avenue O.',"Just to the northeast of the city. It's big and red, you can't miss it!"],['Some mob member was stabbed.',"I'm not sure. Ask the cops."],['I was just walking by. They wanted to know if I saw anything.', "I'm Gordon Mitchell, and the guy killed at the crime scene nearby was my cousin."]],
                   
                   [['Get lost.','Clubs closed']],
                   
-                  [['Boxing matches during the day, strip club at night.','Not sure who these “suits” are.'],['Just some men wearing suits an hour ago','No, I was playing games on my phone the whole time. Sorry!'],['I heard someone say something about that strip club off of 126th and Avenue P.','No clue, headphones in the whole time, buddy.']]];
+                  [['Boxing matches during the day, strip club at night.','Not sure who these “suits” are.'],['Just some men wearing suits an hour ago','No, I was playing games on my phone the whole time. Sorry!'],['I heard someone say something about that strip club off of 126th and Avenue P.','No clue, headphones in the whole time, buddy.']],
+                 
+                  [['Yes, we can go look at it right now. I have some free time','Yes, we can go look at it right now. I have some free time'],['Yeah, he checked into the VIP lounge around 1:08am','Yeah, he checked into the VIP lounge around 1:08am'],['','']]];
 var sentence, currentLine, instructions, option1, option2, option3;
 var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
 var mapClicked=false,backpackClicked=false;
@@ -39,10 +43,8 @@ var miniMusic;
 var badguy;
 var objective;
 var progress=0;
-
-
 var lastState=0;
-var lastLocation = [[500,600],[1020,250],[1320,96]];
+var lastLocation = [[500,600],[1020,250],[1320,96],[1850,1750]];
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -220,41 +222,50 @@ demo.state0.prototype = {
         
         
         //add strip club bad guys
-        badguy=game.add.sprite(1700,1692,'badguy');
-        badguy.anchor.setTo(.5);
-        game.physics.enable(badguy);
-        badguy.enableBody = true;
-        badguy.physicsBodyType=Phaser.Physics.ARCADE;
-        badguy.body.collideWorldBounds=true;
-        badguy.body.immovable=true;
+        if(progress<4){
+            badguy=game.add.sprite(1700,1692,'badguy');
+            badguy.anchor.setTo(.5);
+            game.physics.enable(badguy);
+            badguy.enableBody = true;
+            badguy.physicsBodyType=Phaser.Physics.ARCADE;
+            badguy.body.collideWorldBounds=true;
+            badguy.body.immovable=true;
+
+            badguy2=game.add.sprite(1820,1692,'badguy');
+            badguy2.anchor.setTo(.5);
+            game.physics.enable(badguy2);
+            badguy2.enableBody = true;
+            badguy2.physicsBodyType=Phaser.Physics.ARCADE;
+            badguy2.body.collideWorldBounds=true;
+            badguy2.body.immovable=true;
+
+            badguy3=game.add.sprite(1700,2033,'badguy');
+            badguy3.anchor.setTo(.5);
+            game.physics.enable(badguy3);
+            badguy3.enableBody = true;
+            badguy3.physicsBodyType=Phaser.Physics.ARCADE;
+            badguy3.body.collideWorldBounds=true;  
+            badguy3.body.immovable=true;
+
+            badguy4=game.add.sprite(1820,2033,'badguy');
+            badguy4.anchor.setTo(.5);
+            game.physics.enable(badguy4);
+            badguy4.enableBody = true;
+            badguy4.physicsBodyType=Phaser.Physics.ARCADE;
+            badguy4.body.collideWorldBounds=true;  
+            badguy4.body.immovable=true;
+
+            //npc blinking animation
+            badguy.animations.add('blink',[0,1,2]);
+            badguy.animations.play('blink',3,true);
+            badguy2.animations.add('blink',[0,1,2]);
+            badguy2.animations.play('blink',2,true);
+            badguy3.animations.add('blink',[0,1,2]);
+            badguy3.animations.play('blink',3,true);
+            badguy4.animations.add('blink',[0,1,2]);
+            badguy4.animations.play('blink',2,true);
+        }
         
-        badguy2=game.add.sprite(1820,1692,'badguy');
-        badguy2.anchor.setTo(.5);
-        game.physics.enable(badguy2);
-        badguy2.enableBody = true;
-        badguy2.physicsBodyType=Phaser.Physics.ARCADE;
-        badguy2.body.collideWorldBounds=true;
-        badguy2.body.immovable=true;
-        
-        badguy3=game.add.sprite(1700,2033,'badguy');
-        badguy3.anchor.setTo(.5);
-        game.physics.enable(badguy3);
-        badguy3.enableBody = true;
-        badguy3.physicsBodyType=Phaser.Physics.ARCADE;
-        badguy3.body.collideWorldBounds=true;  
-        badguy3.body.immovable=true;
-        
-        badguy4=game.add.sprite(1820,2033,'badguy');
-        badguy4.anchor.setTo(.5);
-        game.physics.enable(badguy4);
-        badguy4.enableBody = true;
-        badguy4.physicsBodyType=Phaser.Physics.ARCADE;
-        badguy4.body.collideWorldBounds=true;  
-        badguy4.body.immovable=true;
-        
-        //npc blinking animation
-        badguy.animations.add('blink',[0,1,2]);
-        badguy.animations.play('blink',3,true);
         
         
         
@@ -453,7 +464,7 @@ function interactionHandler(detective,npc,sound){
                 var num = whichNPC(npc);
                 console.log(num);
                 //if character is meant to ask questions
-                if(num==0 || num==2){
+                if(num==0 || num==2 ||num==3){
                     instructions = game.add.text(0,600,'',{fontsize:'20px', fill: '#ffffff'});
                     instructions.alpha=1;
                     instructions.fixedToCamera=true;
@@ -523,6 +534,7 @@ function interactionHandler(detective,npc,sound){
                         game.state.start('state9');
                     }
                 }
+                conversation=false;
                 
             }
                 
@@ -667,5 +679,8 @@ function whichNPC(character){
     }
     else if (character.x==1248 && character.y==96){
         return 2;
+    }
+    else if(character.x==700){
+        return 3;
     }
 }
