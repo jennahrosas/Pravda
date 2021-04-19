@@ -1,26 +1,26 @@
-var bullet;
-var bullets;
-var detective;
-var bulletSpeed = 750;
-var fire = 0;
-var badFire = 0;
-var lives = 3;
-var fireRate = 800;
-var badFireRate = 70;
+var bullet2;
+var bullet2s;
+var detective2;
+var bullet2Speed = 750;
+var fire2 = 0;
+var badfire2 = 0;
+var lives2 = 3;
+var fire2Rate = 800;
+var badfire2Rate = 70;
 var b = 400;
 var a = 0;
-var enemyBullets;
-var badGuy;
-var badGuySpeed = .5;
-var lives = 3;
+var enemybullet2s;
+var badGuy2;
+var badGuy2Speed = .5;
+var lives2 = 3;
 
 
 demo.state13 = function(){};
 demo.state13.prototype = {
     preload: function(){
-        game.load.image('badGuy', 'assets/sprites/finalbossshoot.png');
-        game.load.image('detective','assets/sprites/pravdashoot.png');
-        game.load.image('bullet', 'assets/sprites/bullet.png');
+        game.load.image('badGuy2', 'assets/sprites/finalbossshoot.png');
+        game.load.image('detective2','assets/sprites/pravdashoot.png');
+        game.load.image('bullet2', 'assets/sprites/bullet.png');
         game.load.image('life', 'assets/sprites/life.png');
         game.load.image('lostLife', 'assets/sprites/lostlife.png');
         game.load.image('road','assets/sprites/road.png');
@@ -34,72 +34,72 @@ demo.state13.prototype = {
         game.stage.backgroundColor = '#808080';
         road.scale.setTo(.33);
         
-        detective = game.add.sprite(100, 100, 'detective');
-        detective.anchor.setTo(0.5);
-        detective.scale.setTo(0.4);
-        game.physics.enable(detective);
+        detective2 = game.add.sprite(100, 100, 'detective2');
+        detective2.anchor.setTo(0.5);
+        detective2.scale.setTo(0.4);
+        game.physics.enable(detective2);
 
-        livesArray = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];
+        lives2Array = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];
         
-        bullets = game.add.group();
-        bullets.enableBody = true;
-        bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        bullets.createMultiple(250, 'bullet');
-        bullets.setAll('checkWorldBounds', true);
-        bullets.setAll('outOfBoundsKill', true);
-        bullets.setAll('anchor.y', 0.5);
-        bullets.setAll('scale.x', 0.3);
-        bullets.setAll('scale.y', 0.3);
+        bullet2s = game.add.group();
+        bullet2s.enableBody = true;
+        bullet2s.physicsBodyType = Phaser.Physics.ARCADE;
+        bullet2s.createMultiple(250, 'bullet2');
+        bullet2s.setAll('checkWorldBounds', true);
+        bullet2s.setAll('outOfBoundsKill', true);
+        bullet2s.setAll('anchor.y', 0.5);
+        bullet2s.setAll('scale.x', 0.3);
+        bullet2s.setAll('scale.y', 0.3);
 
-        badGuy = game.add.sprite(700, 400, 'badGuy');
-        badGuy.anchor.setTo(0.5);
-        badGuy.scale.setTo(.5);
-        game.physics.enable(badGuy);
+        badGuy2 = game.add.sprite(700, 400, 'badGuy2');
+        badGuy2.anchor.setTo(0.5);
+        badGuy2.scale.setTo(.5);
+        game.physics.enable(badGuy2);
         
         //add minigame music
         //miniMusic.play();
         //miniMusic.volume=.3;
     },
     update: function(){
-        badGuy.y += badGuySpeed;
-        this.fire(false)
-        if (badGuy.y < 150){
-            badGuySpeed = -badGuySpeed;
+        badGuy2.y += badGuy2Speed;
+        this.fire2(false)
+        if (badGuy2.y < 150){
+            badGuy2Speed = -badGuy2Speed;
         }
-        else if (badGuy.y >650){
-            badGuySpeed = -badGuySpeed;
+        else if (badGuy2.y >650){
+            badGuy2Speed = -badGuy2Speed;
         }
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            this.fire(true);
+            this.fire2(true);
         }
         if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
-            if (detective.y>50){
-                detective.y -= 10;
+            if (detective2.y>50){
+                detective2.y -= 10;
             }
         }
 
         else if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
-            if (detective.y<750){
-                detective.y += 10;
+            if (detective2.y<750){
+                detective2.y += 10;
             }
         }
-        game.physics.arcade.overlap(bullets, badGuy, this.hitGroup);
-        game.physics.arcade.overlap(bullets, detective, this.hitDetective);
+        game.physics.arcade.overlap(bullet2s, badGuy2, this.hitGroup);
+        game.physics.arcade.overlap(bullet2s, detective2, this.hitdetective2);
     },
-    fire: function(good) {
-        if(good && game.time.now > fire && lives > 0) {
-            fire = game.time.now + fireRate;
-            bullet = bullets.getFirstDead();
-            bullet.reset(detective.x+75 , detective.y);
-            bullet.scale.setTo(.30,.30);
-            game.physics.arcade.moveToXY(bullet, 900, bullet.y, bulletSpeed);
+    fire2: function(good) {
+        if(good && game.time.now > fire2 && lives2 > 0) {
+            fire2 = game.time.now + fire2Rate;
+            bullet2 = bullet2s.getFirstDead();
+            bullet2.reset(detective2.x+75 , detective2.y);
+            bullet2.scale.setTo(.30,.30);
+            game.physics.arcade.moveToXY(bullet2, 900, bullet2.y, bullet2Speed);
         }
-        else if (!good && game.time.now > badFire && b > 0){
-            bullet = bullets.getFirstDead();
-            bullet.reset(642, badGuy.y-18);
-            bullet.scale.setTo(-.3,.3);
-            game.physics.arcade.moveToXY(bullet, 0, bullet.y, bulletSpeed);
-            badFire = game.time.now + badFireRate;
+        else if (!good && game.time.now > badfire2 && b > 0){
+            bullet2 = bullet2s.getFirstDead();
+            bullet2.reset(642, badGuy2.y-18);
+            bullet2.scale.setTo(-.3,.3);
+            game.physics.arcade.moveToXY(bullet2, 0, bullet2.y, bullet2Speed);
+            badfire2 = game.time.now + badfire2Rate;
         }
     },
     
@@ -107,14 +107,14 @@ demo.state13.prototype = {
         round.kill();
         e.kill();
     },
-    hitDetective: function(obj1,round) {
+    hitdetective2: function(obj1,round) {
         round.destroy();
-        lives -= 1;
-        livesArray[lives] = game.add.sprite(10+75*lives, 0, 'lostLife');
-        if (lives == 0){
-            detective.kill();
+        lives2 -= 1;
+        lives2Array[lives2] = game.add.sprite(10+75*lives2, 0, 'lostLife');
+        if (lives2 == 0){
+            detective2.kill();
             //game.state.start('state4');
-            lives = 3;
+            lives2 = 3;
         }
         console.log("hit");
     }
