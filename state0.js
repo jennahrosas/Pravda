@@ -44,7 +44,7 @@ var badguy;
 var objective;
 var progress=0;
 var lastState=0;
-var lastLocation = [[500,600],[1020,250],[1320,96],[1850,1750]];
+var lastLocation = [[200,200],[1020,250],[1320,96],[1850,1750]];
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
