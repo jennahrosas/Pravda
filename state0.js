@@ -222,41 +222,50 @@ demo.state0.prototype = {
         
         
         //add strip club bad guys
-        badguy=game.add.sprite(1700,1692,'badguy');
-        badguy.anchor.setTo(.5);
-        game.physics.enable(badguy);
-        badguy.enableBody = true;
-        badguy.physicsBodyType=Phaser.Physics.ARCADE;
-        badguy.body.collideWorldBounds=true;
-        badguy.body.immovable=true;
+        if(progress<4){
+            badguy=game.add.sprite(1700,1692,'badguy');
+            badguy.anchor.setTo(.5);
+            game.physics.enable(badguy);
+            badguy.enableBody = true;
+            badguy.physicsBodyType=Phaser.Physics.ARCADE;
+            badguy.body.collideWorldBounds=true;
+            badguy.body.immovable=true;
+
+            badguy2=game.add.sprite(1820,1692,'badguy');
+            badguy2.anchor.setTo(.5);
+            game.physics.enable(badguy2);
+            badguy2.enableBody = true;
+            badguy2.physicsBodyType=Phaser.Physics.ARCADE;
+            badguy2.body.collideWorldBounds=true;
+            badguy2.body.immovable=true;
+
+            badguy3=game.add.sprite(1700,2033,'badguy');
+            badguy3.anchor.setTo(.5);
+            game.physics.enable(badguy3);
+            badguy3.enableBody = true;
+            badguy3.physicsBodyType=Phaser.Physics.ARCADE;
+            badguy3.body.collideWorldBounds=true;  
+            badguy3.body.immovable=true;
+
+            badguy4=game.add.sprite(1820,2033,'badguy');
+            badguy4.anchor.setTo(.5);
+            game.physics.enable(badguy4);
+            badguy4.enableBody = true;
+            badguy4.physicsBodyType=Phaser.Physics.ARCADE;
+            badguy4.body.collideWorldBounds=true;  
+            badguy4.body.immovable=true;
+
+            //npc blinking animation
+            badguy.animations.add('blink',[0,1,2]);
+            badguy.animations.play('blink',3,true);
+            badguy2.animations.add('blink',[0,1,2]);
+            badguy2.animations.play('blink',2,true);
+            badguy3.animations.add('blink',[0,1,2]);
+            badguy3.animations.play('blink',3,true);
+            badguy4.animations.add('blink',[0,1,2]);
+            badguy4.animations.play('blink',2,true);
+        }
         
-        badguy2=game.add.sprite(1820,1692,'badguy');
-        badguy2.anchor.setTo(.5);
-        game.physics.enable(badguy2);
-        badguy2.enableBody = true;
-        badguy2.physicsBodyType=Phaser.Physics.ARCADE;
-        badguy2.body.collideWorldBounds=true;
-        badguy2.body.immovable=true;
-        
-        badguy3=game.add.sprite(1700,2033,'badguy');
-        badguy3.anchor.setTo(.5);
-        game.physics.enable(badguy3);
-        badguy3.enableBody = true;
-        badguy3.physicsBodyType=Phaser.Physics.ARCADE;
-        badguy3.body.collideWorldBounds=true;  
-        badguy3.body.immovable=true;
-        
-        badguy4=game.add.sprite(1820,2033,'badguy');
-        badguy4.anchor.setTo(.5);
-        game.physics.enable(badguy4);
-        badguy4.enableBody = true;
-        badguy4.physicsBodyType=Phaser.Physics.ARCADE;
-        badguy4.body.collideWorldBounds=true;  
-        badguy4.body.immovable=true;
-        
-        //npc blinking animation
-        badguy.animations.add('blink',[0,1,2]);
-        badguy.animations.play('blink',3,true);
         
         
         
@@ -525,6 +534,7 @@ function interactionHandler(detective,npc,sound){
                         game.state.start('state9');
                     }
                 }
+                conversation=false;
                 
             }
                 

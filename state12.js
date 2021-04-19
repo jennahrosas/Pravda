@@ -45,6 +45,7 @@ demo.state12.prototype = {
         mateo.animations.add('blink',[0,1,2,3,4]);
         mateo.animations.play('blink',5,true);
         plink=game.add.audio('plink');
+        progress=4;
     },
     update: function(){
         game.physics.arcade.collide(detective,mateo)
@@ -62,13 +63,6 @@ demo.state12.prototype = {
                     detective.scale.setTo(-1,1);
                     detective.body.velocity.x = -speed;
                     detective.animations.play('walk',20,true);
-            
-                }
-        
-                else if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
-                    detective.scale.setTo(1,1);
-                    detective.body.velocity.x = speed;
-                    detective.animations.play('walk',20,true);
                     if(sentence && option1 && option2 && option3 && instructions){
                         sentence.alpha=0;
                         option1.alpha=0;
@@ -77,6 +71,14 @@ demo.state12.prototype = {
                         instructions.alpha=0;
                         counter=0;
                     }
+            
+                }
+        
+                else if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
+                    detective.scale.setTo(1,1);
+                    detective.body.velocity.x = speed;
+                    detective.animations.play('walk',20,true);
+                    
                     
                     
                 }
