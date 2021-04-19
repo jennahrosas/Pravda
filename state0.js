@@ -10,8 +10,18 @@ var npc;
 var map;
 var Buildings;
 var conversation=false;
-var npcQuestions = [["What do you want to ask?","Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Who are you, and why are were you talking to the cops earlier?']];
-var npcAnswers = [[['Off 24th and Avenue O.',"Just to the northeast of the city. It's big and red, you can't miss it!"],['Some mob member was stabbed.',"I'm not sure. Ask the cops."],['I was just walking by. They wanted to know if I saw anything.', "I'm Gordon Mitchell, and the guy killed at the crime scene nearby was my cousin."]],[['Get lost.','Clubs closed']]];
+var npcQuestions = [["What do you want to ask?","Where is Pazzoli's Pizzeria?", "What happened in the alley off 124th?", 'Who are you, and why are were you talking to the cops earlier?'],
+                    
+                    [],
+                    
+                    ['What do you want to ask?','Where do the “suits” that come here to eat usually go after?','Have you seen who all walked into Pazzoli’s today?','Did you hear where the men in suits were going earlier?']];
+
+
+var npcAnswers = [[['Off 24th and Avenue O.',"Just to the northeast of the city. It's big and red, you can't miss it!"],['Some mob member was stabbed.',"I'm not sure. Ask the cops."],['I was just walking by. They wanted to know if I saw anything.', "I'm Gordon Mitchell, and the guy killed at the crime scene nearby was my cousin."]],
+                  
+                  [['Get lost.','Clubs closed']],
+                  
+                  [['Boxing matches during the day, strip club at night.','Not sure who these “suits” are.'],['Just some men wearing suits an hour ago','No, I was playing games on my phone the whole time. Sorry!'],['I heard someone say something about that strip club off of 126th and Avenue P.','No clue, headphones in the whole time, buddy.']]];
 var sentence, currentLine, instructions, option1, option2, option3;
 var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
 var mapClicked=false,backpackClicked=false;
@@ -32,7 +42,7 @@ var progress=0;
 
 
 var lastState=0;
-var lastLocation = [[500,600],[1020,250],[1760,1500]];
+var lastLocation = [[500,600],[1020,250],[1320,96]];
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -60,6 +70,7 @@ demo.state0.prototype = {
         game.load.spritesheet('badguy','assets/spritesheets/badguysheet.png',64,64)
         game.load.audio('miniMusic','assets/audio/sandstorm.mp3');
         game.load.image('objective','assets/sprites/objective.png')
+        game.load.spritesheet('dimitri','assets/spritesheets/demetri.png',106,235)
         
     },
     create: function(){
@@ -127,6 +138,23 @@ demo.state0.prototype = {
         //npc blinking animation
         npc.animations.add('blink',[0,1,2]);
         npc.animations.play('blink',3,true);
+        
+        
+        //adding in dimitri pizza man
+        dimitri=game.add.sprite(1248,96,'dimitri');
+        dimitri.scale.setTo(.3);
+        dimitri.anchor.setTo(.5);
+        game.physics.enable(dimitri);
+        dimitri.enableBody = true;
+        dimitri.physicsBodyType=Phaser.Physics.ARCADE;
+        dimitri.body.collideWorldBounds=true;
+        
+        dimitri.body.immovable=true;
+        
+        //npc blinking animation
+        dimitri.animations.add('smoke',[0,1,2,3,4,5,6,7,8,9,10,12]);
+        dimitri.animations.play('smoke',15,true);
+        
         
         //add icons in corner
         citymap = game.add.sprite(705, 30,'citymap');
@@ -228,6 +256,9 @@ demo.state0.prototype = {
         badguy.animations.add('blink',[0,1,2]);
         badguy.animations.play('blink',3,true);
         
+        
+        
+        
     },
     update: function(){
         game.physics.arcade.collide(detective,npc)
@@ -235,6 +266,7 @@ demo.state0.prototype = {
         game.physics.arcade.collide(detective,badguy2)
         game.physics.arcade.collide(detective,badguy3)
         game.physics.arcade.collide(detective,badguy4)
+        game.physics.arcade.collide(detective,dimitri)
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
@@ -271,8 +303,12 @@ demo.state0.prototype = {
         if (Math.abs(detective.x-badguy4.x)<50 && Math.abs(detective.y-badguy4.y)<50){
             interactionHandler(detective,badguy,plink);
         }
+        //response for dimitri
+        if (Math.abs(detective.x-dimitri.x)<50 && Math.abs(detective.y-dimitri.y)<50){
+            interactionHandler(detective,dimitri,plink);
+        }
         //calls npc interaction handler
-        game.physics.arcade.collide(detective,badguy,function(){if(clueClicked.length==2){game.state.start('state9')}})
+        //game.physics.arcade.collide(detective,badguy,function(){if(clueClicked.length==2){game.state.start('state9')}})
         if (!conversation)
             {
                 if(game.input.keyboard.isDown(Phaser.Keyboard.A)){
@@ -286,6 +322,14 @@ demo.state0.prototype = {
                     detective.scale.setTo(1,1);
                     detective.body.velocity.x = speed;
                     detective.animations.play('walk',20,true);
+                    if(sentence && option1 && option2 && option3 && instructions){
+                        sentence.alpha=0;
+                        option1.alpha=0;
+                        option2.alpha=0;
+                        option3.alpha=0;
+                        instructions.alpha=0;
+                        counter=0;
+                    }
                     
                     
                 }
@@ -315,6 +359,7 @@ demo.state0.prototype = {
         
         //removes dialouge text when away from npc
         //need to fix
+        /*
         if(Math.abs(detective.x-npc.x)>50 || Math.abs(detective.y-npc.y)>100){
             if(sentence && option1 && option2 && option3 && instructions){
                 sentence.alpha=0;
@@ -324,7 +369,7 @@ demo.state0.prototype = {
                 instructions.alpha=0;
                 counter=0;
                }
-        }
+        }*/
 
         //car1 movement
         car1.body.velocity.x=car1D*300;
@@ -408,7 +453,7 @@ function interactionHandler(detective,npc,sound){
                 var num = whichNPC(npc);
                 console.log(num);
                 //if character is meant to ask questions
-                if(num==0){
+                if(num==0 || num==2){
                     instructions = game.add.text(0,600,'',{fontsize:'20px', fill: '#ffffff'});
                     instructions.alpha=1;
                     instructions.fixedToCamera=true;
@@ -427,7 +472,6 @@ function interactionHandler(detective,npc,sound){
 
                     console.log(num);
                     var text=npcQuestions[num];
-                    console.log(npcQuestions)
                     console.log(text);
                     function addChar2()
                     {
@@ -450,7 +494,7 @@ function interactionHandler(detective,npc,sound){
                         //    instructions.text+='\n';
                         //    instructions.text=' ';
                         //}
-                        if(index>=text[0].length + text[1].length + text[2].length + text[3].length- 4){
+                        if(index>=text[0].length + text[1].length + text[2].length + text[3].length-1){
                             //end = true
                             game.time.events.remove(loop);
                             console.log('stop');
@@ -529,6 +573,10 @@ function citymapClick(){
         clueMap.anchor.setTo(.5);
         clueMap.scale.setTo(.05);
         clueMap.fixedToCamera=true;
+        dimitriMap=game.add.sprite(200+dimitri.x*400/2550,200+dimitri.y*400/2550,'dimitri');
+        dimitriMap.anchor.setTo(.5);
+        dimitriMap.scale.setTo(.07);
+        dimitriMap.fixedToCamera=true;
         
         //objective pointer
         if(progress==0){
@@ -558,6 +606,7 @@ function citymapClick(){
         npcMap5.destroy();
         clueMap.destroy();
         objective.destroy();
+        dimitriMap.destroy();
         mapClicked=false;
         
     }
@@ -615,5 +664,8 @@ function whichNPC(character){
     }
     else if (character.x==1700 || character.x==1820){
         return 1;
+    }
+    else if (character.x==1248 && character.y==96){
+        return 2;
     }
 }

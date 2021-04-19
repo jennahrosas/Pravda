@@ -7,7 +7,9 @@ demo.state12.prototype = {
     preload: function(){
         game.load.image('bellarosa','assets/sprites/stripclubinterior.png',2304,512)
         game.load.spritesheet('pravda','assets/spritesheets/pizzeriadetective1.png',256,256);
+        game.load.spritesheet('mateo','assets/spritesheets/diegogueberra.png',92,230);
     },
+    
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.world.setBounds(0,0,2000,640);
@@ -27,6 +29,21 @@ demo.state12.prototype = {
         
         game.camera.follow(detective);
         game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
+        
+        //adding in mateo pizza man
+        mateo=game.add.sprite(1000,300,'mateo');
+        //mateo.scale.setTo(.3);
+        mateo.anchor.setTo(.5);
+        game.physics.enable(mateo);
+        mateo.enableBody = true;
+        mateo.physicsBodyType=Phaser.Physics.ARCADE;
+        mateo.body.collideWorldBounds=true;
+        
+        mateo.body.immovable=true;
+        
+        //npc blinking animation
+        mateo.animations.add('blink',[0,1,2,3,4]);
+        mateo.animations.play('blink',5,true);
         
     },
     update: function(){
