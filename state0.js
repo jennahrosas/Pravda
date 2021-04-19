@@ -32,8 +32,7 @@ var progress=0;
 
 
 var lastState=0;
-//WTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-var location = [[500,600],[1020,250],[1760,1500]];
+var lastLocation = [[500,600],[1020,250],[1760,1500]];
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -86,7 +85,7 @@ demo.state0.prototype = {
         map.setCollision(32,true,'PizzaLayer');
         
         //adding in detective sprite
-        detective=game.add.sprite(location[lastState][0],location[lastState][1],'diego');
+        detective=game.add.sprite(lastLocation[lastState][0],lastLocation[lastState][1],'diego');
         detective.anchor.setTo(.5);
         detective.scale.setTo(1,1);
         game.physics.enable(detective);
