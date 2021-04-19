@@ -29,6 +29,8 @@ var detectiveMap;
 var beginRender=false;
 var miniMusic;
 var badguy;
+var objective;
+var progress=0;
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -55,6 +57,7 @@ demo.state0.prototype = {
         game.load.image('car4','assets/sprites/car4.png');
         game.load.spritesheet('badguy','assets/spritesheets/badguysheet.png',64,64)
         game.load.audio('miniMusic','assets/audio/sandstorm.mp3');
+        game.load.image('objective','assets/sprites/objective.png')
         
     },
     create: function(){
@@ -111,7 +114,7 @@ demo.state0.prototype = {
         game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
         
         //adding in npcs
-        npc=game.add.sprite(60,70,'npc');
+        npc=game.add.sprite(60,200,'npc');
         game.physics.enable(npc);
         npc.enableBody = true;
         npc.physicsBodyType=Phaser.Physics.ARCADE;
@@ -243,8 +246,12 @@ demo.state0.prototype = {
         
         //calls npc interaction handler
         //game.physics.arcade.collide(detective,npc,interactionHandler(detective,npc,plink))
+        
         if (Math.abs(detective.x-npc.x)<50 && Math.abs(detective.y-npc.y)<50){
             interactionHandler(detective,npc,plink);
+            if (!progress){
+                progress=1;
+            }
         }
         //response for strip club guy
         if (Math.abs(detective.x-badguy.x)<50 && Math.abs(detective.y-badguy.y)<50){
@@ -458,7 +465,19 @@ function interactionHandler(detective,npc,sound){
                     option3.events.onInputDown.add(function(){option3.addColor('#ff0000',0); sound.play(); option1.clearColors(); option2.clearColors(); spellOutText(0,400,700,npcAnswers[num][2][Math.floor(Math.random() * 2)],30,20,'#ffffff');});
                 }
             else{
-                spellOutText(0,400,700,npcAnswers[num][0][Math.floor(Math.random() * 2)],30,20,'#ffffff');
+                if (num==1){
+                    if(progress<3){
+                        spellOutText(0,400,700,npcAnswers[num][0][Math.floor(Math.random() * 2)],30,20,'#ffffff');
+                    }
+                    else{
+                        badguy.destroy();
+                        badguy2.destroy();
+                        badguy3.destroy();
+                        badguy4.destroy();
+                        game.state.start('state9');
+                    }
+                }
+                
             }
                 
         }
@@ -504,6 +523,27 @@ function citymapClick(){
         npcMap3.fixedToCamera=true;
         npcMap4.fixedToCamera=true;
         npcMap5.fixedToCamera=true;
+        clueMap=game.add.sprite(200+clueone.x*400/2550,200+clueone.y*400/2550,'clueone');
+        clueMap.anchor.setTo(.5);
+        clueMap.scale.setTo(.05);
+        clueMap.fixedToCamera=true;
+        
+        //objective pointer
+        if(progress==0){
+            objective=game.add.sprite(200+npc.x*400/2550,175+npc.y*400/2550,'objective')
+        }
+        else if(progress==1){
+            objective=game.add.sprite(200+clueone.x*400/2550,180+clueone.y*400/2550,'objective')
+        }
+        else if(progress==2){
+            objective=game.add.sprite(200+1315*400/2550,200+96*400/2550,'objective')
+        }
+        else if(progress=3){
+            objective=game.add.sprite(200+1760*400/2550,200+400*1550/2550,'objective')
+        }
+        objective.scale.setTo(.05);
+        objective.fixedToCamera=true;
+        objective.anchor.setTo(.5);
     }
     else{
         beginRender=false;
@@ -514,6 +554,8 @@ function citymapClick(){
         npcMap3.destroy();
         npcMap4.destroy();
         npcMap5.destroy();
+        clueMap.destroy();
+        objective.destroy();
         mapClicked=false;
         
     }
@@ -546,18 +588,14 @@ function backpackClick(){
 function clueClick(clueNum){
     console.log(this.clueNum);
     if(!backpackClicked&&!mapClicked&&!clueClicked[this.clueNum]){
-        foundClueOne = game.add.sprite(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2,'clueone');
-        //foundClueOne.scale.setTo(1,1);
-        clueText1 = game.add.text(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2+80,'You found a clue! It is a match box',{fontsize: '20px',fill: '#ffffff'});
-        clueText2 = game.add.text(game.camera.x+game.camera.width/2,game.camera.y+game.camera.height/2+100,'from a restaurant nearby.',{fontsize: '20px',fill: '#ffffff'}); 
-        foundClueOne.anchor.setTo(.5,.5);
-        clueText1.anchor.setTo(.5,.5);
-        clueText2.anchor.setTo(.5,.5);
         clueClicked[this.clueNum]=true;
         if (this.clueNum==0){
+            progress+=1;
             game.state.start('state6')
+            
         }
         else if (this.clueNum==1){
+            progress+=1;
             game.state.start('state7')
         }
         
@@ -570,7 +608,7 @@ function clueClick(clueNum){
      
 }
 function whichNPC(character){
-    if (character.x==60  && character.y==70){
+    if (character.x==60  && character.y==200){
         return 0;
     }
     else if (character.x==1700 || character.x==1820){
