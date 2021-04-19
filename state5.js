@@ -12,7 +12,7 @@ demo.state5.prototype = {
         game.load.image('bullet', 'assets/sprites/bullet.png');
         game.load.image('life', 'assets/sprites/life.png');
         game.load.image('lostLife', 'assets/sprites/lostlife.png');
-        game.load.image('road','assets/sprites/road.png')
+        game.load.image('road','assets/sprites/road.png');
     },
     create: function(){
         console.log('state5');
