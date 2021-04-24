@@ -44,6 +44,9 @@ demo.state1.prototype = {
         //animation for detective
         detective.animations.add('walk',[0,1,2,3,4])
         
+        game.camera.follow(detective);
+        game.camera.deadzone = new Phaser.Rectangle(100,100,500,500); 
+        
         //npc blinking animation
         pazzoli.animations.add('blink',[0,1,2,3,4]);
         pazzoli.animations.play('blink',3,true);
