@@ -100,7 +100,17 @@ demo.state0.prototype = {
         map.setCollision(5,true,'Buildings');
         map.setCollision(7,true,'PizzaLayer');
         map.setCollision(32,true,'PizzaLayer');
+        //for all the pizza tiles
         map.setCollision(33,true,'PizzaLayer');
+        map.setCollision(34,true,'PizzaLayer');
+        map.setCollision(35,true,'PizzaLayer');
+        map.setCollision(36,true,'PizzaLayer');
+        map.setCollision(37,true,'PizzaLayer');
+        map.setCollision(38,true,'PizzaLayer');
+        map.setCollision(39,true,'PizzaLayer');
+        map.setCollision(40,true,'PizzaLayer');
+        map.setCollision(41,true,'PizzaLayer');
+        map.setCollision(42,true,'PizzaLayer');
         
         //adding in detective sprite
         detective=game.add.sprite(lastLocation[lastState][0],lastLocation[lastState][1],'diego');
