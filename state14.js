@@ -1,9 +1,14 @@
+//the actual order your trying to guess
 var plateOptions;
+//the list of options in alpa order
 var revealOptions;
+//how many guesses left game ends when it reaches 0
 var attempts = 8;
-var curLetter = 0;
+//past guesses
 var guesses;
+//current guess
 var used = [];
+//count of how many you guessed right
 var count;
 demo.state14 = function(){};
 demo.state14.prototype = {
@@ -52,49 +57,60 @@ demo.state14.prototype = {
         revealOptions[6] = a;
         //sorting the stated options
         revealOptions.sort();
+        revealOptions = [revealOptions[4], revealOptions[5], revealOptions[6], revealOptions[0], revealOptions[1], revealOptions[2], revealOptions[3]];
         //revealOptions = [revealOptions.slice(4,7)] + [revealOptions.slice(0,4)];
         //checking theyre ok
         console.log(plateOptions);
         console.log(revealOptions);
+        spellOutText(0,610,700,"you have 8 guesses. hit enter to confirm your guess, '-' to backspace if you made a mistake in your guess. we know the license plate has these 7 elements: " + revealOptions + ". good luck!",30,20,'#000000');
         guesses = [];
     },
     update: function(){
         if (guesses.length == 8){
             game.state.start('state0');
         }
-        game.input.keyboard.addCallbacks(this, null, null, keyPress)
+        game.input.keyboard.addCallbacks(this, null, null, keyPress);
         
     },
 }
 function keyPress(char){
     ascii = char.charCodeAt(0);
+    //capitalize letters to match
     if (ascii < 123 && 96 < ascii){  
         ascii -= 32
         char = String.fromCharCode(ascii);
     }
+    //making number input into ints
     if (ascii < 58 && 47 < ascii){
         char = ascii - 48
     }
     //console.log(ascii);
     //console.log(char);
+    //if enter is clicked and cur guess is full
     if (used.length == 7 && ascii == 13){
         console.log('enter');
+        //counts right spots in guess
         countRight(used);
         console.log(count);
+        //saves guess
         guesses[8-attempts] = used;
         attempts --;
-        //used = [];
+        //rests guess
+        used = [];
     }
     else if (used.length < 3 && revealOptions.includes(char) && used.includes(char) == false){
+        //adds first 3 letters no repeats
         console.log(char);
         used.push(char);
     }
     else if (used.length < 8 && used.length > 2 && revealOptions.includes(char) && used.includes(char) == false){
+        //adds last 4 numbers
         console.log(char);
         used.push(char);
     }
     else if (used.length > 0 && ascii == 45){
         console.log('delete');
+        //fuctionality for delete key
         used.pop();
     }
 }
@@ -107,4 +123,13 @@ function countRight(used){
             console.log('match');
         }
     }
+    //you win if you get all 7 in right place
+    if (count == 7){
+        console.log('win');
+        game.state.start('state0');
+    }
+}
+//fuction to add pegs on screen to get how many you got right we could change to just a number but idk
+function addPegs(count){
+    
 }
