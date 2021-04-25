@@ -14,4 +14,4 @@ game.state.add('state11',demo.state11);
 game.state.add('state12',demo.state12);
 game.state.add('state13',demo.state13);
 game.state.add('state14',demo.state14);
-game.state.start('state14');
+game.state.start('state13');

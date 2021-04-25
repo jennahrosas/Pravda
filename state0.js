@@ -93,7 +93,9 @@ demo.state0.prototype = {
         var RoadsLayer = map.createLayer('RoadsLayer');
         Buildings = map.createLayer('Buildings'); 
         PizzaLayer =map.createLayer('PizzaLayer');
+        MansionLayer =map.createLayer('MansionLayer');
         RoadsLayer.resizeWorld();
+        MansionLayer.resizeWorld();
         Buildings.resizeWorld();
         map.setCollision(3,true,'Buildings');
         map.setCollision(4,true,'Buildings');
@@ -101,17 +103,16 @@ demo.state0.prototype = {
         map.setCollision(7,true,'PizzaLayer');
         map.setCollision(32,true,'PizzaLayer');
         //for all the pizza tiles
-        map.setCollision(33,true,'PizzaLayer');
-        map.setCollision(34,true,'PizzaLayer');
-        map.setCollision(35,true,'PizzaLayer');
-        map.setCollision(36,true,'PizzaLayer');
-        map.setCollision(37,true,'PizzaLayer');
-        map.setCollision(38,true,'PizzaLayer');
-        map.setCollision(39,true,'PizzaLayer');
-        map.setCollision(40,true,'PizzaLayer');
-        map.setCollision(41,true,'PizzaLayer');
-        map.setCollision(42,true,'PizzaLayer');
-        
+        map.setCollision(33,true,'MansionLayer');
+        map.setCollision(34,true,'MansionLayer');
+        map.setCollision(35,true,'MansionLayer');
+        map.setCollision(36,true,'MansionLayer');
+        map.setCollision(37,true,'MansionLayer');
+        map.setCollision(38,true,'MansionLayer');
+        map.setCollision(39,true,'MansionLayer');
+        map.setCollision(40,true,'MansionLayer');
+        map.setCollision(41,true,'MansionLayer');
+        map.setCollision(42,true,'MansionLayer');
         //adding in detective sprite
         detective=game.add.sprite(lastLocation[lastState][0],lastLocation[lastState][1],'diego');
         detective.anchor.setTo(.5);
@@ -211,7 +212,7 @@ demo.state0.prototype = {
         car1.body.checkCollision.up=false;
         car1.body.checkCollision.down=false;
         
-        car2=game.add.sprite(1000,450,'car2');
+        car2=game.add.sprite(1000,470,'car2');
         car2.anchor.setTo(.5);
         car2.scale.setTo(.5*car2D,.5);
         game.physics.enable(car2, Phaser.Physics.ARCADE);
@@ -300,6 +301,8 @@ demo.state0.prototype = {
         game.physics.arcade.collide(detective,Buildings,function(){console.log('hitting building')})
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
+        
+        game.physics.arcade.collide(detective,MansionLayer,function(){game.state.start('state13')})
         
         game.physics.arcade.collide(detective,car1,function(){console.log('working')})
         game.physics.arcade.collide(detective,car2,function(){console.log('working')})

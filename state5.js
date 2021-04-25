@@ -2,7 +2,7 @@ var movement = 1;
 var yPos;
 var oils;
 var i = 0;
-var lives = 3;
+var lives3 = 3;
 var timeToWin, timer, timerEvent, text, currentTime, slickTimer;
 demo.state5 = function(){};
 demo.state5.prototype = {
@@ -47,7 +47,7 @@ demo.state5.prototype = {
         timeToWin = 30000 + game.time.now;
         
         //lives array to show the image of lives
-        livesArray = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];    
+        lives3Array = [game.add.sprite(10, 0, 'life'), game.add.sprite(85, 0, 'life'), game.add.sprite(160, 0, 'life')];    
         
         
          // Create a custom timer
@@ -144,13 +144,12 @@ demo.state5.prototype = {
 
 function collisionHandler(obj,oil){
     oil.destroy();
-    lives -= 1;
+    lives3 -= 1;
     console.log('hi');
-    livesArray[lives] = game.add.sprite(10+75*lives, 0, 'lostLife');
-    if (lives == 0){
+    lives3Array[lives3] = game.add.sprite(10+75*lives3, 0, 'lostLife');
+    if (lives3 == 0){
         detective.kill();
         game.state.start('state8');
-        lives = 3;
     }
     
 }
