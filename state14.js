@@ -2,7 +2,7 @@ var plateOptions;
 var revealOptions;
 var attempts = 8;
 var curLetter = 0;
-var guesses = [];
+var guesses;
 var used = [];
 demo.state14 = function(){};
 demo.state14.prototype = {
@@ -15,6 +15,7 @@ demo.state14.prototype = {
         var board = game.add.sprite(0,0,'game');
         //code to generate a unique set of options (I can get rid of this if you want it to be pre determined or we can move this to another state to save there but i thought it woudl be cool to change every game)
         plateOptions = [['','',''],[-1,-1,-1,-1]]
+        revealOptions = [['','',''],[-1,-1,-1,-1]]
         //adding unique letters
         var a = String.fromCharCode(Math.floor(Math.random()*26+65));
         plateOptions[0][0] = a;
@@ -54,13 +55,14 @@ demo.state14.prototype = {
         //checking theyre ok
         console.log(plateOptions);
         console.log(revealOptions);
-        guesses= [[]]*8;
+        guesses = [];
     },
     update: function(){
         if (guesses.length == 8){
             game.state.start('state0');
         }
         game.input.keyboard.addCallbacks(this, null, null, keyPress)
+        
     },
 }
 function keyPress(char){
@@ -69,11 +71,16 @@ function keyPress(char){
         ascii -= 32
         char = String.fromCharCode(ascii);
     }
+    if (ascii < 58 && 47 < ascii){
+        char = ascii - 48
+    }
     console.log(ascii);
     console.log(char);
     if (used.length == 7 && ascii == 13){
         console.log('enter');
-        guesses.append(used);
+        guesses[8-attempts] = used;
+        attempts --;
+        used = [];
     }
     else if (used.length < 3 && revealOptions[0].includes(char) && used.includes(char) == false){
         console.log(char);
@@ -81,11 +88,10 @@ function keyPress(char){
     }
     else if (used.length < 8 && used.length > 2 && revealOptions[1].includes(char) && used.includes(char) == false){
         console.log(char);
-        used.push(char)
+        used.push(char);
     }
-    else if (used > 0 && ascii == 45){
+    else if (used.length > 0 && ascii == 45){
         console.log('delete');
         used.pop();
     }
-    return 0
 }
