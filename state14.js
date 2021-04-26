@@ -20,6 +20,7 @@ demo.state14.prototype = {
     preload: function(){
         game.load.image('game', 'assets/sprites/mastermind.png');
         game.load.image('copcar', 'assets/sprites/copcarbackground.png', 512,512);
+        game.load.image('stickynote', 'assets/sprites/postitnote.png', 512, 512);
     },
     create: function(){
         game.stage.backgroundColor = '#e6c822';
@@ -28,6 +29,8 @@ demo.state14.prototype = {
         copcar.scale.setTo(1.6,1.6)
         var board = game.add.sprite(50,180,'game');
         board.scale.setTo(1.75,1.75);
+        var postit = game.add.sprite(450, 450, 'stickynote');
+        postit.scale.setTo(0.4,0.4);
         //code to generate a unique set of options (I can get rid of this if you want it to be pre determined or we can move this to another state to save there but i thought it woudl be cool to change every game)
         plateOptions = ['','','',-1,-1,-1,-1]
         revealOptions = ['','','',-1,-1,-1,-1]
@@ -73,7 +76,9 @@ demo.state14.prototype = {
         console.log(revealOptions);
         //spellOutText(10,410,700,"You have 8 guesses. Hit enter to confirm your guess, '-' to backspace if you made a mistake in your guess. We know the license plate has these 7 elements: " + revealOptions + ". Good luck!",30,20,'#000000','Monaco', 'Monospace');
         guesses = [];
-        game.add.text(150,500,revealOptions.toString())
+        var postittext = game.add.text(485,500,revealOptions.toString())
+        postittext.fontSize = '18px';
+        postittext.font = 'Monaco', 'Monospace';
     },
     update: function(){
         if (guesses.length == 8){
