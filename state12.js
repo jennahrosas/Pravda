@@ -61,7 +61,7 @@ demo.state12.prototype = {
         mateo.animations.play('blink',5,true);
         plink=game.add.audio('plink');
         progress=4;
-        
+        lastState=3;
     },
     update: function(){
         game.physics.arcade.collide(detective,mateo)
