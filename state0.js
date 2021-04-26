@@ -709,7 +709,7 @@ function whichNPC(character){
     else if (character.x==1248 && character.y==96){
         return 2;
     }
-    else if(character.x==700){
+    else if(character.x==800){
         return 3;
     }
 }

@@ -143,6 +143,9 @@ function countRight(used){
             displayCorrect[i].alpha=1;
             console.log('match');
         }
+        else{
+            displayCorrect[i]=game.add.text(150+i*50,100,'_')
+        }
     }
     
     //you win if you get all 7 in right place
