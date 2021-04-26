@@ -10,6 +10,11 @@ var guesses;
 var used = [];
 //count of how many you guessed right
 var count;
+//array of letters 
+var l1,l2,l3,l4,l5,l6,l7;
+var usedLetters=[l1,l2,l3,l4,l5,l6,l7];
+var n1,n2,n3,n4,n5,n6,n7;
+var displayCorrect=[n1,n2,n3,n4,n5,n6,n7];
 demo.state14 = function(){};
 demo.state14.prototype = {
     preload: function(){
@@ -93,30 +98,40 @@ function keyPress(char){
     //if enter is clicked and cur guess is full
     if (used.length == 7 && ascii == 13){
         console.log('enter');
-        //counts right spots in guess
+        checkDisplay();
+        //counts right spots in guess and shows which letters were right
         countRight(used);
         console.log(count);
         //saves guess
         guesses[8-attempts] = used;
         attempts --;
-        //rests guess
+        //resets guess and clears license plate
         used = [];
+        for (i=0;i<usedLetters.length;i++){
+            usedLetters[i].alpha=0;
+        }
     }
     else if (used.length < 3 && revealOptions.includes(char) && used.includes(char) == false){
         //adds first 3 letters no repeats
         console.log(char);
         used.push(char);
+        displayInput();
     }
     else if (used.length < 8 && used.length > 2 && revealOptions.includes(char) && used.includes(char) == false){
         //adds last 4 numbers
         console.log(char);
         used.push(char);
+        displayInput();
     }
     else if (used.length > 0 && ascii == 45){
         console.log('delete');
         //fuctionality for delete key
         used.pop();
+        
+        usedLetters[used.length].alpha=0;
+        
     }
+    
 }
 function countRight(used){
     count = 0;
@@ -124,20 +139,29 @@ function countRight(used){
         console.log(i);
         if (used[i] == plateOptions[i]){
             count++;
+            displayCorrect[i]=game.add.text(150+i*50,100,used[i])
+            displayCorrect[i].alpha=1;
             console.log('match');
         }
     }
+    
     //you win if you get all 7 in right place
     if (count == 7){
         console.log('win');
         game.state.start('state0');
     }
 }
-
+//function spellOutText(x,y,width,text,fontSize,speed, fill, font){
 function displayInput(){
-
+    usedLetters[used.length-1]=game.add.text(150+(used.length-1)*50,300,used[used.length-1])
+    usedLetters[used.length-1].alpha=1;
 }
-//fuction to add pegs on screen to get how many you got right we could change to just a number but idk
-function addPegs(count){
-    
+//checks to see if displayCorrect variable has any letters currently showing
+function checkDisplay(){
+    var hasLetter=false;
+    for (i=0;i<displayCorrect.length;i++){
+        if (displayCorrect[i]){
+            displayCorrect[i].alpha=0;
+        }
+    }
 }
