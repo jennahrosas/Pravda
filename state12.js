@@ -7,23 +7,25 @@ demo.state12.prototype = {
         game.load.image('bellarosa','assets/sprites/stripclubinterior.png',2304,512)
         game.load.spritesheet('pravda','assets/spritesheets/pizzeriadetective1.png',256,256);
         game.load.spritesheet('mateo','assets/spritesheets/diegogueberra.png',92,230);
+        game.load.image('cluethree', 'assets/sprites/cluethree.png',124,127);
         //game.load.audio('plink','assets/audio/plink.mp3');
     },
     
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.world.setBounds(0,0,2304,512);
+        game.world.setBounds(0,0,3780,512);
         game.stage.backgroundColor = '#000000';
         console.log('state12');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         
         var bellarosa=game.add.sprite(0,0,'bellarosa');
+        bellarosa.scale.setTo(1.65,1.65)
         
         game.camera.follow(detective);
         game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
         
         //adding in mateo pizza man
-        mateo=game.add.sprite(700,100,'mateo');
+        mateo=game.add.sprite(800,300,'mateo');
         //mateo.scale.setTo(.3);
         mateo.anchor.setTo(.5);
         game.physics.enable(mateo);
@@ -32,6 +34,15 @@ demo.state12.prototype = {
         mateo.body.collideWorldBounds=true;
         mateo.body.setSize(10,30,70);
         mateo.body.immovable=true;
+        
+        cluethree = game.add.sprite(3145,360,'cluethree');
+        cluethree.scale.setTo(.2);
+        game.physics.enable(cluethree);
+        cluethree.enableBody = true;
+        cluethree.physicsBodyType=Phaser.Physics.ARCADE;
+        cluethree.body.collideWorldBounds=true;
+        cluethree.inputEnabled = true;
+        cluethree.events.onInputDown.add(clueClick,{clueNum:2});
         
         detective=game.add.sprite(400,270,'pravda');
         detective.anchor.setTo(.5);
@@ -50,6 +61,7 @@ demo.state12.prototype = {
         mateo.animations.play('blink',5,true);
         plink=game.add.audio('plink');
         progress=4;
+        
     },
     update: function(){
         game.physics.arcade.collide(detective,mateo)

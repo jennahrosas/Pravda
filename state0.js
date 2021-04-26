@@ -171,7 +171,7 @@ demo.state0.prototype = {
         
         //npc blinking animation
         dimitri.animations.add('smoke',[0,1,2,3,4,5,6,7,8,9,10,12]);
-        dimitri.animations.play('smoke',15,true);
+        dimitri.animations.play('smoke',1,true);
         
         
         //add icons in corner
@@ -186,6 +186,8 @@ demo.state0.prototype = {
         backpack.fixedToCamera = true;
         backpack.inputEnabled = true;
         backpack.events.onInputDown.add(backpackClick, this);
+        
+
         
         //add music
         game.sound.stopAll();
@@ -684,11 +686,15 @@ function clueClick(clueNum){
             progress+=1;
             game.state.start('state7')
         }
-        
+        else if (this.clueNum == 2){
+            progress += 1;
+            game.state.start('state18');
+        }
     }
     else{
         clueText1.alpha=0;
         clueText2.alpha=0;
+        clueText3.alpha=0;
         foundClueOne.destroy();
     }
      
