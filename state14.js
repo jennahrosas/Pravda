@@ -60,8 +60,8 @@ demo.state14.prototype = {
         revealOptions = [revealOptions[4], revealOptions[5], revealOptions[6], revealOptions[0], revealOptions[1], revealOptions[2], revealOptions[3]];
         //revealOptions = [revealOptions.slice(4,7)] + [revealOptions.slice(0,4)];
         //checking theyre ok
-        console.log(plateOptions);
-        console.log(revealOptions);
+        //console.log(plateOptions);
+        //console.log(revealOptions);
         spellOutText(0,610,700,"you have 8 guesses. hit enter to confirm your guess, '-' to backspace if you made a mistake in your guess. we know the license plate has these 7 elements: " + revealOptions + ". good luck!",30,20,'#000000');
         guesses = [];
     },
@@ -117,7 +117,6 @@ function keyPress(char){
 function countRight(used){
     count = 0;
     for (var i = 0;i<used.length;i++){
-        console.log(i);
         if (used[i] == plateOptions[i]){
             count++;
             console.log('match');
