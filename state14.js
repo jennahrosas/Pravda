@@ -14,11 +14,15 @@ demo.state14 = function(){};
 demo.state14.prototype = {
     preload: function(){
         game.load.image('game', 'assets/sprites/mastermind.png');
+        game.load.image('copcar', 'assets/sprites/copcarbackground.png', 512,512);
     },
     create: function(){
-        game.stage.backgroundColor = '#ffffff';
+        game.stage.backgroundColor = '#e6c822';
         console.log('state14');
-        var board = game.add.sprite(0,0,'game');
+        var copcar = game.add.sprite(0,0, 'copcar');
+        copcar.scale.setTo(1.6,1.6)
+        var board = game.add.sprite(50,180,'game');
+        board.scale.setTo(1.75,1.75);
         //code to generate a unique set of options (I can get rid of this if you want it to be pre determined or we can move this to another state to save there but i thought it woudl be cool to change every game)
         plateOptions = ['','','',-1,-1,-1,-1]
         revealOptions = ['','','',-1,-1,-1,-1]
@@ -60,9 +64,9 @@ demo.state14.prototype = {
         revealOptions = [revealOptions[4], revealOptions[5], revealOptions[6], revealOptions[0], revealOptions[1], revealOptions[2], revealOptions[3]];
         //revealOptions = [revealOptions.slice(4,7)] + [revealOptions.slice(0,4)];
         //checking theyre ok
-        //console.log(plateOptions);
-        //console.log(revealOptions);
-        spellOutText(0,610,700,"you have 8 guesses. hit enter to confirm your guess, '-' to backspace if you made a mistake in your guess. we know the license plate has these 7 elements: " + revealOptions + ". good luck!",30,20,'#000000');
+        console.log(plateOptions);
+        console.log(revealOptions);
+        //spellOutText(10,410,700,"You have 8 guesses. Hit enter to confirm your guess, '-' to backspace if you made a mistake in your guess. We know the license plate has these 7 elements: " + revealOptions + ". Good luck!",30,20,'#000000','Monaco', 'Monospace');
         guesses = [];
     },
     update: function(){
@@ -117,6 +121,7 @@ function keyPress(char){
 function countRight(used){
     count = 0;
     for (var i = 0;i<used.length;i++){
+        console.log(i);
         if (used[i] == plateOptions[i]){
             count++;
             console.log('match');
@@ -127,6 +132,10 @@ function countRight(used){
         console.log('win');
         game.state.start('state0');
     }
+}
+
+function displayInput(){
+
 }
 //fuction to add pegs on screen to get how many you got right we could change to just a number but idk
 function addPegs(count){
