@@ -73,6 +73,7 @@ demo.state14.prototype = {
         console.log(revealOptions);
         //spellOutText(10,410,700,"You have 8 guesses. Hit enter to confirm your guess, '-' to backspace if you made a mistake in your guess. We know the license plate has these 7 elements: " + revealOptions + ". Good luck!",30,20,'#000000','Monaco', 'Monospace');
         guesses = [];
+        game.add.text(150,500,revealOptions.toString())
     },
     update: function(){
         if (guesses.length == 8){
