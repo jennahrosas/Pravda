@@ -304,7 +304,7 @@ demo.state0.prototype = {
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
         
-        game.physics.arcade.collide(detective,MansionLayer,function(){game.state.start('state13')})
+        game.physics.arcade.collide(detective,MansionLayer,function(){if(progress==5){game.state.start('state13')}})
         
         game.physics.arcade.collide(detective,car1,function(){console.log('working')})
         game.physics.arcade.collide(detective,car2,function(){console.log('working')})
@@ -625,8 +625,16 @@ function citymapClick(){
         else if(progress==2){
             objective=game.add.sprite(200+1315*400/2550,200+96*400/2550,'objective')
         }
-        else if(progress=3){
+        else if(progress==3){
             objective=game.add.sprite(200+1760*400/2550,200+400*1550/2550,'objective')
+        }
+        else if(progress==4){
+            //objective.game.add.sprite(200)
+            npcMap.alpha=0;
+            npcMap2.alpha=0;
+            npcMap3.alpha=0;
+            npcMap4.alpha=0;
+            npcMap5.alpha=0;
         }
         objective.scale.setTo(.05);
         objective.fixedToCamera=true;
