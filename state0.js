@@ -29,7 +29,7 @@ var npcAnswers = [[['Off 24th and Avenue O.',"Just to the northeast of the city.
 var sentence, currentLine, instructions, option1, option2, option3;
 var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
 var mapClicked=false,backpackClicked=false;
-var clueList=["A matchbox from a nearby pizzeria","A handkerchief with the initials: D.F."];
+var clueList=["A matchbox from a nearby pizzeria","A handkerchief with the initials: D.F.","VIP list reveals initials: D. Falco"];
 var clueClicked=[false];
 var clueText=[];
 var music;
