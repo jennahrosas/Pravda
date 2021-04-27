@@ -21,16 +21,19 @@ demo.state14.prototype = {
         game.load.image('game', 'assets/sprites/mastermind.png');
         game.load.image('copcar', 'assets/sprites/copcarbackground.png', 512,512);
         game.load.image('stickynote', 'assets/sprites/postitnote.png', 512, 512);
+        game.load.image('guesspad', 'assets/sprites/licenseguess.png', 800, 306);
     },
     create: function(){
         game.stage.backgroundColor = '#e6c822';
         console.log('state14');
         var copcar = game.add.sprite(0,0, 'copcar');
         copcar.scale.setTo(1.6,1.6)
-        var board = game.add.sprite(50,180,'game');
+        var board = game.add.sprite(150,180,'game');
         board.scale.setTo(1.75,1.75);
-        var postit = game.add.sprite(450, 450, 'stickynote');
+        var postit = game.add.sprite(520, 450, 'stickynote');
         postit.scale.setTo(0.4,0.4);
+        var license = game.add.sprite(210, 40, 'guesspad');
+        license.scale.setTo(0.5,0.5)
         //code to generate a unique set of options (I can get rid of this if you want it to be pre determined or we can move this to another state to save there but i thought it woudl be cool to change every game)
         plateOptions = ['','','',-1,-1,-1,-1]
         revealOptions = ['','','',-1,-1,-1,-1]
@@ -76,7 +79,7 @@ demo.state14.prototype = {
         console.log(revealOptions);
         //spellOutText(10,410,700,"You have 8 guesses. Hit enter to confirm your guess, '-' to backspace if you made a mistake in your guess. We know the license plate has these 7 elements: " + revealOptions + ". Good luck!",30,20,'#000000','Monaco', 'Monospace');
         guesses = [];
-        var postittext = game.add.text(485,500,revealOptions.toString())
+        var postittext = game.add.text(555,500,revealOptions.toString())
         postittext.fontSize = '18px';
         postittext.font = 'Monaco', 'Monospace';
     },
@@ -145,24 +148,24 @@ function countRight(used){
         console.log(i);
         if (used[i] == plateOptions[i]){
             count++;
-            displayCorrect[i]=game.add.text(150+i*50,100,used[i])
+            displayCorrect[i]=game.add.text(252+i*50,100,used[i],{fill: '#ffffff'})
             displayCorrect[i].alpha=1;
             console.log('match');
         }
         else{
-            displayCorrect[i]=game.add.text(150+i*50,100,'_')
+            displayCorrect[i]=game.add.text(252+i*50,100,'_', {fill: '#ffffff'})
         }
     }
     
     //you win if you get all 7 in right place
     if (count == 7){
         console.log('win');
-        game.state.start('state0');
+        game.state.start('state20');
     }
 }
 //function spellOutText(x,y,width,text,fontSize,speed, fill, font){
 function displayInput(){
-    usedLetters[used.length-1]=game.add.text(150+(used.length-1)*50,300,used[used.length-1])
+    usedLetters[used.length-1]=game.add.text(190+(used.length-1)*70,290,used[used.length-1], {fill: '#021d59', fontSize: '60px', font:'Monaco', fontFamily: 'Monospace'})
     usedLetters[used.length-1].alpha=1;
 }
 //checks to see if displayCorrect variable has any letters currently showing
