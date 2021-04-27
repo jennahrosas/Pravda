@@ -19,4 +19,5 @@ game.state.add('state16',demo.state16);
 game.state.add('state17',demo.state17);
 game.state.add('state18',demo.state18);
 game.state.add('state19',demo.state19);
+game.state.add('state20',demo.state20);
 game.state.start('state16');
