@@ -124,7 +124,7 @@ demo.state13.prototype = {
         lives4Array[2-lives4] = game.add.sprite(576+75*(2-lives4), 0, 'lostLife');
         if (lives4 == 0){
             badGuy2.kill();
-            //game.state.start('state4');
+            game.state.start('state19');
             //lives4 = 3;
         }
     },
@@ -134,7 +134,7 @@ demo.state13.prototype = {
         lives2Array[lives2] = game.add.sprite(10+75*lives2, 0, 'lostLife');
         if (lives2 == 0){
             detective2.kill();
-            //game.state.start('state4');
+            game.state.start('state22');
             lives2 = 3;
         }
         console.log("hit");

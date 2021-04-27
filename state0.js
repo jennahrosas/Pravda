@@ -304,7 +304,7 @@ demo.state0.prototype = {
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
         
-        game.physics.arcade.collide(detective,MansionLayer,function(){if(progress==5){game.state.start('state13')}})
+        game.physics.arcade.collide(detective,MansionLayer,function(){if(progress==5){game.state.start('state23')}})
         
         game.physics.arcade.collide(detective,car1,function(){console.log('working')})
         game.physics.arcade.collide(detective,car2,function(){console.log('working')})
@@ -556,7 +556,7 @@ function interactionHandler(detective,npc,sound){
                         badguy2.destroy();
                         badguy3.destroy();
                         badguy4.destroy();
-                        game.state.start('state9');
+                        game.state.start('state10');
                     }
                 }
                 conversation=false;

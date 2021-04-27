@@ -2,7 +2,6 @@ demo.state18 = function(){};
 demo.state18.prototype = {
     preload: function(){
         game.load.image('background', 'assets/sprites/introstartscreen.png', 512, 512);
-        game.load.audio('jazzintro','assets/audio/jazzclip.mp3');
         game.load.spritesheet('cluethree', 'assets/spritesheets/cluethree copy.png', 256,256);
     },
     create: function(){
@@ -39,11 +38,6 @@ demo.state18.prototype = {
         leveltext.font = 'Monaco', 'Monospace';
         leveltext.fontSize = '20px';
         
-        var jazz = game.add.audio('jazzintro');
-        jazz.play();
-        jazz.resume();
-        jazz.volume = 0.3;
-        console.log(jazz.volume);
     },
     update: function(){
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){

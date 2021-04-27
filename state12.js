@@ -13,7 +13,7 @@ demo.state12.prototype = {
     
     create: function(){
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.world.setBounds(0,0,3780,512);
+        game.world.setBounds(0,0,2600,512);
         game.stage.backgroundColor = '#000000';
         console.log('state12');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -35,7 +35,7 @@ demo.state12.prototype = {
         mateo.body.setSize(10,30,70);
         mateo.body.immovable=true;
         
-        cluethree = game.add.sprite(3145,360,'cluethree');
+        cluethree = game.add.sprite(1120,360,'cluethree');
         cluethree.scale.setTo(.2);
         game.physics.enable(cluethree);
         cluethree.enableBody = true;
