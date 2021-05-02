@@ -15,6 +15,7 @@ var l1,l2,l3,l4,l5,l6,l7;
 var usedLetters=[l1,l2,l3,l4,l5,l6,l7];
 var n1,n2,n3,n4,n5,n6,n7;
 var displayCorrect=[n1,n2,n3,n4,n5,n6,n7];
+var z = 1;
 demo.state14 = function(){};
 demo.state14.prototype = {
     preload: function(){
@@ -87,8 +88,9 @@ demo.state14.prototype = {
         if (guesses.length == 8){
             game.state.start('state0');
         }
-        game.input.keyboard.addCallbacks(this, null, null, keyPress);
-        
+        while (z == 1){
+            game.input.keyboard.addCallbacks(this, null, null, keyPress);
+        }
     },
 }
 function keyPress(char){
@@ -159,6 +161,7 @@ function countRight(used){
     
     //you win if you get all 7 in right place
     if (count == 7){
+        z = 0;
         console.log('win');
         game.state.start('state20');
     }
