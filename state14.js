@@ -88,7 +88,7 @@ demo.state14.prototype = {
         if (guesses.length == 8){
             game.state.start('state0');
         }
-        while (z == 1){
+        if (count != 7){
             game.input.keyboard.addCallbacks(this, null, null, keyPress);
         }
     },
@@ -168,8 +168,10 @@ function countRight(used){
 }
 //function spellOutText(x,y,width,text,fontSize,speed, fill, font){
 function displayInput(){
-    usedLetters[used.length-1]=game.add.text(190+(used.length-1)*70,290,used[used.length-1], {fill: '#021d59', fontSize: '60px', font:'Monaco', fontFamily: 'Monospace'})
-    usedLetters[used.length-1].alpha=1;
+    if (z == 1){
+        usedLetters[used.length-1]=game.add.text(190+(used.length-1)*70,290,used[used.length-1], {fill: '#021d59', fontSize: '60px', font:'Monaco', fontFamily: 'Monospace'})
+        usedLetters[used.length-1].alpha=1;
+    }
 }
 //checks to see if displayCorrect variable has any letters currently showing
 function checkDisplay(){
