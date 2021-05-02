@@ -13,6 +13,7 @@ var badGuyGroup;
 var badGuySpeed = 2;
 var alive = [true,true,true,true,true];
 var lives = 3;
+var alley;
 
 
 demo.state2 = function(){};
@@ -23,11 +24,14 @@ demo.state2.prototype = {
         game.load.image('bullet', 'assets/sprites/bullet.png');
         game.load.image('life', 'assets/sprites/life.png');
         game.load.image('lostLife', 'assets/sprites/lostlife.png');
+        game.load.image('alley', 'assets/sprites/alley.png');
         
     },
     create: function(){
         game.stage.backgroundColor = '#808080';
         console.log('state2');
+        alley=game.add.sprite(0,0,'alley');
+        alley.scale.setTo(.53);
         detective = game.add.sprite(100, 400, 'detective');
         detective.anchor.setTo(0.5);
         detective.scale.setTo(0.4);
@@ -69,7 +73,7 @@ demo.state2.prototype = {
         }
         badGuyGroup.y += badGuySpeed;
         this.fire(false)
-        if (badGuyGroup.y <-150){
+        if (badGuyGroup.y <0){
             badGuySpeed = -badGuySpeed;
         }
         else if (badGuyGroup.y >225){
@@ -79,7 +83,7 @@ demo.state2.prototype = {
             this.fire(true);
         }
         if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
-            if (detective.y>50){
+            if (detective.y>200){
                 detective.y -= 10;
             }
         }
