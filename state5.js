@@ -59,7 +59,7 @@ demo.state5.prototype = {
         // Start the timer
         timer.start();
         
-        parlorMusic.pause();
+        //parlorMusic.pause();
         miniMusic.play();
         miniMusic.volume=.3;
         
@@ -149,7 +149,7 @@ function collisionHandler(obj,oil){
     lives3Array[lives3] = game.add.sprite(10+75*lives3, 0, 'lostLife');
     if (lives3 == 0){
         detective.kill();
-        game.state.start('state17');
+        game.state.start('state8');
     }
     
 }

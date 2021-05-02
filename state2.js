@@ -13,7 +13,7 @@ var badGuyGroup;
 var badGuySpeed = 2;
 var alive = [true,true,true,true,true];
 var lives = 3;
-var alley;
+var alley;  
 
 
 demo.state2 = function(){};
