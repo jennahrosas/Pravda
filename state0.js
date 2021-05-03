@@ -102,7 +102,7 @@ demo.state0.prototype = {
         map.setCollision(4,true,'Buildings');
         map.setCollision(5,true,'Buildings');
         map.setCollision(7,true,'PizzaLayer');
-        //map.setCollision(32,true,'PizzaLayer');
+        map.setCollision(32,true,'PizzaLayer');
         //for all the pizza tiles
         map.setCollision(33,true,'MansionLayer');
         map.setCollision(34,true,'MansionLayer');
@@ -354,7 +354,7 @@ demo.state0.prototype = {
             
                 }
         
-                else if(game.input.keyboard.isDown(Phaser.Keyboard.D) || game.input.keyboard.isDown(Phaser.Keyboard.S) || game.input.keyboard.isDown(Phaser.Keyboard.A) || game.input.keyboard.isDown(Phaser.Keyboard.W)){
+                else if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
                     detective.scale.setTo(1,1);
                     detective.body.velocity.x = speed;
                     detective.animations.play('walk',20,true);

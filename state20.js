@@ -12,10 +12,13 @@ demo.state20.prototype = {
         var gametext = game.add.text(270, 240, "LICENSE NUMBER: " + plateOptions, {fill:'#5ce647'});
         gametext.font = 'Monaco', 'Monospace'
         gametext.fontSize = '16px'
-        gametext = game.add.text(270, 260, "ADDRESS: 2002 Avenue M, New", {fill:'#5ce647'});
+        gametext = game.add.text(270, 260, "NAME: DA- FALCO", {fill:'#5ce647'});
         gametext.font = 'Monaco', 'Monospace'
         gametext.fontSize = '16px'
-        gametext = game.add.text(270, 280, "York City, New York 10452", {fill:'#5ce647'});
+        gametext = game.add.text(270, 280, "ADDRESS: 2002 Avenue M, New", {fill:'#5ce647'});
+        gametext.font = 'Monaco', 'Monospace'
+        gametext.fontSize = '16px'
+        gametext = game.add.text(270, 300, "York City, New York 10452", {fill:'#5ce647'});
         gametext.font = 'Monaco', 'Monospace'
         gametext.fontSize = '16px'
         gametext = game.add.text(270, 360, "YOU FOUND THE MOB BOSS'S", {fill:'#5ce647'});
@@ -33,6 +36,7 @@ demo.state20.prototype = {
     },
     update: function(){
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
+            progress += 1
             game.state.start('state18');
         
     }

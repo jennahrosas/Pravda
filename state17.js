@@ -10,6 +10,7 @@ demo.state17.prototype = {
         //game.world.setBounds(0,0,640,640);
         game.stage.backgroundColor = '#000000';
         console.log('state17');
+        miniMusic.stop();
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         
         var background = game.add.sprite(0,0,'background');
@@ -36,11 +37,6 @@ demo.state17.prototype = {
         leveltext.font = 'Monaco', 'Monospace';
         leveltext.fontSize = '20px';
         
-        var jazz = game.add.audio('jazzintro');
-        jazz.play();
-        jazz.resume();
-        jazz.volume = 0.3;
-        console.log(jazz.volume);
     },
     update: function(){
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){

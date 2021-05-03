@@ -16,6 +16,7 @@ demo.state5.prototype = {
     },
     create: function(){
         console.log('state5');
+        parlorMusic.stop();
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
         road=game.add.tileSprite(0,0,2450,1990,'road');
