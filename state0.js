@@ -102,7 +102,7 @@ demo.state0.prototype = {
         map.setCollision(4,true,'Buildings');
         map.setCollision(5,true,'Buildings');
         map.setCollision(7,true,'PizzaLayer');
-        map.setCollision(32,true,'PizzaLayer');
+        //map.setCollision(32,true,'PizzaLayer');
         //for all the pizza tiles
         map.setCollision(33,true,'MansionLayer');
         map.setCollision(34,true,'MansionLayer');
