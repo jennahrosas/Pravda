@@ -700,7 +700,7 @@ function clueClick(clueNum){
         }
         else if (this.clueNum == 2){
             progress += 1;
-            game.state.start('state18');
+            game.state.start('state15');
         }
     }
     else{

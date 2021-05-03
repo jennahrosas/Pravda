@@ -130,7 +130,7 @@ demo.state5.prototype = {
     endTimer: function() {
         // Stop the timer when the delayed event triggers
         timer.stop();
-        game.state.start('state1');
+        game.state.start('state17');
     },
     
     formatTime: function(s) {

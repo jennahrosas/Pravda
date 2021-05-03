@@ -33,7 +33,7 @@ demo.state20.prototype = {
     },
     update: function(){
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
-            game.state.start('state0');
+            game.state.start('state18');
         
     }
 }
