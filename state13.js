@@ -31,7 +31,7 @@ demo.state13.prototype = {
     },
     create: function(){
         game.stage.backgroundColor = '#808080';
-        console.log('state2');
+        console.log('state13');
         
         road=game.add.sprite(0,0,'road');
         road.scale.setTo(1.56);
@@ -124,7 +124,12 @@ demo.state13.prototype = {
         lives4Array[2-lives4] = game.add.sprite(576+75*(2-lives4), 0, 'lostLife');
         if (lives4 == 0){
             badGuy2.kill();
-            game.state.start('state19');
+            if(rightGuy){
+                game.state.start('state19');
+            }
+            else{
+                game.state.start('state21');
+            }
             //lives4 = 3;
         }
     },

@@ -34,14 +34,20 @@ demo.state24.prototype = {
         game.camera.follow(detective);
         game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
         
-        //npc blinking animation
-        mateo.animations.add('blink',[0,1,2,3,4]);
-        mateo.animations.play('blink',5,true);
-        plink=game.add.audio('plink');
-        progress=4;
-        lastState=3;
     },
     update: function(){
+        if(detective.y<276){
+            //console.log('working')
+            if(detective.x<201 && detective.x>140){
+                rightGuy=false;
+                game.state.start('state23')
+            }
+            else if(detective.x<605 && detective.x>595){
+                rightGuy=true;
+                game.state.start('state23')
+            }
+        }
+        
                 if(game.input.keyboard.isDown(Phaser.Keyboard.A)){
                     detective.scale.setTo(-1,1);
                     detective.body.velocity.x = -speed;
@@ -71,12 +77,6 @@ demo.state24.prototype = {
                 else{
                     detective.body.velocity.y=0
                 }
-        else{
-            detective.animations.stop('walk');
-            detective.frame=6;
-            detective.body.velocity.y=0
-            detective.body.velocity.x=0
-        }
     }
         
 };

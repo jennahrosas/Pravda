@@ -45,6 +45,7 @@ var objective;
 var progress=0;
 var lastState=0;
 var lastLocation = [[200,200],[1025,250],[1320,96],[1850,1750]];
+var rightGuy;
 demo.state0 = function(){};
 demo.state0.prototype = {
     preload: function(){
@@ -304,7 +305,7 @@ demo.state0.prototype = {
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
         
-        game.physics.arcade.collide(detective,MansionLayer,function(){if(progress==5){game.state.start('state23')}})
+        game.physics.arcade.collide(detective,MansionLayer,function(){if(progress==5){game.state.start('state24')}})
         
         game.physics.arcade.collide(detective,car1,function(){console.log('working')})
         game.physics.arcade.collide(detective,car2,function(){console.log('working')})
