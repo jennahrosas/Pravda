@@ -354,7 +354,7 @@ demo.state0.prototype = {
             
                 }
         
-                else if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
+                else if(game.input.keyboard.isDown(Phaser.Keyboard.D) || game.input.keyboard.isDown(Phaser.Keyboard.S) || game.input.keyboard.isDown(Phaser.Keyboard.A) || game.input.keyboard.isDown(Phaser.Keyboard.W)){
                     detective.scale.setTo(1,1);
                     detective.body.velocity.x = speed;
                     detective.animations.play('walk',20,true);
