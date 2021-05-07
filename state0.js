@@ -351,7 +351,14 @@ demo.state0.prototype = {
                     detective.scale.setTo(-1,1);
                     detective.body.velocity.x = -speed;
                     detective.animations.play('walk',20,true);
-            
+                    if(sentence && option1 && option2 && option3 && instructions){
+                        sentence.alpha=0;
+                        option1.alpha=0;
+                        option2.alpha=0;
+                        option3.alpha=0;
+                        instructions.alpha=0;
+                        counter=0;
+                    }
                 }
         
                 else if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
@@ -377,10 +384,26 @@ demo.state0.prototype = {
         
                 if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
                     detective.body.velocity.y = -speed;
+                    if(sentence && option1 && option2 && option3 && instructions){
+                        sentence.alpha=0;
+                        option1.alpha=0;
+                        option2.alpha=0;
+                        option3.alpha=0;
+                        instructions.alpha=0;
+                        counter=0;
+                    }
                 }
         
                 else if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
                     detective.body.velocity.y = speed;
+                    if(sentence && option1 && option2 && option3 && instructions){
+                        sentence.alpha=0;
+                        option1.alpha=0;
+                        option2.alpha=0;
+                        option3.alpha=0;
+                        instructions.alpha=0;
+                        counter=0;
+                    }
                 }
                 else{
                     detective.body.velocity.y=0
