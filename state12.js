@@ -43,6 +43,7 @@ demo.state12.prototype = {
         cluethree.body.collideWorldBounds=true;
         cluethree.inputEnabled = true;
         cluethree.events.onInputDown.add(clueClick,{clueNum:2});
+        cluethree.events.onInputDown.add(clueClick,{clueNum:3});
         
         detective=game.add.sprite(400,270,'pravda');
         detective.anchor.setTo(.5);

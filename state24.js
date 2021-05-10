@@ -7,6 +7,8 @@ demo.state24.prototype = {
         game.load.image('bossnamebackground','assets/sprites/bossnamebackground.png',512,512)
         game.load.spritesheet('pravda','assets/spritesheets/pizzeriadetective1.png',256,256);
         //game.load.audio('plink','assets/audio/plink.mp3');
+        game.load.image('backpack', 'assets/sprites/backpack.png', 256,256);
+        game.load.image('notes', 'assets/sprites/notepad.png', 256,256);
     },
     
     create: function(){
@@ -14,10 +16,16 @@ demo.state24.prototype = {
         game.world.setBounds(0,0,2600,800);
         game.stage.backgroundColor = '#000000';
         console.log('state24');
+        //music.stop()
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         
         var bossnamebackground=game.add.sprite(0,0,'bossnamebackground');
-        bossnamebackground.scale.setTo(1.56,1.56)
+        bossnamebackground.scale.setTo(1.56,1.56);
+        var backpack = game.add.sprite(695, 30, 'backpack');
+        backpack.scale.setTo(.35,.35);
+        //backpack.fixedToCamera = true;
+        backpack.inputEnabled = true;
+        backpack.events.onInputDown.add(backpackClick, this);
         
         game.camera.follow(detective);
         game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
@@ -33,6 +41,7 @@ demo.state24.prototype = {
         
         game.camera.follow(detective);
         game.camera.deadzone = new Phaser.Rectangle(100,100,500,500);
+        
         
     },
     update: function(){

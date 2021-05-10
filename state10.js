@@ -8,6 +8,7 @@ demo.state10.prototype = {
         var bellarosa = game.add.image(0,0,'bellarosa');
         bellarosa.scale.setTo(1.57,1.57);
         console.log('state10');
+        music.stop();
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         
         var minigametext = game.add.text(250, 320, 'DETECTIVE PRAVDA!',{fill:'#ffffff'});

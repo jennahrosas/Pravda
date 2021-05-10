@@ -305,7 +305,7 @@ demo.state0.prototype = {
         
         game.physics.arcade.collide(detective,PizzaLayer,function(){game.state.start('state1')})
         
-        game.physics.arcade.collide(detective,MansionLayer,function(){if(progress==5){game.state.start('state24')}})
+        game.physics.arcade.collide(detective,MansionLayer,function(){if(progress>=4){game.state.start('state24')}})
         
         game.physics.arcade.collide(detective,car1,function(){console.log('working')})
         game.physics.arcade.collide(detective,car2,function(){console.log('working')})
@@ -724,6 +724,9 @@ function clueClick(clueNum){
         else if (this.clueNum == 2){
             progress += 1;
             game.state.start('state15');
+        }
+        else if (this.clueNum == 3){
+            progress += 1;
         }
 
     }

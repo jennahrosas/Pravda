@@ -8,7 +8,7 @@ demo.state22.prototype = {
     create: function(){
         //game.physics.startSystem(Phaser.Physics.ARCADE);
         //game.world.setBounds(0,0,640,640);
-        //music.stop()
+        music.stop()
         game.stage.backgroundColor = '#000000';
         console.log('state22');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -33,11 +33,6 @@ demo.state22.prototype = {
         leveltext.font = 'Monaco', 'Monospace'
         leveltext.fontSize = '22px'
         
-        var jazz = game.add.audio('jazzintro');
-        jazz.play();
-        jazz.resume();
-        jazz.volume = 0.3;
-        console.log(jazz.volume);
     },
     update: function(){
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
