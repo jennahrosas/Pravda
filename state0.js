@@ -29,7 +29,7 @@ var npcAnswers = [[['Off 24th and Avenue O.',"Just to the northeast of the city.
 var sentence, currentLine, instructions, option1, option2, option3;
 var clueText1, clueText2, foundClueOne, minimap,backpackList,notePad;
 var mapClicked=false,backpackClicked=false;
-var clueList=["A matchbox from a nearby pizzeria","A handkerchief with the initials: D.F.","VIP list reveals initials: D. Falco"];
+var clueList=["A matchbox from a nearby pizzeria","A handkerchief with the initials: D.F.","VIP list reveals initials: D. Falco","License plate reveals Da- Falco"];
 var clueClicked=[false];
 var clueText=[];
 var music;
@@ -725,13 +725,15 @@ function clueClick(clueNum){
             progress += 1;
             game.state.start('state15');
         }
+
     }
+    /*
     else{
         clueText1.alpha=0;
         clueText2.alpha=0;
         clueText3.alpha=0;
         foundClueOne.destroy();
-    }
+    } */
      
 }
 function whichNPC(character){

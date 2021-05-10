@@ -163,7 +163,9 @@ function countRight(used){
     if (count == 7){
         z = 0;
         console.log('win');
+        //clueClick({clueNum:3});
         game.state.start('state20');
+        
     }
 }
 //function spellOutText(x,y,width,text,fontSize,speed, fill, font){
